@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agora — 404</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="page-error">
+    <main class="stage">
+      <section class="design-screen" aria-label="404 page">
+        <img class="screen-art desktop-art" src="assets/penpot/404-desktop.svg" alt="" aria-hidden="true" />
+        <img class="screen-art mobile-art" src="assets/penpot/404-mobile.svg" alt="" aria-hidden="true" />
+        <a class="screen-link return-home-link" href="index.html" aria-label="Return to home"></a>
+      </section>
+    </main>
+    <script>
+      window.addEventListener("keydown", () => {
+        window.location.href = "index.html";
+      }, { once: true });
+    </script>
+  </body>
+</html>
