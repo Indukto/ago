@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remote SDR software &amp; the LoRaWAN network plan — deep research</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #161a21;
+    --panel-2: #1b2029;
+    --line: #262c37;
+    --fg: #e7eaf0;
+    --muted: #98a2b3;
+    --dim: #6b7484;
+    --accent: #5fd0a8;
+    --accent-dim: #2c5c4c;
+    --warn: #e0a458;
+    --bad: #e07a6a;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.top { border-bottom: 1px solid var(--line); padding-bottom: 28px; margin-bottom: 36px; }
+  .kicker { font: 600 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: 30px; line-height: 1.2; margin: 14px 0 10px; letter-spacing: -0.01em; }
+  h2 { font-size: 20px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h3 { font-size: 15px; margin: 26px 0 8px; color: var(--fg); }
+  h4 { font-size: 13px; margin: 18px 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  p { margin: 10px 0; }
+  .lede { color: var(--muted); font-size: 16px; max-width: 76ch; }
+  .meta { font: 12px/1.6 var(--mono); color: var(--dim); margin-top: 14px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-dim); }
+  a:hover { border-bottom-color: var(--accent); }
+  code { font: 12.5px/1.4 var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; color: #d6e2f0; }
+
+  section { margin: 52px 0 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+  .sec-num { font: 600 12px/1 var(--mono); color: var(--dim); }
+
+  .verdicts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+  .vcard { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; padding: 16px 18px; }
+  .vcard.warn { border-left-color: var(--warn); }
+  .vcard.bad { border-left-color: var(--bad); }
+  .vcard .vq { font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+  .vcard .va { font-size: 15.5px; margin-top: 9px; }
+  .vcard .vs { color: var(--muted); font-size: 13px; margin-top: 7px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 8px; font-size: 13.2px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  th { font: 600 11px/1.3 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--panel-2); position: sticky; top: 0; }
+  tbody tr:hover { background: #191e26; }
+  td.name { white-space: nowrap; font-weight: 600; }
+  .tag { display: inline-block; font: 600 10.5px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 6px; border-radius: 3px; border: 1px solid var(--line); color: var(--muted); }
+  .tag.ok { color: var(--accent); border-color: var(--accent-dim); }
+  .tag.warn { color: var(--warn); border-color: #4d3f26; }
+  .tag.no { color: var(--bad); border-color: #4d2f2a; }
+  .src { color: var(--dim); font-size: 12px; font-family: var(--mono); }
+
+  .note { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 18px; margin: 18px 0; }
+  .note.warn { border-color: #4d3f26; }
+  .note.bad { border-color: #4d2f2a; }
+  .note .nh { font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
+  .note.warn .nh { color: var(--warn); }
+  .note.bad .nh { color: var(--bad); }
+
+  ul, ol { margin: 10px 0; padding-left: 22px; }
+  li { margin: 6px 0; }
+  .tight li { margin: 3px 0; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .diagram { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 18px; font: 12.5px/1.9 var(--mono); color: var(--muted); overflow-x: auto; }
+  .diagram b { color: var(--fg); font-weight: 600; }
+  .diagram .a { color: var(--accent); }
+
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--dim); font-size: 12.5px; }
+  .srclist { columns: 1; font-size: 12.5px; color: var(--muted); }
+  .srclist li { margin: 3px 0; }
+  .srclist a { color: var(--dim); border-bottom-color: #333a46; }
+  @media (max-width: 760px) {
+    .verdicts, .cols { grid-template-columns: 1fr; }
+    .wrap { padding: 28px 16px 64px; }
+    h1 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">Research brief &middot; Remote SDR &amp; LoRaWAN</div>
+  <h1>Remote SDR software, and how it fits the proposed LoRaWAN network</h1>
+  <p class="lede">A desk-research survey: what "Remote SDR" actually means in 2026, which open-source projects are real, whether a general-purpose SDR can serve as a LoRaWAN gateway, and how the ChirpStack / balenaOS / TTN plan holds up. Every material claim is sourced; uncertain points are flagged.</p>
+  <div class="meta">Compiled 2026-10-13 &middot; sources: GitHub, project docs, Semtech/EPFL/Packet Broker documentation &middot; 4 parallel research passes</div>
+</header>
+
+<!-- ======================= TL;DR ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">00</span><h2>Bottom line up front</h2></div>
+  <div class="verdicts">
+    <div class="vcard">
+      <div class="vq">Remote SDR &mdash; pick</div>
+      <div class="va">There are <b>two distinct problems</b> hiding under one name.</div>
+      <div class="vs"><b>Device sharing</b> (rtl_tcp, SoapyRemote, SpyServer) forwards raw IQ to a desktop client. <b>Remote listening</b> (OpenWebRX+, KiwiSDR, WebSDR) processes at the antenna and serves many independent listeners over a browser. Pick per use-case, not per project popularity.</div>
+    </div>
+    <div class="vcard">
+      <div class="vq">Best open-source pick</div>
+      <div class="va">OpenWebRX+ for a public web receiver; SoapyRemote for private device sharing.</div>
+      <div class="vs">OpenWebRX+ (AGPL-3.0, maintained, Raspberry Pi 64-bit images, built-in decoders, users, chat, scanning). SoapyRemote is hardware-neutral across RTL-SDR/Airspy/SDRplay/HackRF/Lime/USRP/Pluto.</div>
+    </div>
+    <div class="vcard bad">
+      <div class="vq">SDR as a LoRaWAN gateway?</div>
+      <div class="va">No &mdash; not for production. Keep the SX1302 concentrator.</div>
+      <div class="vs">SDR + gr-lora_sdr decodes <i>one</i> LoRa waveform well and is excellent for monitoring. It cannot replicate 8 parallel channel detectors × 8 SF demodulators, and <b>no maintained SDR&rarr;Semtech-UDP/Basics-Station bridge exists</b>. SDR is a complement, not a replacement.</div>
+    </div>
+    <div class="vcard warn">
+      <div class="vq">Two flaws in the proposal</div>
+      <div class="va">The packet multiplexer is UDP-only, and openBalena is still beta.</div>
+      <div class="vs">chirpstack-packet-multiplexer does <b>not</b> speak Basics Station (a request was closed as out of scope), so it cannot multiplex a modern Basics-Station gateway to two backends. openBalena remains self-hosted and "perpetually in beta".</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1. LANDSCAPE ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>The remote SDR software landscape</h2></div>
+  <p>The single most useful distinction is <b>where the DSP runs</b>. That one question determines bandwidth, multi-user capability, CPU cost, and security posture.</p>
+
+  <div class="cols">
+    <div class="note">
+      <div class="nh">Model A &mdash; raw transport</div>
+      <p>The server is a thin shim: it ships IQ samples and accepts tuning commands. All demodulation happens on the client, which must run desktop SDR software.</p>
+      <ul class="tight">
+        <li>Bandwidth scales with sample rate &mdash; hundreds of kB/s to MB/s per client.</li>
+        <li>Usually a <b>single shared tuner</b>: one user retuning changes it for everyone.</li>
+        <li>Typically <b>no authentication and no encryption</b>.</li>
+        <li>Examples: <code>rtl_tcp</code>, SoapyRemote, SpyServer, RSP TCP Server.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <div class="nh">Model B &mdash; server-side processing</div>
+      <p>The server demodulates and extracts a narrow channel <i>per listener</i>. Clients only need a browser.</p>
+      <ul class="tight">
+        <li>Bandwidth drops to audio + waterfall &mdash; tens of kB/s per user.</li>
+        <li><b>Independent tuning</b> per user is the whole point.</li>
+        <li>HTTPS, accounts and rate limits are the front door.</li>
+        <li>Examples: OpenWebRX+, KiwiSDR, WebSDR, no-sdr.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>A. Transport &amp; device-sharing daemons</h3>
+  <table>
+    <thead>
+      <tr><th>Project</th><th>Role / protocol</th><th>Hardware &amp; multi-client</th><th>License, activity, deploy</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name"><a href="https://github.com/osmocom/rtl-sdr">osmocom/rtl-sdr</a><br><span class="src">rtl_tcp</span></td>
+        <td>Minimal TCP server: streams 8-bit IQ, accepts tuner commands. Raw sample transport, no audio, no UI.</td>
+        <td>RTL2832 RTL-SDR dongles. Tuner is a <b>shared resource</b> &mdash; not per-user tuning.</td>
+        <td><span class="tag">GPL-2.0</span><span class="tag">C</span> ~995 stars (verified). No official Docker path. <a href="https://manpages.debian.org/testing/rtl-sdr/rtl_tcp.1.en.html">man page</a></td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/pothosware/SoapySDR">SoapySDR</a> +<br><a href="https://github.com/pothosware/SoapyRemote">SoapyRemote</a></td>
+        <td>Hardware-neutral SDR API plus a network transport that exports any Soapy device across the network. Device broker, not a UI.</td>
+        <td>Anything with a SoapySDR module: RTL-SDR, Airspy, SDRplay, HackRF, LimeSDR, USRP, PlutoSDR. Shares control; don't assume independent tuning.</td>
+        <td><span class="tag">BSL-1.0</span><span class="tag">C++</span> No GitHub releases &mdash; build from source or packages. Small Linux daemon.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://airspy.com/download/">Airspy SpyServer</a></td>
+        <td>Vendor server with a <b>reduced-IQ mode</b>: sends FFT display plus only the narrow IQ a VFO needs. Bandwidth-aware.</td>
+        <td>Airspy, RTL-SDR and AOR per vendor page. Many clients; with multiple clients <b>centre freq. and gain lock</b>.</td>
+        <td><span class="tag no">proprietary</span> No public source. Windows/Linux x86_64/ARM64/ARMHF builds and a Pi quick-start.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/AlexandreRouma/SDRPlusPlus">SDR++ server</a></td>
+        <td>SDR++'s own server source/client pair. SDR++-specific protocol, documented as a remote desktop-SDR link.</td>
+        <td>Modules for RTL-SDR, Airspy, HackRF, LimeSDR, PlutoSDR, SDRplay (USRP beta). Client must be SDR++.</td>
+        <td><span class="tag">GPL-3.0</span><span class="tag">C++</span> Nightly 1.3.0, assets July 2026. Debian ARM64 assets, headless server module.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/SDRplay/RSPTCPServer">RSPTCPServer</a></td>
+        <td>rtl_tcp-compatible server plus an extended high-bitrate mode and RSP-specific controls.</td>
+        <td>SDRplay RSPduo/RSPdx + RSP1B/RSPdxR2 (Jan 2025). Single shared receiver.</td>
+        <td><span class="tag">GPL-3.0</span><span class="tag">C</span> CMake, needs SDRplay API. Pi compatibility noted as untested.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/dernasherbrezon/sdr-server">dernasherbrezon/sdr-server</a></td>
+        <td>Channel-aware server: <b>decimates and frequency-translates per client</b>, so clients can request different narrow bands. Optional gzip.</td>
+        <td>README states <b>RTL-SDR only</b>. First client picks the shared capture band; others tune within it.</td>
+        <td>License/activity not verified; no GitHub releases. Linux/macOS, Pi Debian packages, CMake.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/slepp/rtlmux">slepp/rtlmux</a></td>
+        <td>Relay/multiplexer for an upstream rtl_tcp server; fans the same stream to many downstream clients.</td>
+        <td>RTL TCP streams. Shared stream, <b>shared tuner commands</b> &mdash; no independent receivers.</td>
+        <td>Multi-arch Docker images + Linux/ARM64/ARMv7 binaries. Warns RTL TCP has no auth or encryption.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/ka9q/ka9q-radio">ka9q-radio</a></td>
+        <td>Multichannel Linux daemon using fast-convolution filtering; signal and control over <b>IP multicast</b>. Subscribers get independent demodulated/audio or IQ channels.</td>
+        <td>RTL-SDR, Airspy R2/HF+, FUNcube Pro+, RX-888 Mk II; optional SDRplay, BladeRF, HackRF, Fobos, HydraSDR. Explicitly multichannel.</td>
+        <td>License not verified; README updated <b>27 Jun 2026</b>. systemd daemons, Pi 4/5 documented. Steep learning curve.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>B. Full receiver stacks and web access</h3>
+  <table>
+    <thead>
+      <tr><th>Project</th><th>Role / protocol</th><th>Hardware &amp; multi-user</th><th>License, activity, deploy</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name"><a href="https://github.com/luarvique/openwebrx">OpenWebRX+</a><br><span class="src">luarvique</span></td>
+        <td>Browser receiver over WebSocket + Web Audio, Canvas UI. DSP via csdr. The maintained upstream (not the older 0xAF fork).</td>
+        <td>Broad hardware model incl. RTL-SDR and SDRplay. <b>Explicitly multi-user</b>, with decoders, chat, recording, scanning, admin users, HTTPS.</td>
+        <td><span class="tag ok">AGPL-3.0</span><span class="tag">Python/JS</span> Release 1.2.117 Pi 64-bit image, 26 June. Packages, disk images; community Docker.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/jks-prv/KiwiSDR">KiwiSDR</a></td>
+        <td>Integrated receiver + browser UI for VLF/HF with an FPGA/ADC hardware platform. Appliance, not a generic USB-SDR daemon.</td>
+        <td>Hardware-bound (10 kHz&ndash;30 MHz, BeagleBone Green/Black, AI variants). <b>Up to 8 simultaneous listeners</b>, independently tuned.</td>
+        <td>Repo calls itself open source; a single project-wide license could <b>not be verified</b>. Updated 26 Jun 2026. Reverse proxy on by default.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/f4exb/sdrangel">SDRangel</a><br><span class="src">sdrangelsrv</span></td>
+        <td>Full SDR suite with a <b>headless Linux server (<code>sdrangelsrv</code>) driven by a REST API</b>; remote RX/TX channels over UDP with packet-loss correction. SDRangelCli is a browser client.</td>
+        <td>Airspy/HF+, BladeRF, HackRF, Lime, Pluto, RTL-SDR, SDRplay. Rx/Tx channel plugins + remote sample channels. Not automatically a public multi-user site.</td>
+        <td><span class="tag ok">GPL-3.0</span><span class="tag">C++/Qt</span> Very active: v7.27.2 with 2026 fixes. Linux server packages, ARM SBC guidance, Docker, REST control.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/gbozo/no-sdr">gbozo/no-sdr</a></td>
+        <td>Go backend + browser UI. Ingests local <code>rtl_sdr</code>, remote <code>rtl_tcp</code>, or a simulator; WebSocket FFT + per-user narrowband IQ.</td>
+        <td><b>RTL-SDR only</b>. Multi-user browser with a shared waterfall and independently extracted narrowband streams. Profiles move the shared band for everyone.</td>
+        <td>License not verified; <span class="tag">Go</span><span class="tag">TS</span> v2.10.5 (21 May). Docker Compose, ARM64 Pi 4/5. README estimates <b>~12&ndash;13 kB/s per client</b> incl. waterfall + mono Opus.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/gqrx-sdr/gqrx">Gqrx</a></td>
+        <td>Desktop receiver with a <b>rigctl-compatible TCP control interface</b> (frequency/mode/settings). Not a streaming server.</td>
+        <td>Via gr-osmosdr/SoapySDR: RTL-SDR, Airspy, HackRF, BladeRF, RFSpace, USRP. Can consume a SoapyRemote device.</td>
+        <td><span class="tag">GPL</span><span class="tag">C++/Qt</span> Mature. TCP control defaults to localhost; docs warn <b>no auth, no encryption</b>.</td>
+      </tr>
+      <tr>
+        <td class="name">WebSDR</td>
+        <td>Mature browser receiver with independently tunable listeners &mdash; the original concept. ~100 kbit/s uplink per listener.</td>
+        <td>RTL-SDR and sound-card-style SDRs; generic high-speed ADC SDRs are hard to support. RPi supported with limits.</td>
+        <td><span class="tag no">not open source</span> Distributed by email to selected operators; FAQ says distribution has tentatively stopped. Poor default for a new deployer.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/cjcliffe/CubicSDR">CubicSDR</a></td>
+        <td>Desktop SoapySDR client. A <b>consumer</b> of SoapyRemote, not a server.</td>
+        <td>Whatever Soapy modules exist on the machine.</td>
+        <td><span class="tag">GPL-2.0+</span><span class="tag">C++</span> Desktop GUI, not a headless Pi service.</td>
+      </tr>
+      <tr>
+        <td class="name">SDRplay SDRuno</td>
+        <td>Vendor Windows application. <b>Not a server</b> &mdash; and vendor now lists it end-of-life. Use RSPTCPServer instead.</td>
+        <td>SDRplay RSP only.</td>
+        <td><span class="tag no">proprietary / EOL</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="src">SDRangel releases additionally note Meshtastic and MeshCore channel plugins, and SigDigger exposes a ZeroMQ output plugin for channel data &mdash; useful when SDR must feed a downstream decoder rather than a human.</p>
+
+  <h3>Deployment recommendations by scenario</h3>
+  <div class="cols">
+    <div class="note">
+      <div class="nh">Headless Pi streaming an SDR</div>
+      <ul class="tight">
+        <li><b>Browser users, open stack</b> &rarr; OpenWebRX+ behind HTTPS/reverse proxy, admin restricted.</li>
+        <li><b>Desktop SDR clients, simplest</b> &rarr; <code>rtl_tcp</code>, treated as a private shared-control endpoint. Add <code>rtlmux</code> only to clone one stream.</li>
+        <li><b>Polish + bandwidth-aware</b> &rarr; SpyServer (proprietary): ARM builds, reduced-IQ mode, many clients.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <div class="nh">Low-bandwidth WAN / VPN link</div>
+      <ul class="tight">
+        <li>Never forward full-rate raw IQ over a slow link.</li>
+        <li>Prefer SpyServer reduced-IQ, or no-sdr at ~12&ndash;13 kB/s/client, or OpenWebRX+ for listening/decoding.</li>
+        <li>A VPN protects the link but does <b>not</b> reduce bandwidth.</li>
+        <li>Do not expose bare <code>rtl_tcp</code>/<code>rtlmux</code>/gqrx rigctl to the internet.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2. SECURITY & LEGAL ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>Exposing a receiver: security and German legal context</h2></div>
+  <p>This matters directly for a research institute (Institut f&uuml;r Seenforschung) that may publish a receiver, and it is the part most likely to be challenged in a presentation.</p>
+
+  <div class="note warn">
+    <div class="nh">The core legal asymmetry</div>
+    <p><b>Receive-only is not the same as non-public.</b> Germany's <b>&sect; 5 TDDDG</b> ("Abh&ouml;rverbot") permits taking cognizance only of messages intended for the operator, for radio amateurs, for the general public, or for an indeterminate group. For anything else, neither the content <i>nor the fact of reception</i> may be communicated to others &mdash; even if received unintentionally.</p>
+    <p>The written text does not answer the two questions a public WebSDR raises: is the remote listener also "taking cognizance", and does exposing tuning amount to communicating the content or the fact of reception? An October 2021 FragDenStaat request put exactly this to the BNetzA and was still showing <b>"Warte auf Antwort"</b> when checked. That is evidence of an open legal debate, <b>not</b> a ruling either way.</p>
+  </div>
+
+  <h4>What is reasonably clear</h4>
+  <ul class="tight">
+    <li>A receive-only SDR emits no radio transmission, so the amateur-radio and frequency-assignment rules (AFuG admission, BNetzA frequency assignment) do not obviously bite. No WebSDR-specific permit was found. That is not an official blanket exemption.</li>
+    <li>An amateur licence (<b>DL1xxx</b>, <b>DN9xxx</b>) governs <i>transmitting and operating an amateur station</i> &mdash; it neither licenses a website nor overrides &sect; 5 TDDDG.</li>
+    <li><b>TKG &sect; 5</b> notification applies to <i>commercially</i> operating public telecom networks/services. A free, non-commercial research receiver is not obviously such a service; fact-specific if it ever becomes commercial.</li>
+    <li>If the setup can key a transmitter, it is a different compliance question entirely &mdash; do not expose transmit capability as if it were receive-only.</li>
+  </ul>
+
+  <h4>Data protection (GDPR / DSGVO)</h4>
+  <p>Live audio is not automatically outside the GDPR: a callsign, voice, location or decoded telemetry can be personal data, and server logs/IPs certainly are. GDPR compliance also does <b>not</b> cure a &sect; 5 TDDDG problem &mdash; the two are separate. For an institute, the practical guardrails are: scope the receiver to specific research bands and public/intended traffic rather than open-ended tuning; avoid recording raw IQ or audio unless the research question requires it; prefer transient processing plus aggregated or irreversibly anonymised output; and set short retention/deletion periods. Document purpose, Art. 6 legal basis, data categories, retention, access controls and any transfer outside the EEA, and have the DPO assess whether an <b>Art. 35 DPIA</b> is warranted.</p>
+
+  <h4>Security: never publish the raw control ports</h4>
+  <ul class="tight">
+    <li><code>rtl_tcp</code>, SoapyRemote, <code>rigctld</code>/rigctl and gqrx control are <b>unauthenticated and unencrypted</b> by design (SoapyRemote's maintainer discusses the lack of security/permissions directly; Hamlib documents a plain TCP text command interface).</li>
+    <li>Keep the SDR and every raw control port on an isolated VLAN/host. Give staff and collaborators a <b>VPN with per-user accounts and MFA</b>; firewall the raw protocols to VPN addresses only.</li>
+    <li>If the public needs access, expose <b>only</b> a purpose-built web receiver through a maintained HTTPS reverse proxy with rate and concurrency limits. An HTTP reverse proxy is not a wrapper for a raw TCP protocol &mdash; tunnel those over VPN or a proper TLS/auth layer instead.</li>
+    <li>Restrict admin and SSH to management networks, disable UPnP, run services unprivileged, update dependencies, and clamp tuning to approved ranges.</li>
+    <li>Validate every user-supplied frequency/sample-rate/mode with strict numeric range checks. <b>Never</b> concatenate user input into shell commands &mdash; use fixed executables and argument arrays, or a narrow internal API. No arbitrary command execution from the web UI.</li>
+    <li>If receive-only, physically remove or disable transmit/PTT paths so remote controls cannot key a transmitter.</li>
+  </ul>
+
+  <h4>Directories for publishing a receiver</h4>
+  <table>
+    <thead><tr><th>Directory</th><th>Status as verified</th></tr></thead>
+    <tbody>
+      <tr><td class="name">sdr.hu</td><td><span class="tag no">defunct</span> Its own page says the project is finished (dated 2023-05-31); it was a receiver list, not the KiwiSDR network. Receivers stay self-hosted at their own URLs.</td></tr>
+      <tr><td class="name">KiwiSDR list/map</td><td>Operational. Enable public access in the admin <b>Public</b> tab; operators point at <a href="http://rx.kiwisdr.com/">rx.kiwisdr.com</a> and the <a href="http://map.kiwisdr.com/">map</a>. KiwiSDR hardware only.</td></tr>
+      <tr><td class="name">websdr.org</td><td>Curated; prospective operators contact the project with equipment/location/bands. Software distribution tentatively stopped. Check current status before planning around it.</td></tr>
+      <tr><td class="name">sdr-list.xyz</td><td>Listing exists and PhantomSDR-Plus can auto-register there; the live page and changelog could <b>not</b> be independently verified in this pass.</td></tr>
+      <tr><td class="name">RTL-SDR.com</td><td>News/tutorial site, not a submission directory. Its SDRx.IO public-server network article describes a service that was not active at the time.</td></tr>
+    </tbody>
+  </table>
+  <p class="src">Listing in a directory is a discovery mechanism, not legal approval. Decide the offered bands and message types, the access model, the privacy notice, and who answers abuse/takedown requests before listing.</p>
+</section>
+
+<!-- ======================= 3. SDR + LORA ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Can an SDR do LoRaWAN? Yes for monitoring, no for gateways</h2></div>
+
+  <h3>The decoder options</h3>
+  <table>
+    <thead><tr><th>Project</th><th>Capability</th><th>Limits</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="name"><a href="https://github.com/tapparelj/gr-lora_sdr">gr-lora_sdr</a><br><span class="src">EPFL / tapparelj</span></td>
+        <td>Most complete current LoRa PHY: sync, STO/CFO estimation and correction, demod, FEC, dewhitening, CRC, soft-decision; SF5&ndash;SF12, CR, BW, sync word, header configurable. Can also transmit.</td>
+        <td>One configured receiver, not an all-channel/all-SF gateway. Test matrix is USRP-to-USRP and USRP-to-commercial radios (RFM95/SX1276/SX1262); no project-level RTL-SDR/Pluto/SDRplay matrix.</td>
+        <td><span class="tag ok">GPL-3.0</span><span class="tag">GNU Radio 3.10</span> Latest verified commit <b>5 Jan 2026</b>. Actively maintained.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/rpp0/gr-lora">rpp0/gr-lora</a></td>
+        <td>Real-time receiver tested on HackRF One, USRP B201, RTL-SDR and LimeSDR. Reports near-100% accuracy on clear signals; emits decoded bytes over a UDP message socket.</td>
+        <td>README explicitly lists <b>simultaneous multi-channel decoding as unsupported</b>; missing PHY CRC checks; SF11/12 slow/experimental. Its UDP socket is <b>not</b> Semtech UDP.</td>
+        <td><span class="tag">GPL-3.0</span> Last commit <b>10 Dec 2021</b> &mdash; treat as reference, not current.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/jkadbear/gr-lora">jkadbear/gr-lora</a></td>
+        <td>Adds <b>Pyramid collision decoding</b>: the example recovers two colliding same-SF packets from one capture. Genuinely useful when same-SF collisions are the research question.</td>
+        <td>Collision decoding is not eight-channel gateway capacity; simultaneous channel decoding is TODO; LoRaWAN upper layers are TODO.</td>
+        <td><span class="tag">GPL-3.0</span> Last commit <b>15 May 2023</b>.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/BastilleResearch/gr-lora">BastilleResearch/gr-lora</a></td>
+        <td>Research PHY blocks (from Matt Knight's blind-signal analysis line). Expects already-channelized IQ.</td>
+        <td>No channelization or resampling; implicit header mode, PHY CRC and LoRaWAN integration are TODOs. No hardware matrix.</td>
+        <td>Last commit <b>13 Jul 2017</b>. License could not be verified from a readable file &mdash; do not assume one.</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/jkadbear/LoRaPHY">LoRaPHY</a> / <a href="https://pypi.org/project/lora-phy/">lora-phy</a></td>
+        <td>MATLAB PHY with a Python port. Claims SF7&ndash;12, headers, CRC, LDRO and very low-SNR demodulation (with a faster mode at some sensitivity cost).</td>
+        <td>Baseband/software decoder, one configured signal at a time; simultaneous channels TODO. Emits neither Semtech UDP nor Basics Station.</td>
+        <td><span class="tag">MIT</span> MATLAB repo Nov 2022; Python <code>lora-phy</code> 0.3.0 (25 May 2025).</td>
+      </tr>
+      <tr>
+        <td class="name"><a href="https://github.com/myriadrf/LoRa-SDR">myriadrf/LoRa-SDR</a></td>
+        <td>Pothos blocks for LimeSDR; raw symbol demodulation with client/relay examples.</td>
+        <td>No established multi-channel/multi-SF gateway capacity; no Semtech UDP or Basics Station output.</td>
+        <td>License and last-activity date not verified. R&amp;D project.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note">
+    <div class="nh">Correction to a common assumption</div>
+    <p>A "Bitcraze fork" of gr-lora could <b>not</b> be verified. Bitcraze's organisation focuses on the Crazyflie; the Bastille README credits Matt Knight's blind signal analysis, and <code>jkadbear/gr-lora</code> describes itself as developed from Matt Knight's <code>gr-lora</code>. The "BastilleResearch/Bitcraze fork" attribution appears to conflate separate projects.</p>
+  </div>
+
+  <h3>The hard part: concentrated vs. parallel reception</h3>
+  <p>LoRaWAN's uplink channel plan is the reason a single configurable decoder is not a gateway. Semtech's <a href="https://www.semtech.com/products/wireless-rf/lora-core/sx1302">SX1302</a> lists <b>eight 125&nbsp;kHz channel packet detectors, eight SF5&ndash;SF12 demodulators</b> plus additional SF5&ndash;SF10 demodulators, with 125/250/500&nbsp;kHz demodulation. An SDR flowgraph must instead instantiate parallel decoders per channel and SF, and every extra branch costs CPU.</p>
+
+  <div class="note bad">
+    <div class="nh">The missing piece</div>
+    <p>No maintained, general-<b>SDR-decoder &rarr; Semtech UDP / Basics Station &rarr; ChirpStack or TTN</b> bridge was found. Decoding a radio frame and implementing a gateway's network protocol are separate jobs: gateway messages carry frequency, data-rate/SF/BW, RSSI, SNR, size, timestamp and gateway identity, plus downlink handling. Projects that come close are <b>not</b> that bridge &mdash; Helium's <code>lorawan-sniffer</code> parses and mirrors Semtech UDP traffic from an existing forwarder (it does not demodulate IQ), Povalac's sniffer uses SX1301 concentrators, and EPFL's <code>gr-lorawan</code> is an SDR <b>transmitter</b> (its USRP uplinks were received by TTN). Treat SDR&rarr;ChirpStack as a custom adapter project, not an off-the-shelf integration.</p>
+  </div>
+
+  <h3>What SDR is genuinely good for here: passive monitoring</h3>
+  <ul class="tight">
+    <li><b>Spectrum and waterfall</b> &mdash; spotting bursts, channel occupancy and interference. PentHertz's walkthrough (USRP B205mini) scans, identifies an 868.2&nbsp;MHz / 125&nbsp;kHz signal, tries SF settings, decodes with gr-lora and feeds Scapy tooling; it notes an RTL-SDR-class receiver also works, with performance caveats.</li>
+    <li><b>SF/BW usage, airtime and duty-cycle estimates</b> &mdash; log packet start/end plus decoded PHY parameters and length. A waterfall alone shows energy, not a reliably identified LoRa transmission or a regulatory category.</li>
+    <li><b>RSSI comparison against the gateway</b> &mdash; only meaningful on the <i>same</i> packet after calibrating antenna, cable path and gain. An SDR's dBFS is not automatically a gateway's dBm.</li>
+    <li><b>Real precedents</b>: LoRadar (2020) is a passive sniffing framework reporting collision/jamming detection, localization and duty-cycle policing; Povalac et al. (2023) ran long-term multi-city captures &mdash; and did so with <b>three SX1301/iC880A concentrator modules on a Pi</b>, not an SDR, precisely because simultaneous channels, both chirp polarities, RX2 and Class-B beacons are demanding. Open hardware, code and a Zenodo dataset exist.</li>
+    <li><b>Benchmark for the honest comparison</b>: RSSI-fingerprinting research (Pretoria, 2024) reports ~285&nbsp;m mean error &mdash; concrete, and a reminder that localization is not room-level from one SDR.</li>
+  </ul>
+
+  <h3>A sensible monitoring station</h3>
+  <p>Raspberry Pi 5 + RTL-SDR Blog V4 (1&nbsp;ppm TCXO, HF upconverter; ~2&nbsp;MHz usable) or Airspy Mini (12-bit, 0.5&nbsp;ppm) + a sub-GHz antenna + GNU Radio/<code>gr-lora_sdr</code> decoding one channel, logging timestamp, channel/SF/BW, CRC result and calibrated power. Use <code>rtl_tcp</code> or SoapyRemote for remote IQ access, and OpenWebRX+ separately if a browser waterfall helps. Feed it from a separate antenna or a careful RF tap &mdash; <b>do not interrupt the operational gateway's antenna feed</b>.</p>
+  <h4>Pitfalls</h4>
+  <ul class="tight">
+    <li><b>DC spike / IQ imbalance</b> on RTL-SDR: avoid parking the LoRa channel at exact centre, or enable DC/IQ correction (SDRangel exposes both; SDRangel's remote-TCP input warns that empty input buffers mean insufficient network bandwidth and growing output buffers mean the CPU cannot keep up).</li>
+    <li><b>Clock accuracy</b>: gr-lora_sdr includes CFO/timing estimation, but do not assume every dongle is equal &mdash; measure and trim, and watch decoder frequency offset.</li>
+    <li><b>Sample rate</b>: Nyquist minimum is the channel bandwidth; practical chains oversample. SDRangel's LoRa path oversamples &times;2, implying ~250&nbsp;kS/s for 125&nbsp;kHz and ~500&nbsp;kS/s for 250&nbsp;kHz (implementation-specific).</li>
+    <li><b>Storage</b>: raw complex IQ at 2.4&nbsp;MS/s is ~4.8&nbsp;MB/s at 8-bit I/Q and ~9.6&nbsp;MB/s at 16-bit &mdash; decide retention deliberately.</li>
+    <li><b>Regional span</b>: EU868's 125&nbsp;kHz channels fit a narrow slice; US915's full 902&ndash;928&nbsp;MHz is 26&nbsp;MHz and cannot be seen by one RTL-SDR-class capture.</li>
+  </ul>
+
+  <h3>Meshtastic / MeshCore are a different animal</h3>
+  <p>These are LoRa-based mesh protocols, not LoRaWAN, so LoRaWAN decoders and bridges are the wrong tool. SDRangel ships <b>Meshtastic</b> and <b>MeshCore</b> demodulator plugins (MeshCore README documents an optional UDP JSON sink and EU_NARROW defaults of 869.618&nbsp;MHz, 62.5&nbsp;kHz, SF8, CR 4/8; the Meshtastic plugin is labelled experimental and recommends dedicated hardware for production). <code>alphafox02/meshtastic-sniffer</code> is a substantial passive receiver with RTL-SDR/Airspy/USRP/HackRF/BladeRF/Soapy backends, wideband channelization, JSON/MQTT/ZMQ/pcap outputs and a dashboard. Jeff Geerling's Pi 5 write-up is a useful reality check: he got PHY activity on a narrowed RTL-SDR flowgraph, but the included Python RX decoding script was <b>not</b> working in his test.</p>
+</section>
+
+<!-- ======================= 4. THE PROPOSAL ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Assessment of the proposed LoRaWAN architecture</h2></div>
+  <p>The plan &mdash; sensors &rarr; gateways (Pi + RAK2245) &rarr; internet &rarr; self-hosted ChirpStack on Hetzner, gateways managed by balenaOS/openBalena, long-term goal of also providing TTN coverage via a packet multiplexer &mdash; is sound in its core. Two specifics need correcting before it is presented.</p>
+
+  <div class="diagram">
+<b>Proposed</b>   Sensors &rarr; <b>GW (Pi + RAK2245)</b> &rarr; UDP 1700 &rarr; Hetzner / ChirpStack<br>
+<b>Long-term</b> GW &rarr; <span class="a">Packet Multiplexer</span> &rarr; &#9500; private ChirpStack<br>
+                                &#9492; TTN   <span class="a">&#8592; UDP only, no Basics Station</span>
+  </div>
+
+  <h3>ChirpStack: what to run</h3>
+  <ul class="tight">
+    <li><b>Version</b>: the 4.x series is current (releases page showed <b>v4.19.2 "Latest"</b> and v4.20.0-test.3 pre-release when checked). <b>v4 merges the Network Server and Application Server into the main ChirpStack service</b>; the Gateway Bridge is a separate service. Sources that mention a standalone "chirpstack-network-server.toml" are describing the legacy v3 layout &mdash; worth knowing, because Packet Broker's own ChirpStack guide still uses that legacy naming (see below).</li>
+    <li><b>Components</b>: ChirpStack + Gateway Bridge, plus PostgreSQL 13+ (needs <code>pg_trgm</code>), Redis 6.2+ (or Valkey) for sessions/metrics/cache, and an MQTT broker (Mosquitto) &mdash; docs call for MQTT 5.0 and shared subscriptions. Gateway-side extras exist but are optional: Concentratord (ZeroMQ API) and ChirpStack MQTT Forwarder, which the project now calls its <b>preferred gateway installation</b> over the legacy UDP bridge.</li>
+    <li><b>Install</b>: official Debian/Ubuntu apt packages or the official Docker Compose example. Note the Compose repo itself warns it is a <b>testing starting point</b>, not production-ready unchanged.</li>
+    <li><b>Sizing</b>: there is <b>no official sizing table and no hard device/gateway ceiling</b>. Two vCPU / 4&nbsp;GB may carry a modest low-rate private deployment; <b>4 vCPU / 8&nbsp;GB with SSD</b> is a conservative starting point (Helium's guide cites exactly this and explicitly says it is not recommended for mission-critical production). Practical capacity depends on message rate, gateway count, integrations and retention &mdash; not registered device count.</li>
+  </ul>
+
+  <h3>Flaw 1 &mdash; the packet multiplexer cannot do Basics Station</h3>
+  <div class="note warn">
+    <div class="nh">Why this breaks the long-term goal as written</div>
+    <p><code>chirpstack-packet-multiplexer</code> accepts <b>Semtech UDP only</b> and forwards to multiple servers, with an <code>uplink_only</code> flag per destination and optional gateway-ID / DevAddr / JoinEUI prefix filters, plus Prometheus metrics. It is not a general LoRaWAN backend broker.</p>
+    <p>A 2024 request to add Basics Station support was <b>closed</b>: the maintainer said there was no current bandwidth, and that Basics Station obtains its configuration from its LNS, so different LNSs may not share a usable configuration. So if the gateways move to the modern Basics Station path &mdash; which is exactly the plan &mdash; the multiplexer is out.</p>
+    <p>Two further caveats even on UDP: multiplexing <b>copies</b> traffic, it does not synchronise device sessions, join state or network policy between the two networks, so you must decide which backend is authoritative for downlinks (the <code>uplink_only</code> flag exists for this). And Semtech UDP is the legacy option &mdash; The Things Stack warns about its security and scalability and recommends Basics Station instead; avoid exposing an unauthenticated UDP 1700 listener to the public internet.</p>
+  </div>
+
+  <h4>What Basics Station actually is</h4>
+  <p><b>LNS</b> is the data path: gateway and network server exchange uplinks and downlinks over WebSocket; the protocol first discovers an endpoint (<code>muxs</code>) and its URI. That endpoint discovery is <b>load assignment, not a mechanism for copying traffic to multiple independent LNSs</b>. <b>CUPS</b> is optional management (config and firmware updates, and it can deliver LNS credentials) and is <i>not</i> required for LoRaWAN traffic. ChirpStack's Gateway Bridge does implement the Basics Station LNS protocol &mdash; and its docs warn that <b>without authentication all connections are accepted</b>, so configure TLS.</p>
+  <p><b>Consequence for the plan:</b> "gateway also provides TTN coverage" is achievable, but not by bolting a multiplexer onto Basics Station. The realistic options are (a) keep the dual-backend gateways on <b>Semtech UDP</b> and multiplex, or (b) have gateways natively support multiple backends or run two forwarding processes, or (c) peer networks properly via <b>Packet Broker</b>. Option (c) is the architecturally clean route and is discussed next.</p>
+
+  <h3>TTN / The Things Stack: limits and Packet Broker</h3>
+  <ul class="tight">
+    <li><b>Sandbox/Community</b> is described by TTI as free, limited, without SLA, and intended for non-commercial small-scale testing. The documented Fair Use Policy is <b>30 s uplink airtime and 10 downlinks per device per 24 h</b> &mdash; these are airtime/downlink limits, <b>not</b> a device-count cap. No fixed numeric device cap could be verified.</li>
+    <li><b>Does contributing a gateway lift the limit?</b> No official source says so. TTN encourages gateways for coverage; it does not promise extra airtime or downlinks in return. Treat it as helping coverage, not as an allowance increase.</li>
+    <li><b>Packet Broker</b> is network-to-network peering: forwarder networks (with gateways) and home networks (with devices), routing uplinks by DevAddr/NetID with policies for joins, MAC and application payloads, metadata and downlink direction. That is roaming/peering &mdash; not the same as pointing one gateway at two servers.</li>
+    <li><b>Can self-hosted ChirpStack peer with it?</b> Protocol-wise <b>yes</b> &mdash; Packet Broker documents LoRaWAN Backend Interfaces 1.0 support and publishes a <b>ChirpStack configuration guide</b>, including requesting a NetID (and optionally a tenant ID), exchanging credentials/certificates, and configuring the roaming endpoint; it even describes requesting free access to forward to TTN Community.</li>
+    <li><b>Two qualifications:</b> (1) the Sandbox does <b>not</b> let its users define their own Packet Broker routing policies &mdash; the Foundation controls peering; (2) the Packet Broker ChirpStack guide uses legacy config naming, so a current tested <b>ChirpStack v4</b> recipe and current approval terms were <b>not</b> verified. Confirm with Packet Broker before designing around it.</li>
+  </ul>
+
+  <h3>balenaOS / openBalena for the gateway fleet</h3>
+  <ul class="tight">
+    <li><b>openBalena still exists</b> and is self-hosted (provisioning, CLI management, remote VPN access, image distribution, container updates; README requires balenaOS &ge; v5.2.8 and balena CLI &ge; v18.2.2). But the project calls itself <b>beta &mdash; "perpetually in beta"</b> &mdash; with potential breaking changes, no web dashboard, single-user management and full-image rather than delta updates.</li>
+    <li>It is <b>self-hosted software, not a free hosted tier.</b> No device-count limit is stated for self-hosted openBalena because you operate the infrastructure yourself.</li>
+    <li><b>balenaCloud</b> free allowance is <b>10 devices</b> total across fleets; beyond that is paid.</li>
+    <li><b>Containerised updates</b>: a release is one or more images; deploying notifies the fleet, which downloads and runs per the chosen strategy (<code>balena push</code>/<code>balena deploy</code>; <code>git push</code> is legacy).</li>
+    <li><b>The radio detail that trips people up</b>: the application needs a packet-forwarder/Basics Station build <b>plus the matching concentrator HAL/driver</b> &mdash; <b>SX1301</b> for RAK2245, <b>SX1302</b> for RAK2287. Gateway Bridge is <b>not</b> the HAL. balenaOS enables SPI by default on Pi and documents container device access/privileged mode. Verify the exact concentrator revision against the image you deploy.</li>
+    <li><b>Alternatives</b>: Ansible is a strong lightweight choice for a modest Pi fleet (inventory, OS packages/services, version-pinned config, staged rollouts). Mender adds A/B root-filesystem OTA with rollback at more setup cost. Docker Compose + CI with pinned image digests works well. cloud-init helps first-boot provisioning but is not an update service. <b>Do not use Watchtower</b> for a new production fleet &mdash; its own repo says it is no longer maintained and recommends against production use.</li>
+  </ul>
+
+  <h3>A revised recommendation</h3>
+  <div class="note">
+    <div class="nh">Keep the good parts, fix two things</div>
+    <ol class="tight">
+      <li><b>Keep</b> the private ChirpStack on the Hetzner VPS &mdash; that is the right call for escaping TTN's fair-use limits. Go with the apt packages or a de-Dockerised Compose, PostgreSQL + Redis/Valkey + Mosquitto, 4 vCPU / 8 GB SSD to start, and set up backups and monitoring from day one.</li>
+      <li><b>Change the gateway protocol decision consciously.</b> If dual-backend fan-out is a firm requirement, the gateways must stay on <b>Semtech UDP</b> with the packet multiplexer &mdash; accept that this is the legacy, unauthenticated path and keep it off the public internet (VLAN/VPN). If you want Basics Station (recommended for security and manageability), then drop the multiplexer and use <b>Packet Broker peering</b> for the TTN direction.</li>
+      <li><b>Reframe the long-term TTN goal</b> from "our gateways also feed TTN via the multiplexer" to "our network peers with TTN via Packet Broker, and/or we operate separate gateways or forwarding processes." Verify the ChirpStack v4 + Packet Broker path with the operator before committing it to a slide.</li>
+      <li><b>Reconsider openBalena.</b> For a small fleet, Ansible with pinned container releases is less platform risk than a self-hosted beta. If you use balena, prefer balenaCloud while the fleet is within 10 devices, or accept operating openBalena in beta.</li>
+      <li><b>Add the SDR as a diagnostic, not a gateway.</b> A Pi 5 + RTL-SDR V4 (or Airspy Mini) with gr-lora_sdr on a separate antenna gives independent spectrum/waterfall monitoring, SF and airtime measurement, duty-cycle evidence and interference diagnosis &mdash; genuinely valuable for a research institute, and honest about the fact that it is not a gateway.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= 5. OPEN QUESTIONS ======================= -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Open questions to resolve before the presentation</h2></div>
+  <ol class="tight">
+    <li><b>Which ChirpStack version and install path</b> exactly, and who owns backups, upgrades and monitoring on Herr Scherl's server &mdash; the plan relies on someone else's capacity, which needs a written arrangement.</li>
+    <li><b>Basics Station or UDP</b> for the gateways. This single decision cascades into the multiplexer question, the security model and the TTN integration route. It should be made explicitly, not left as "to be verified".</li>
+    <li><b>Packet Broker access terms</b> for a self-hosted ChirpStack in 2026 (&sect; 3 of this report). Verified only at protocol level and via a legacy-layout guide.</li>
+    <li><b>Whether a public remote SDR is even in scope</b>, and if so which bands. If yes, this triggers the &sect; 5 TDDDG and GDPR work, and possibly a DPO/DPIA decision. If the SDR is internal-only for monitoring, that entire legal section drops away.</li>
+    <li><b>Gateway firmware/HAL reality</b>: confirm the exact RAK2245 revision (SX1301) and that a maintained packet-forwarder/Basics Station build exists for the balena image you intend to ship.</li>
+    <li><b>Device and traffic scale</b>: how many sensors, what payload size and interval. This, not the sensor count, is what sizes the VPS and sets database growth.</li>
+  </ol>
+
+  <div class="note warn">
+    <div class="nh">Not verified in this research</div>
+    <ul class="tight">
+      <li>A hard ChirpStack limit on devices/gateways or required VPS size (no official sizing table exists).</li>
+      <li>A universal current list of gateways that natively support multiple independent backends.</li>
+      <li>A fixed TTN Community/Sandbox registered-device cap, or any fair-use increase for gateway contributors.</li>
+      <li>A maintained general-SDR &rarr; Semtech UDP / Basics Station &rarr; ChirpStack/TTN bridge.</li>
+      <li>A current, tested ChirpStack v4 &rarr; TTN Packet Broker recipe.</li>
+      <li>Exact current GitHub star counts for most projects, and project-wide licenses for KiwiSDR, ka9q-radio, <code>sdr-server</code>, no-sdr and SigDigger.</li>
+      <li>An authoritative German decision resolving the legality of a public WebSDR's remote users (BNetzA request still unanswered when checked).</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <h4>Primary sources read</h4>
+  <ul class="srclist">
+    <li><a href="https://github.com/osmocom/rtl-sdr">github.com/osmocom/rtl-sdr</a> &middot; <a href="https://manpages.debian.org/testing/rtl-sdr/rtl_tcp.1.en.html">rtl_tcp(1) man page</a></li>
+    <li><a href="https://github.com/pothosware/SoapySDR">github.com/pothosware/SoapySDR</a> &middot; <a href="https://github.com/pothosware/SoapyRemote">SoapyRemote</a> &middot; <a href="https://github.com/pothosware/SoapyRemote/issues/38">SoapyRemote security discussion</a></li>
+    <li><a href="https://github.com/luarvique/openwebrx">github.com/luarvique/openwebrx</a> &middot; <a href="https://github.com/luarvique/openwebrx/releases">releases</a> &middot; <a href="https://github.com/jketterl/openwebrx">jketterl/openwebrx</a> &middot; <a href="https://github.com/jketterl/csdr">csdr</a></li>
+    <li><a href="https://github.com/jks-prv/KiwiSDR">github.com/jks-prv/KiwiSDR</a> &middot; <a href="http://kiwisdr.com/info/">kiwisdr.com/info</a> &middot; <a href="http://rx.kiwisdr.com/">rx list</a></li>
+    <li><a href="https://github.com/f4exb/sdrangel">github.com/f4exb/sdrangel</a> &middot; <a href="https://github.com/f4exb/sdrangel/wiki/SDRangel-server">server design</a> &middot; <a href="https://github.com/f4exb/sdrangel/blob/master/plugins/channelrx/demodmeshcore/readme.md">MeshCore plugin</a> &middot; <a href="https://github.com/f4exb/sdrangel/blob/master/plugins/channelrx/demodmeshtastic/readme.md">Meshtastic plugin</a></li>
+    <li><a href="https://github.com/AlexandreRouma/SDRPlusPlus">github.com/AlexandreRouma/SDRPlusPlus</a> &middot; <a href="https://github.com/SDRplay/RSPTCPServer">SDRplay/RSPTCPServer</a> &middot; <a href="https://github.com/dernasherbrezon/sdr-server">dernasherbrezon/sdr-server</a> &middot; <a href="https://github.com/slepp/rtlmux">slepp/rtlmux</a></li>
+    <li><a href="https://github.com/ka9q/ka9q-radio">github.com/ka9q/ka9q-radio</a> &middot; <a href="https://github.com/gbozo/no-sdr">gbozo/no-sdr</a> &middot; <a href="https://github.com/gqrx-sdr/gqrx">gqrx</a> &middot; <a href="https://www.gqrx.dk/doc/remote-control">gqrx remote control</a></li>
+    <li><a href="https://airspy.com/download/">airspy.com/download</a> &middot; <a href="https://airspy.com/quickstart/">SpyServer quickstart</a> &middot; <a href="https://airspy.com/airspy-mini/">Airspy Mini</a> &middot; <a href="https://www.rtl-sdr.com/rtl-sdr-blog-v4-dongle-initial-release/">RTL-SDR Blog V4</a></li>
+    <li><a href="https://www.websdr.org/faq.html">websdr.org/faq</a> &middot; <a href="https://www.websdr.org/background.html">WebSDR background</a> &middot; <a href="https://sdr.hu/">sdr.hu (defunct)</a></li>
+    <li><a href="https://www.gesetze-im-internet.de/ttdsg/__5.html">&sect; 5 TDDDG</a> &middot; <a href="https://fragdenstaat.de/anfrage/anwendungsbereich-abhoerverbot-gema-89-tkg/">FragDenStaat request to BNetzA</a> &middot; <a href="https://www.gesetze-im-internet.de/afug_1997/__3.html">&sect; 3 AFuG</a> &middot; <a href="https://www.gesetze-im-internet.de/tkg_2021/__5.html">TKG &sect; 5</a></li>
+    <li><a href="https://github.com/tapparelj/gr-lora_sdr">github.com/tapparelj/gr-lora_sdr</a> &middot; <a href="https://github.com/tapparelj/gr-lorawan">gr-lorawan</a> &middot; <a href="https://github.com/rpp0/gr-lora">rpp0/gr-lora</a> &middot; <a href="https://github.com/jkadbear/gr-lora">jkadbear/gr-lora</a> &middot; <a href="https://github.com/myriadrf/LoRa-SDR">myriadrf/LoRa-SDR</a></li>
+    <li><a href="https://www.semtech.com/products/wireless-rf/lora-core/sx1302">Semtech SX1302</a> &middot; <a href="https://github.com/lorabasics/basicstation">LoRa Basics Station</a> &middot; <a href="https://doc.sm.tc/station/tcproto.html">LNS protocol</a> &middot; <a href="https://github.com/Lora-net/packet_forwarder">Semtech packet_forwarder</a></li>
+    <li><a href="https://penthertz.com/blog/testing-LoRa-with-SDR-and-handy-tools.html">PentHertz: LoRa with SDR</a> &middot; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10490483/">Povalac et al., "Exploring LoRaWAN Traffic"</a> &middot; <a href="https://github.com/alpov/lorawan-sniffer">lorawan-sniffer</a> &middot; <a href="https://zenodo.org/records/8090619">Zenodo dataset</a></li>
+    <li><a href="https://github.com/helium/lorawan-sniffer">helium/lorawan-sniffer</a> &middot; <a href="https://ccronline.sigcomm.org/2020/ccr-october-2020/loradar-lora-sensor-network-monitoring-through-passive-packet-sniffing/">LoRadar (CCR 2020)</a> &middot; <a href="https://github.com/alphafox02/meshtastic-sniffer">meshtastic-sniffer</a> &middot; <a href="https://www.jeffgeerling.com/blog/2025/decoding-meshtastic-gnuradio-on-raspberry-pi/">Geerling, Pi 5 GNU Radio</a></li>
+    <li><a href="https://www.chirpstack.io/docs/architecture.html">ChirpStack architecture</a> &middot; <a href="https://www.chirpstack.io/docs/getting-started/debian-ubuntu.html">apt install</a> &middot; <a href="https://www.chirpstack.io/docs/getting-started/docker.html">Docker</a> &middot; <a href="https://www.chirpstack.io/docs/chirpstack/requirements.html">requirements</a> &middot; <a href="https://github.com/chirpstack/chirpstack/releases">releases</a></li>
+    <li><a href="https://github.com/chirpstack/chirpstack-packet-multiplexer">chirpstack-packet-multiplexer</a> &middot; <a href="https://github.com/chirpstack/chirpstack-packet-multiplexer/issues/36">issue #36: no Basics Station</a> &middot; <a href="https://github.com/chirpstack/chirpstack-gateway-bridge">gateway-bridge</a></li>
+    <li><a href="https://www.chirpstack.io/docs/chirpstack-gateway-bridge/backends/semtech-udp.html">ChirpStack Semtech UDP backend</a> &middot; <a href="https://www.chirpstack.io/docs/chirpstack-gateway-bridge/backends/basics-station.html">Basics Station backend</a></li>
+    <li><a href="https://www.thethingsindustries.com/docs/concepts/ttn/">TTN Sandbox</a> &middot; <a href="https://www.thethingsnetwork.org/docs/lorawan/duty-cycle/">Fair Use Policy</a> &middot; <a href="https://www.thethingsindustries.com/docs/concepts/packet-broker/">Packet Broker</a> &middot; <a href="https://packetbroker.net/getting-started/network-configuration/chirpstack/">Packet Broker ChirpStack guide</a></li>
+    <li><a href="https://github.com/balena-io/open-balena">github.com/balena-io/open-balena</a> &middot; <a href="https://www.balena.io/pricing">balena pricing</a> &middot; <a href="https://docs.balena.io/learn/deploy/deployment">deployment docs</a> &middot; <a href="https://docs.rakwireless.com/product-categories/wislink/rak2245-pi-hat/datasheet/">RAK2245 datasheet</a> &middot; <a href="https://www.rakwireless.com/en-us/products/lpwan-gateways-and-concentrators/rak2287-sx1302">RAK2287</a></li>
+    <li><a href="https://github.com/containrrr/watchtower">containrrr/watchtower (unmaintained)</a> &middot; <a href="https://github.com/mendersoftware/mender">Mender</a> &middot; <a href="https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html">Ansible inventory</a> &middot; <a href="https://docs.cloud-init.io/en/latest/">cloud-init</a></li>
+  </ul>
+  <p>Research notes: project metadata (stars, licenses, release dates) was read from live pages in October 2026 where the page exposed it; items marked "not verified" were not established by any source read and should not be relied on. The German legal section is a research summary, not a legal opinion.</p>
+</footer>
+
+</div>
+</body>
+</html>
