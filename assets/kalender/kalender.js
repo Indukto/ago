@@ -116,9 +116,16 @@
     },
   ];
 
+  const initialToday = new Date();
+  const initialKey = [
+    initialToday.getFullYear(),
+    String(initialToday.getMonth() + 1).padStart(2, "0"),
+    String(initialToday.getDate()).padStart(2, "0"),
+  ].join("-");
+
   const state = {
-    view: new Date(2026, 2, 1),
-    selected: "2026-03-12",
+    view: new Date(initialToday.getFullYear(), initialToday.getMonth(), 1),
+    selected: initialKey,
     filters: new Set(Object.keys(CATEGORIES)),
     events: SEED_EVENTS.map((event) => ({ ...event })),
   };

@@ -32,7 +32,7 @@ from cards or shadows.
 4. **Data is the ornament.** Huge outlined numerals, week codes and counts are the visual interest;
    no illustrations, no icon sets, no gradients.
 5. **Every label is a form field.** Uppercase German, letter-spaced, 6–9 px, set in mono. Display
-   type is reserved for numbers, month names and headlines.
+   type is reserved for numbers, month names, headlines and the compact event/upcoming titles.
 6. **Colour is categorical, never decorative.** Four event categories own four fills. Yellow is an
    alarm/accent, not a background.
 
@@ -82,10 +82,10 @@ Do not promote them into the system without a new decision.
   leading bar reserved for sensor entries.
 - **Yellow is not a highlighter.** Use it for the live dot, the `/` separators, the week marker,
   focus numerals and the workshop fill. Never set yellow body text on cream.
-- **Hairlines:** `#D8D6CD` on paper in print, `rgba(242,240,231,.32)` on blue for structural
-  rules, and `rgba(0,0,255,.26)` for the 1 px calendar gaps in the web build.
-- **Selection:** 2 px inset ink border on paper; never a soft ring or drop shadow. (The current
-  web build uses a full ink cell instead — see §5.)
+- **Hairlines:** `#D8D6CD` on paper in print, `#D8D6CD` for the 1 px calendar gaps in the web
+  build, and `rgba(242,240,231,.32)` on blue for structural rules.
+- **Selection:** full ink cell with a paper day number and a paper `FOKUS` tag; never a soft ring
+  or drop shadow.
 
 ---
 
@@ -95,8 +95,8 @@ Do not promote them into the system without a new decision.
 
 | Role | Family | Weights / axes | Notes |
 |---|---|---|---|
-| Display | **Archivo** | 700 / 800 / 900, width 100–112 % | Month, day numbers, focus date, stats, wordmark |
-| Everything else | **IBM Plex Mono** | 400 / 500 / 600 | Labels, metadata, event copy, buttons, footer |
+| Display | **Archivo** | 600 / 700 / 800 / 900, width 100–112 % | Month, day numbers, focus date, stats, wordmark, event and upcoming titles |
+| Everything else | **IBM Plex Mono** | 400 / 500 / 600 | Labels, metadata, times, descriptions, buttons, footer |
 
 Load exactly those weights. Fallbacks: `"Segoe UI", system-ui, sans-serif` and
 `"Cascadia Mono", Consolas, monospace`. Never substitute a third family.
@@ -115,11 +115,11 @@ Load exactly those weights. Fallbacks: `"Segoe UI", system-ui, sans-serif` and
 | Wordmark | Archivo 700 · w108 | 12 | 1.00 | 0.055 em | UPPER | paper |
 | Focus event title | Archivo 700 · w104 | 10.5 | 1.15 | 0.015 em | UPPER | paper |
 | Dialog title | Archivo 800 · w108 | 20 | 1.00 | −0.02 em | UPPER | paper |
-| Event title | IBM Plex Mono 600 | 8.4 | 1.16 | 0.005 em | UPPER | per fill |
+| Event title | Archivo 600 | 8.2 | 1.14 | 0.005 em | UPPER | per fill |
 | Button label | IBM Plex Mono 500/600 | 9 | 1.00 | 0.11 em | UPPER | per variant |
 | Hero meta (`10 TERMINE / …`) | Plex Mono 400 | 8.5 | 1.35 | 0.14 em | UPPER | paper @ 72 % |
 | Micro label / eyebrow | Plex Mono 400/500 | 7.5–8 | 1.35 | 0.16 em | UPPER | muted / paper @ 86 % |
-| Event time | Plex Mono 500 | 7.2 | 1.10 | 0.02 em | — | inherited @ 72 % |
+| Event time | Plex Mono 500 | 7.2 | 1.10 | 0.02 em | — | inherited @ 86 % |
 | Footer / day code | Plex Mono 500 | 6–6.5 | 1.00 | 0.06–0.12 em | UPPER | muted / ink @ 57 % |
 
 The artboard sets display type in Archivo Bold 700; the screen build uses 800/900 for the same
@@ -131,7 +131,8 @@ or regular display cut.
 - **Numbers are tabular** everywhere: `font-variant-numeric: tabular-nums`. Dates never shift
   width between months.
 - **Display sizes are clamped on screen:** hero `clamp(82px, 10.6vw, 158px)`, focus day `82px`,
-  stat `28px`. Do not scale microtype up with the viewport.
+  stat `28px`. Do not scale microtype with `vw`; the only exception is the deliberate uniform
+  poster scale on 1440p-class displays (§4).
 - **Outlines instead of grey type.** Secondary large numerals (`2026`, ghost `03`) are transparent
   fills with a paper stroke, not reduced-opacity text.
 - **German labels, telegraphic style.** `TERMINRASTER`, `PLANUNG AKTIV`, `AKTUELLER TAG`,
@@ -168,10 +169,10 @@ rail as a fixed 324 px column.
 |---|---|
 | Columns | `42px` week gutter + `7 × 140px` |
 | Rows | `28px` weekday head + `6 × 88px` |
-| Gaps | `1px` — `--rule` in the artboard, `rgba(0,0,255,.26)` in the web build |
-| Cell padding | `8px` (Figma) / `5px` (web) |
-| Weekday head | blue, paper text; weekend head ink |
-| Week number | stacked `KW` (5.5 px) over `09` (9 px), centred |
+| Gaps | `1px` — `--rule` (`#D8D6CD`) in artboard and build |
+| Cell padding | `8px` (Figma) / `4px` (web) |
+| Weekday head | paper, ink text; weekend head ink, paper text |
+| Week number | stacked `KW` (5.5 px) over `09` (9 px), left-aligned with a 6 px inset |
 
 ### Spacing scale
 
@@ -193,6 +194,7 @@ space is expressed by the grid, not by generous margins.
 
 | Breakpoint | Behaviour |
 |---|---|
+| ≥ 2300 px wide, ≥ 1250 px tall | Shell and dialog scale 1.25× (`1.33×` above 1400 px tall) to fill a 1440p viewport |
 | ≥ 1181 px | Full artboard: calendar + 324 px rail |
 | ≤ 1180 px | Rail drops below calendar, becomes a 2-column block (`1.15fr 1fr`), stats span full width |
 | ≤ 900 px | Live status and doc code hide, footer centre group hides, legend tightens |
@@ -200,15 +202,17 @@ space is expressed by the grid, not by generous margins.
 | ≤ 420 px | Compact masthead and single-column controls |
 | print | A4 landscape, white ground, grid retained, rail/tools/grain/buttons hidden, selection forced to grey |
 
-Shell: `width: min(100%, 1540px)`, padding `26px 36px 22px`.
+Shell: `width: min(100%, 1540px)`, padding `26px 36px 22px`. On 1440p-class desktop
+viewports the whole shell (and the event dialog) is scaled with `zoom: 1.25` (or `1.33` above 1400 px tall), keeping the
+microtype and grid proportions instead of stretching individual type sizes.
 
 ---
 
 ## 5. Components
 
 ### Masthead
-Cream-on-blue, 64 px tall, 1 px bottom rule. Left: 34–38 px stroke-only radio-tower mark, wordmark
-(12 px Archivo) and strapline (7.5 px mono). Right: live status with 6 px blinking yellow square,
+Cream-on-blue, 64 px tall, 1 px bottom rule. Left: the 42 px `logoblue.svg` emblem (35 px artwork
+in a matching blue tile), wordmark (12 px Archivo) and strapline (7.5 px mono). Right: live status with 6 px blinking yellow square,
 document code (`KAL / 2026 / 03`), solid paper button. No navigation bar, no logo lockup beyond this.
 
 ### Hero
@@ -230,34 +234,34 @@ muted); flexible middle; events anchored bottom. States:
 |---|---|
 | Default | paper, ink |
 | Hover | `--paper-dim` `#E7E4D8` |
-| Weekend | blue fill, paper text, events invert |
+| Weekend | blue fill, paper text; funk and milestone chips invert, sensor stays lavender |
 | Outside month | diagonal 1 px hatch (`6px` paper-dim / `7px` paper), 34 % ink text, 17 px numerals, non-interactive |
 | Today | 3 px signal underline on the day number (web build) |
-| Selected | Artboard: 2 px inset ink border, cream ground kept. Web build: full ink inversion, signal numeral, `FOKUS` tag |
+| Selected | full ink inversion, paper numeral, paper `FOKUS` tag with ink text |
 
-The selection treatment is the one place where artboard and build diverge. The 2 px inset border
-is canonical for new work — it keeps the grid readable; the ink inversion is an accepted
-current-state variant that should be unified when the calendar is next touched.
+Selection is a hard ink inversion rather than a border, exactly as on the artboard. Event chips
+keep their category fills inside the selected cell; only the milestone chip inverts to paper so it
+stays visible on ink.
 
 ### Event chip
-Grid `30px time + 1fr title`, min-height 21 px, padding `2px 4px 3px`. Time at 7.2 px at
-72 % opacity; title 8.4 px uppercase mono, clamped to two lines. No icon, no radius, no border
+Grid `23px time + 1fr title`, min-height 21 px, padding `2px 3px 3px`. Time at 7.2 px at
+86 % opacity; title 8.2 px uppercase Archivo 600, clamped to two lines. No icon, no radius, no border
 on the trailing edges. The 3 px leading bar is reserved for the sensor chips (blue on the pale
 tint); the other categories carry their identity through fill alone.
 
 | Category key | German label | Fill | Text | Bar |
 |---|---|---|---|---|
-| `sensor` | LoRaWAN-Sensoren | `#CFD8FF` (web: `rgba(0,0,255,.075)`) | ink | blue 3 px |
+| `sensor` | LoRaWAN-Sensoren | `#CFD8FF` | ink | blue 3 px |
 | `funk` | Funktechnik & Gateways | `#0000FF` | paper | — |
 | `workshop` | Messungen & Workshops | `#E9FF00` | ink | — |
 | `milestone` | Meilensteine & Freigaben | `#0A0A0B` | paper | — |
 
 ### Legend
-`LEGENDE:` label followed by four 8–9 px square swatches + 7 px labels, 18 px column / 9 px row
-gaps, 10–11 px vertical padding, 1 px top rule.
-Interactive: pressed state is full opacity, unpressed drops to 42 % with a 1 px line-through. A
-reset action with a 1 px underline sits at the trailing edge. Swatches are 1 px outlined; only the
-sensor swatch is a pale tint, never a filled lavender square.
+A 57 px `LEGENDE` label column, then four items on a 215 px rhythm (`57 + 4 × 215 + rest` at
+1022 px) with 8 px swatches and 7 px labels, a 57 px band with 13 px top padding, and a 1 px top
+rule. Interactive: pressed state is full opacity, unpressed drops to 42 % with a 1 px line-through.
+A reset action with a 1 px underline sits at the trailing edge. Swatches are 1 px outlined; the
+sensor swatch is a lavender fill with a blue outline.
 
 ### Focus card (rail)
 Ink block, no radius. Signal 82 px day number + `MÄRZ / 2026` stacked mono; meta line
@@ -265,8 +269,9 @@ Ink block, no radius. Signal 82 px day number + `MÄRZ / 2026` stacked mono; met
 1 px-stroked circle ornament clipped at the bottom-right corner. Empty state: dashed 1 px box.
 
 ### Upcoming list (rail)
-Rows `44px date · title · 6px dot`, 1 px hairlines, 8 px vertical padding. Date in mono at 58 %
-paper, title 9 px mono, dot in the category colour. Hover shifts title to signal.
+Rows `44px date · title · 6px dot`, 1 px hairlines, 8 px vertical padding. Date in mono at 86 %
+paper, title 9 px Archivo 500, dot in the category colour (sensor lavender, workshop signal,
+milestone ink). Hover shifts title to signal.
 
 ### Stats strip (rail)
 Three equal columns, 1 px dividers: 28 px Archivo number over 6 px label. Values: `10 TERMINE`,
@@ -295,8 +300,9 @@ with a 1 px ink border, 10 px mono text and a blue inset focus outline.
 
 ## 6. Iconography & ornament
 
-- **Stroke-only line work**, 1.5 px, square caps, no fills. The brand mark (radio tower in a square)
-  is the only logo; it is never coloured, only currentColor.
+- **Stroke-only line work**, 1.5 px, square caps, no fills for interface marks. The brand mark is
+  the supplied `logoblue.svg` emblem (lion, radio tower and lake); use the SVG asset as a whole,
+  never redraw, crop or recolour it by hand.
 - **Registration crosses** (`+`) sit at the corners of the calendar panel, 11 px mono, blue on paper.
 - **Hairline geometry:** full-bleed verticals between week columns, horizontals between weeks, and a
   single rule above the legend. Do not use dashed rules except for empty states.

@@ -8,11 +8,12 @@
   --blue-ink: #0000d6;
   --paper: #f2f0e7;
   --paper-dim: #e7e4d8;
-  --paper-deep: #d8d5c8;
+  --paper-deep: #d8d6cd;
   --ink: #0a0a0b;
   --ink-soft: #303036;
-  --muted: #6d6d75;
+  --muted: #6b6a63;
   --signal: #e9ff00;
+  --lavender: #cfd8ff;
   --line-blue: rgba(0, 0, 255, 0.26);
   --line-blue-soft: rgba(0, 0, 255, 0.14);
   --line-paper: rgba(242, 240, 231, 0.32);
@@ -149,10 +150,11 @@ a {
 }
 
 .brand-mark {
-  width: 38px;
-  height: 38px;
+  display: block;
+  width: 42px;
+  height: 42px;
   flex: 0 0 auto;
-  color: var(--paper);
+  object-fit: contain;
 }
 
 .brand-copy {
@@ -385,7 +387,7 @@ a {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 654px;
+  min-height: 675px;
   background: var(--paper);
   color: var(--ink);
 }
@@ -407,8 +409,8 @@ a {
 }
 
 .calendar-panel::after {
+  top: 4px;
   right: 5px;
-  bottom: 4px;
 }
 
 .calendar-head {
@@ -487,8 +489,8 @@ a {
   flex-direction: column;
   gap: 1px;
   min-height: 0;
-  background: var(--line-blue);
-  border-bottom: 1px solid var(--line-blue);
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--paper-deep);
 }
 
 .week-row {
@@ -513,45 +515,47 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--blue);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 7.5px;
-  font-weight: 500;
+  font-size: 7px;
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .weekday--kw {
   justify-content: flex-start;
-  padding-left: 8px;
-  color: rgba(242, 240, 231, 0.55);
-  font-size: 6.5px;
+  padding-left: 6px;
+  color: var(--muted);
+  font-size: 5.5px;
 }
 
 .weekday--weekend {
   background: var(--ink);
+  color: var(--paper);
 }
 
 .weeknum {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 2px;
-  color: var(--blue);
+  padding: 13px 0 0 6px;
+  color: var(--ink);
 }
 
 .weeknum span:first-child {
   font-size: 5.5px;
   letter-spacing: 0.12em;
+  color: var(--muted);
   text-transform: uppercase;
-  opacity: 0.55;
 }
 
 .weeknum span:last-child {
   font-size: 9px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.03em;
 }
 
@@ -561,7 +565,7 @@ a {
   flex-direction: column;
   gap: 4px;
   min-width: 0;
-  padding: 5px 5px 4px;
+  padding: 5px 4px 4px;
   color: var(--ink);
   cursor: pointer;
   transition:
@@ -603,7 +607,7 @@ a {
   line-height: 1;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(10, 10, 11, 0.42);
+  color: var(--muted);
   white-space: nowrap;
 }
 
@@ -618,14 +622,13 @@ a {
 
 .event {
   display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
+  grid-template-columns: 23px minmax(0, 1fr);
   align-items: baseline;
-  gap: 3px;
+  gap: 2px;
   width: 100%;
   min-height: 21px;
-  padding: 2px 4px 3px;
+  padding: 2px 3px 3px;
   border: 0;
-  border-left: 3px solid transparent;
   border-radius: 0;
   text-align: left;
   transition:
@@ -643,15 +646,17 @@ a {
   line-height: 1.1;
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
-  opacity: 0.72;
+  opacity: 0.86;
 }
 
 .event-title {
   display: -webkit-box;
   overflow: hidden;
-  font-size: 8.4px;
+  font-family: var(--font-display);
+  font-size: 8.2px;
   font-weight: 600;
-  line-height: 1.16;
+  font-stretch: 100%;
+  line-height: 1.14;
   letter-spacing: 0.005em;
   text-transform: uppercase;
   -webkit-box-orient: vertical;
@@ -659,8 +664,9 @@ a {
 }
 
 .event--sensor {
-  border-left-color: var(--blue);
-  background: rgba(0, 0, 255, 0.075);
+  padding-left: 6px;
+  background: var(--lavender);
+  box-shadow: inset 3px 0 0 var(--blue);
   color: var(--ink);
 }
 
@@ -701,12 +707,6 @@ a {
 
 .day.is-weekend .day-code {
   color: rgba(242, 240, 231, 0.58);
-}
-
-.day.is-weekend .event--sensor {
-  border-left-color: var(--paper);
-  background: rgba(242, 240, 231, 0.1);
-  color: var(--paper);
 }
 
 .day.is-weekend .event--funk {
@@ -770,47 +770,31 @@ a {
 }
 
 .day.is-selected .day-num {
-  color: var(--signal);
-}
-
-.day.is-selected .day-code {
-  color: rgba(242, 240, 231, 0.55);
-}
-
-.day.is-selected::after {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 2px 3px;
-  background: var(--signal);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  font-size: 5px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  content: "Fokus";
+  color: var(--paper);
 }
 
 .day.is-selected .day-code {
   visibility: hidden;
 }
 
-.day.is-selected .event--sensor {
-  border-left-color: var(--signal);
-  background: rgba(242, 240, 231, 0.08);
-  color: var(--paper);
-}
-
-.day.is-selected .event--funk {
-  background: var(--signal);
-  color: var(--ink);
-}
-
-.day.is-selected .event--workshop {
+.day.is-selected::after {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10px;
+  padding: 0 4px;
   background: var(--paper);
   color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 4.8px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  content: "Fokus";
 }
 
 .day.is-selected .event--milestone {
@@ -830,11 +814,13 @@ a {
    -------------------------------------------------------------------------- */
 
 .legend {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 57px repeat(4, minmax(0, 215px)) minmax(0, 1fr);
   align-items: center;
-  gap: 9px 18px;
-  padding: 10px 16px 11px 18px;
+  align-content: start;
+  gap: 8px 0;
+  min-height: 57px;
+  padding: 13px 16px 12px 12px;
 }
 
 .legend-title {
@@ -842,7 +828,7 @@ a {
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(10, 10, 11, 0.48);
+  color: var(--muted);
 }
 
 .legend-btn {
@@ -855,7 +841,7 @@ a {
   background: none;
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 7.5px;
+  font-size: 7px;
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.05em;
@@ -879,15 +865,15 @@ a {
 
 .swatch {
   display: block;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   flex: 0 0 auto;
   border: 1px solid var(--ink);
 }
 
 .swatch--sensor {
   border-color: var(--blue);
-  background: rgba(0, 0, 255, 0.08);
+  background: var(--lavender);
 }
 
 .swatch--funk {
@@ -906,7 +892,8 @@ a {
 }
 
 .legend-reset {
-  margin-left: auto;
+  justify-self: end;
+  margin-left: 0;
   padding: 2px 0;
   border: 0;
   border-bottom: 1px solid var(--ink);
@@ -992,7 +979,7 @@ a {
   font-size: 7px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.55);
+  color: rgba(242, 240, 231, 0.72);
 }
 
 .focus-events {
@@ -1040,7 +1027,7 @@ a {
   font-size: 7.6px;
   line-height: 1.45;
   letter-spacing: 0.015em;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.72);
 }
 
 .focus-empty {
@@ -1116,17 +1103,19 @@ a {
 .upcoming time {
   font-size: 7.8px;
   letter-spacing: 0.08em;
-  color: rgba(242, 240, 231, 0.58);
+  color: rgba(242, 240, 231, 0.86);
   font-variant-numeric: tabular-nums;
 }
 
 .upcoming .up-title {
   display: block;
   overflow: hidden;
+  font-family: var(--font-display);
   font-size: 9px;
   font-weight: 500;
+  font-stretch: 100%;
   line-height: 1.25;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1138,7 +1127,7 @@ a {
   font-size: 6px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.38);
+  color: rgba(242, 240, 231, 0.72);
 }
 
 .upcoming .up-dot {
@@ -1148,8 +1137,7 @@ a {
 }
 
 .up-dot[data-cat="sensor"] {
-  background: transparent;
-  border: 1px solid var(--paper);
+  background: var(--lavender);
 }
 
 .up-dot[data-cat="funk"] {
@@ -1210,7 +1198,7 @@ a {
   font-size: 6px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.48);
+  color: rgba(242, 240, 231, 0.72);
 }
 
 /* --------------------------------------------------------------------------
@@ -1503,6 +1491,11 @@ a {
     padding-inline: 24px;
   }
 
+  .legend {
+    grid-template-columns: 57px repeat(4, minmax(0, 1fr)) auto;
+    column-gap: 12px;
+  }
+
   .workspace {
     grid-template-columns: 1fr;
   }
@@ -1581,8 +1574,8 @@ a {
   }
 
   .brand-mark {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
   }
 
   .masthead-right {
@@ -1662,6 +1655,10 @@ a {
   }
 
   .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 0;
     padding: 10px 12px;
     gap: 8px 10px;
   }
@@ -1671,6 +1668,8 @@ a {
   }
 
   .legend-btn {
+    width: auto;
+    flex: 0 0 calc(50% - 5px);
     font-size: 7px;
   }
 
@@ -1716,6 +1715,23 @@ a {
 
   .legend-btn {
     width: calc(50% - 5px);
+  }
+}
+
+/* High-density desktop displays (1440p and up): scale the print artefact as a
+   whole so the microtype and grid stay readable instead of shrinking into a
+   1540 px island in the middle of the screen. */
+@media (min-width: 2300px) and (min-height: 1250px) {
+  .shell,
+  .event-dialog {
+    zoom: 1.25;
+  }
+}
+
+@media (min-width: 2300px) and (min-height: 1400px) {
+  .shell,
+  .event-dialog {
+    zoom: 1.33;
   }
 }
 

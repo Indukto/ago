@@ -1,0 +1,3137 @@
+{
+ "url": "F:\\ago\\landing.html",
+ "at": "2026-10-23T21:24:57.454Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.35,
+    0.23,
+    0.19,
+    0.39,
+    0.15,
+    0.24,
+    0.33,
+    0.34,
+    0.22,
+    0.21,
+    0.41,
+    0.43
+   ],
+   "motion": {
+    "elements": 90,
+    "css": 1,
+    "transitions": 88,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 9941,
+     "screens": 11,
+     "words": 947,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "chars": 43,
+     "lines": 4,
+     "size": 106.6,
+     "vw": 7.4,
+     "font": "Archivo",
+     "weight": 900,
+     "tracking": -0.055,
+     "leading": 0.86,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.71,
+     "top": 189,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "lines": 4,
+     "size": 106.6,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+      "words": 7,
+      "chars": 43,
+      "lines": 4,
+      "size": 106.6,
+      "vw": 7.4,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.055,
+      "leading": 0.86,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.71,
+      "top": 189,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "47.55° N 09.68° E",
+      "words": 4,
+      "chars": 17,
+      "lines": 2,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.96,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.17,
+      "top": 586,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Die Geschichte beginnt nicht mit einem Bauplan. Sie beginnt mit einer Frage: Was passiert um uns herum, das wir nicht sehen können?",
+      "words": 22,
+      "chars": 131,
+      "lines": 4,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Archivo",
+      "weight": 500,
+      "tracking": -0.015,
+      "leading": 1.3,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 1087,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 1507,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Wie warm ist der See?",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 1928,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Wie sauber ist die Luft?",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 1999,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Was bleibt vom Netz, wenn es ausfällt?",
+      "words": 7,
+      "chars": 38,
+      "lines": 1,
+      "size": 34,
+      "vw": 2.4,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 2070,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "SECHZEHN MENSCHEN. EIN SIGNAL.",
+      "words": 4,
+      "chars": 30,
+      "lines": 2,
+      "size": 44,
+      "vw": 3.1,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.52,
+      "top": 2347,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "16",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 150,
+      "vw": 10.4,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.78,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.12,
+      "top": 2357,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.",
+      "words": 8,
+      "chars": 48,
+      "lines": 3,
+      "size": 46,
+      "vw": 3.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.53,
+      "top": 3019,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER SEE ANTWORTET IN DATEN.",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 3739,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "words": 6,
+      "chars": 32,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 4507,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER HIMMEL WIRD HÖRBAR.",
+      "words": 4,
+      "chars": 23,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 5216,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "HÖREN",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 210,
+      "vw": 14.6,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.72,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 5627,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WENN DAS NETZ VERSTUMMT.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 5983,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 7083,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "NEUMAYER III",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 7521,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "POLARSTERN",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 7586,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "ISS",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 30,
+      "vw": 2.1,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 7651,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIMMER.",
+      "words": 6,
+      "chars": 44,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 7947,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "UMWELT",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 8360,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "REGION",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.29,
+      "top": 8360,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "WISSEN",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 8473,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "AUSFALLSICHERHEIT",
+      "words": 1,
+      "chars": 17,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.29,
+      "top": 8473,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "EINE STATION, DIE BLEIBT.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.63,
+      "top": 8771,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "NICHT ALLES AUF EINMAL. ABER ALLES MIT EINEM ZIEL.",
+      "words": 9,
+      "chars": 50,
+      "lines": 2,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.02,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.61,
+      "top": 9116,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "LINDAU",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 331.2,
+      "vw": 23,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.07,
+      "leading": 0.7,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.95,
+      "top": 9685,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 27,
+     "maxLines": 4,
+     "over2Lines": 2,
+     "statements": 9,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.88,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.12,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      8,
+      9,
+      10,
+      12,
+      13,
+      15,
+      17,
+      20,
+      26,
+      28,
+      30,
+      34,
+      40,
+      44,
+      46,
+      56,
+      107,
+      150,
+      210,
+      331
+     ],
+     "sizeCount": 20,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Mono",
+      "size": 15,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 77,
+     "max": {
+      "size": 331.2,
+      "vw": 23,
+      "font": "Archivo",
+      "text": "Lindau"
+     },
+     "monoShare": 0.88,
+     "monoProseShare": 0.88,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "Zum Inhalt springen",
+      "/ 10",
+      "Ausblick",
+      "P-Seminar Physik / Bodensee-Gymnasium",
+      "Planung aktiv",
+      "AGORA / LANDING / 2026—27"
+     ],
+     "microLabels": 77,
+     "microLabelShare": 0.204,
+     "microSamples": [
+      "Ausblick",
+      "Planung aktiv",
+      "AGORA / LANDING / 2026—27",
+      "P-Seminar Physik · Bodensee-Gymnasium Li",
+      "05 Teilprojekte",
+      "/"
+     ],
+     "upperShare": 0.31,
+     "centerShare": 0,
+     "smallText": 61
+    },
+    "eyebrows": [
+     {
+      "text": "Standort",
+      "above": "47.55° N 09.68° E",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 564
+     },
+     {
+      "text": "Die Geschichte / 01—10",
+      "above": "Die Geschichte beginnt nicht mit einem B",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 1054
+     },
+     {
+      "text": "Die Idee",
+      "above": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 1468
+     },
+     {
+      "text": "Das Team",
+      "above": "16",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 2308
+     },
+     {
+      "text": "Persönlich / 03",
+      "above": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 2989
+     },
+     {
+      "text": "Teilprojekt 01 / Sensoren",
+      "above": "DER SEE ANTWORTET IN DATEN.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 3700
+     },
+     {
+      "text": "Teilprojekt 02 / Gateway",
+      "above": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 4468
+     },
+     {
+      "text": "Teilprojekt 03 / WebSDR",
+      "above": "DER HIMMEL WIRD HÖRBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 5177
+     },
+     {
+      "text": "Zugang / Browser",
+      "above": "HÖREN",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 5578
+     },
+     {
+      "text": "Teilprojekt 04 / MeshCore",
+      "above": "WENN DAS NETZ VERSTUMMT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 5944
+     },
+     {
+      "text": "Teilprojekt 05 / Weltraum",
+      "above": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 7044
+     },
+     {
+      "text": "Arktis & Antarktis",
+      "above": "ISS",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 7602
+     },
+     {
+      "text": "Nutzen",
+      "above": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIM",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 7908
+     },
+     {
+      "text": "Ausblick",
+      "above": "EINE STATION, DIE BLEIBT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 8732
+     }
+    ],
+    "numbered": [
+     {
+      "text": "05",
+      "size": 13,
+      "top": 752
+     },
+     {
+      "text": "01",
+      "size": 10,
+      "top": 1469
+     },
+     {
+      "text": "02",
+      "size": 10,
+      "top": 2309
+     },
+     {
+      "text": "03",
+      "size": 10,
+      "top": 2894
+     },
+     {
+      "text": "04",
+      "size": 10,
+      "top": 3701
+     },
+     {
+      "text": "05",
+      "size": 10,
+      "top": 4469
+     },
+     {
+      "text": "06",
+      "size": 10,
+      "top": 5178
+     },
+     {
+      "text": "07",
+      "size": 10,
+      "top": 5945
+     },
+     {
+      "text": "08",
+      "size": 10,
+      "top": 7045
+     },
+     {
+      "text": "09",
+      "size": 10,
+      "top": 7909
+     }
+    ],
+    "color": {
+     "bodyBg": "#0000ff",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 1,
+      "l": 0.5
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f2f0e7",
+       "top": 2932,
+       "hsl": {
+        "h": 49,
+        "s": 0.3,
+        "l": 0.93
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f0e7",
+       "share": 0.82
+      },
+      {
+       "color": "#f3f0e7",
+       "share": 0.05
+      },
+      {
+       "color": "#0a0a0b",
+       "share": 0.05
+      },
+      {
+       "color": "#303036",
+       "share": 0.02
+      },
+      {
+       "color": "#e9ff00",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#f2f0e7",
+      "hsl": {
+       "h": 49,
+       "s": 0.3,
+       "l": 0.93
+      },
+      "fg": "#0000ff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 4,
+     "radius": 0,
+     "height": 42,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 6,
+     "upper": 6,
+     "heroLabels": [
+      "ZUM INHALT SPRINGEN",
+      "PROJEKTKALENDER",
+      "DIE GESCHICHTE LESEN",
+      "PROJEKTKALENDER"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 33,
+     "hairlineSamples": [
+      "header.masthead.shell 1440px",
+      "aside.hero-plate.is-in 272px",
+      "dl.plate-list 249px",
+      "div 249px",
+      "div 249px"
+     ],
+     "outlinedBoxes": 4,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 4872
+      },
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 8339
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 81,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    0.3,
+    0.28,
+    0.32,
+    0.44,
+    0.16,
+    0.31,
+    0.47,
+    0.29,
+    0.19,
+    0.36
+   ],
+   "motion": {
+    "elements": 86,
+    "css": 1,
+    "transitions": 84,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 9785,
+     "screens": 9.6,
+     "words": 939,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "chars": 43,
+     "lines": 3,
+     "size": 56.8,
+     "vw": 7.4,
+     "font": "Archivo",
+     "weight": 900,
+     "tracking": -0.055,
+     "leading": 0.86,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.91,
+     "top": 190,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "lines": 3,
+     "size": 56.8,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+      "words": 7,
+      "chars": 43,
+      "lines": 3,
+      "size": 56.8,
+      "vw": 7.4,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.055,
+      "leading": 0.86,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 190,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "47.55° N 09.68° E",
+      "words": 4,
+      "chars": 17,
+      "lines": 2,
+      "size": 30,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.96,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 643,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "words": 5,
+      "chars": 33,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 1420,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "16",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 96,
+      "vw": 12.5,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.78,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.17,
+      "top": 2248,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "SECHZEHN MENSCHEN. EIN SIGNAL.",
+      "words": 4,
+      "chars": 30,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 2347,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.",
+      "words": 8,
+      "chars": 48,
+      "lines": 3,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.64,
+      "top": 3023,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER SEE ANTWORTET IN DATEN.",
+      "words": 5,
+      "chars": 27,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 3703,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "words": 6,
+      "chars": 32,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 4515,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER HIMMEL WIRD HÖRBAR.",
+      "words": 4,
+      "chars": 23,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 5241,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "HÖREN",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 122.9,
+      "vw": 16,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.72,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 5623,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WENN DAS NETZ VERSTUMMT.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 5964,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "words": 4,
+      "chars": 26,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 6959,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIMMER.",
+      "words": 6,
+      "chars": 44,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 7816,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EINE STATION, DIE BLEIBT.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 38,
+      "vw": 4.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 8642,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "NICHT ALLES AUF EINMAL. ABER ALLES MIT EINEM ZIEL.",
+      "words": 9,
+      "chars": 50,
+      "lines": 2,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.02,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 8956,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "LINDAU",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 176.6,
+      "vw": 23,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.07,
+      "leading": 0.7,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 9623,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 3,
+     "over2Lines": 2,
+     "statements": 5,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.88,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.12,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      8,
+      9,
+      10,
+      12,
+      13,
+      15,
+      16,
+      22,
+      24,
+      28,
+      30,
+      36,
+      38,
+      57,
+      96,
+      123,
+      177
+     ],
+     "sizeCount": 17,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Mono",
+      "size": 15,
+      "leading": 1.85,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 77,
+     "max": {
+      "size": 176.6,
+      "vw": 23,
+      "font": "Archivo",
+      "text": "Lindau"
+     },
+     "monoShare": 0.88,
+     "monoProseShare": 0.88,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "Zum Inhalt springen",
+      "P-Seminar Physik / Bodensee-Gymnasium",
+      "Planung aktiv",
+      "Projektkalender",
+      "P-Seminar Physik · Bodensee-Gymnasium Li",
+      "Wir bauen am Bodensee eine offene Funkst"
+     ],
+     "microLabels": 75,
+     "microLabelShare": 0.2,
+     "microSamples": [
+      "Planung aktiv",
+      "P-Seminar Physik · Bodensee-Gymnasium Li",
+      "05 Teilprojekte",
+      "/",
+      "16 Schülerinnen und Schüler",
+      "/"
+     ],
+     "upperShare": 0.31,
+     "centerShare": 0,
+     "smallText": 60
+    },
+    "eyebrows": [
+     {
+      "text": "05 Teilprojekte",
+      "above": "47.55° N 09.68° E",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 569
+     },
+     {
+      "text": "Die Idee",
+      "above": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 1378
+     },
+     {
+      "text": "Das Team",
+      "above": "16",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 2196
+     },
+     {
+      "text": "Schülerinnenund Schüler",
+      "above": "SECHZEHN MENSCHEN. EIN SIGNAL.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 2293
+     },
+     {
+      "text": "Persönlich / 03",
+      "above": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 2993
+     },
+     {
+      "text": "Teilprojekt 01 / Sensoren",
+      "above": "DER SEE ANTWORTET IN DATEN.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 3661
+     },
+     {
+      "text": "Teilprojekt 02 / Gateway",
+      "above": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 4473
+     },
+     {
+      "text": "Teilprojekt 03 / WebSDR",
+      "above": "DER HIMMEL WIRD HÖRBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 5199
+     },
+     {
+      "text": "Zugang / Browser",
+      "above": "HÖREN",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 5570
+     },
+     {
+      "text": "Teilprojekt 04 / MeshCore",
+      "above": "WENN DAS NETZ VERSTUMMT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 5922
+     },
+     {
+      "text": "Teilprojekt 05 / Weltraum",
+      "above": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 6917
+     },
+     {
+      "text": "Nutzen",
+      "above": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIM",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 7774
+     },
+     {
+      "text": "Ausblick",
+      "above": "EINE STATION, DIE BLEIBT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 9,
+      "top": 8600
+     }
+    ],
+    "numbered": [
+     {
+      "text": "05",
+      "size": 13,
+      "top": 716
+     },
+     {
+      "text": "01",
+      "size": 10,
+      "top": 1379
+     },
+     {
+      "text": "02",
+      "size": 10,
+      "top": 2197
+     },
+     {
+      "text": "03",
+      "size": 10,
+      "top": 2920
+     },
+     {
+      "text": "04",
+      "size": 10,
+      "top": 3662
+     },
+     {
+      "text": "05",
+      "size": 10,
+      "top": 4474
+     },
+     {
+      "text": "06",
+      "size": 10,
+      "top": 5200
+     },
+     {
+      "text": "07",
+      "size": 10,
+      "top": 5923
+     },
+     {
+      "text": "08",
+      "size": 10,
+      "top": 6918
+     },
+     {
+      "text": "09",
+      "size": 10,
+      "top": 7775
+     }
+    ],
+    "color": {
+     "bodyBg": "#0000ff",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 1,
+      "l": 0.5
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f2f0e7",
+       "top": 2961,
+       "hsl": {
+        "h": 49,
+        "s": 0.3,
+        "l": 0.93
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f0e7",
+       "share": 0.82
+      },
+      {
+       "color": "#0a0a0b",
+       "share": 0.05
+      },
+      {
+       "color": "#f3f0e7",
+       "share": 0.05
+      },
+      {
+       "color": "#303036",
+       "share": 0.02
+      },
+      {
+       "color": "#e9ff00",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#f2f0e7",
+      "hsl": {
+       "h": 49,
+       "s": 0.3,
+       "l": 0.93
+      },
+      "fg": "#0000ff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 4,
+     "radius": 0,
+     "height": 42,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 6,
+     "upper": 6,
+     "heroLabels": [
+      "ZUM INHALT SPRINGEN",
+      "PROJEKTKALENDER",
+      "DIE GESCHICHTE LESEN",
+      "PROJEKTKALENDER"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 30,
+     "hairlineSamples": [
+      "header.masthead.shell 768px",
+      "aside.hero-plate.is-in 696px",
+      "div.hero-foot 696px",
+      "li 596px",
+      "li 596px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 8176
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 81,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.49,
+    0.38,
+    0.33,
+    0.54,
+    0.53,
+    0.34,
+    0.41,
+    0.36,
+    0.46,
+    0.42,
+    0.39,
+    0.37
+   ],
+   "motion": {
+    "elements": 86,
+    "css": 0,
+    "transitions": 85,
+    "scripted": 1,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 10907,
+     "screens": 12.9,
+     "words": 926,
+     "img": 1,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 11,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "chars": 43,
+     "lines": 4,
+     "size": 38,
+     "vw": 9.7,
+     "font": "Archivo",
+     "weight": 900,
+     "tracking": -0.055,
+     "leading": 0.86,
+     "upper": true,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 143,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+     "words": 7,
+     "lines": 4,
+     "size": 38,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.",
+      "words": 7,
+      "chars": 43,
+      "lines": 4,
+      "size": 38,
+      "vw": 9.7,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.055,
+      "leading": 0.86,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 143,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "47.55° N 09.68° E",
+      "words": 4,
+      "chars": 17,
+      "lines": 2,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.96,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 675,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Die Geschichte beginnt nicht mit einem Bauplan. Sie beginnt mit einer Frage: Was passiert um uns herum, das wir nicht sehen können?",
+      "words": 22,
+      "chars": 131,
+      "lines": 5,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Archivo",
+      "weight": 500,
+      "tracking": -0.015,
+      "leading": 1.28,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 1006,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "words": 5,
+      "chars": 33,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 1368,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Wie warm ist der See?",
+      "words": 5,
+      "chars": 21,
+      "lines": 1,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 1941,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Wie sauber ist die Luft?",
+      "words": 5,
+      "chars": 24,
+      "lines": 1,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 1994,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Was bleibt vom Netz, wenn es ausfällt?",
+      "words": 7,
+      "chars": 38,
+      "lines": 2,
+      "size": 23,
+      "vw": 5.9,
+      "font": "Archivo",
+      "weight": 600,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 2046,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "16",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 90,
+      "vw": 23.1,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.78,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.31,
+      "top": 2314,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "SECHZEHN MENSCHEN. EIN SIGNAL.",
+      "words": 4,
+      "chars": 30,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 2408,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.",
+      "words": 8,
+      "chars": 48,
+      "lines": 3,
+      "size": 23.4,
+      "vw": 6,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.69,
+      "top": 3201,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER SEE ANTWORTET IN DATEN.",
+      "words": 5,
+      "chars": 27,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 3955,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "words": 6,
+      "chars": 32,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 4947,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "DER HIMMEL WIRD HÖRBAR.",
+      "words": 4,
+      "chars": 23,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 5949,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "HÖREN",
+      "words": 1,
+      "chars": 5,
+      "lines": 1,
+      "size": 66.3,
+      "vw": 17,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.065,
+      "leading": 0.72,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 6486,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "WENN DAS NETZ VERSTUMMT.",
+      "words": 4,
+      "chars": 24,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 6712,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "words": 4,
+      "chars": 26,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 7621,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "NEUMAYER III",
+      "words": 2,
+      "chars": 12,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.61,
+      "top": 8196,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "POLARSTERN",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 8273,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "ISS",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.62,
+      "top": 8350,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIMMER.",
+      "words": 6,
+      "chars": 44,
+      "lines": 4,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 8632,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "UMWELT",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 9180,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "REGION",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 9265,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "WISSEN",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 9366,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "AUSFALLSICHERHEIT",
+      "words": 1,
+      "chars": 17,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.02,
+      "leading": 1,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 9467,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "EINE STATION, DIE BLEIBT.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 0.98,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 9728,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "NICHT ALLES AUF EINMAL. ABER ALLES MIT EINEM ZIEL.",
+      "words": 9,
+      "chars": 50,
+      "lines": 4,
+      "size": 29,
+      "vw": 7.4,
+      "font": "Archivo",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.02,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 10155,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "LINDAU",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 85.8,
+      "vw": 22,
+      "font": "Archivo",
+      "weight": 900,
+      "tracking": -0.07,
+      "leading": 0.7,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10780,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 27,
+     "maxLines": 5,
+     "over2Lines": 9,
+     "statements": 9,
+     "centered": 0,
+     "medianWords": 4,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "IBM Plex Mono",
+       "share": 0.88,
+       "mono": true
+      },
+      {
+       "family": "Archivo",
+       "share": 0.12,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      15,
+      17,
+      22,
+      23,
+      24,
+      29,
+      32,
+      38,
+      66,
+      86,
+      90
+     ],
+     "sizeCount": 16,
+     "notLoaded": [],
+     "body": {
+      "font": "IBM Plex Mono",
+      "size": 15,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7.5
+     },
+     "measureChars": 41,
+     "max": {
+      "size": 90,
+      "vw": 23.1,
+      "font": "Archivo",
+      "text": "16"
+     },
+     "monoShare": 0.88,
+     "monoProseShare": 0.88,
+     "monoFamilies": [
+      "IBM Plex Mono"
+     ],
+     "monoSamples": [
+      "Zum Inhalt springen",
+      "P-Seminar Physik · Bodensee-Gymnasium Li",
+      "Wir bauen am Bodensee eine offene Funkst",
+      "Die Geschichte lesen",
+      "Projektkalender",
+      "05 Teilprojekte"
+     ],
+     "microLabels": 74,
+     "microLabelShare": 0.2,
+     "microSamples": [
+      "P-Seminar Physik · Bodensee-Gymnasium Li",
+      "05 Teilprojekte",
+      "/",
+      "16 Schülerinnen und Schüler",
+      "/",
+      "01 Standort"
+     ],
+     "upperShare": 0.3,
+     "centerShare": 0,
+     "smallText": 57
+    },
+    "eyebrows": [
+     {
+      "text": "Standort",
+      "above": "47.55° N 09.68° E",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 643
+     },
+     {
+      "text": "Die Geschichte / 01—10",
+      "above": "Die Geschichte beginnt nicht mit einem B",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 973
+     },
+     {
+      "text": "Die Idee",
+      "above": "WAS UNSICHTBAR IST, WIRD MESSBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 1339
+     },
+     {
+      "text": "Das Team",
+      "above": "16",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 2276
+     },
+     {
+      "text": "Schülerinnenund Schüler",
+      "above": "SECHZEHN MENSCHEN. EIN SIGNAL.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 2354
+     },
+     {
+      "text": "Persönlich / 03",
+      "above": "ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 3171
+     },
+     {
+      "text": "Teilprojekt 01 / Sensoren",
+      "above": "DER SEE ANTWORTET IN DATEN.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 3926
+     },
+     {
+      "text": "Teilprojekt 02 / Gateway",
+      "above": "EIN NETZ, DAS DER REGION GEHÖRT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 4918
+     },
+     {
+      "text": "Teilprojekt 03 / WebSDR",
+      "above": "DER HIMMEL WIRD HÖRBAR.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 5920
+     },
+     {
+      "text": "Quelle / weltweit",
+      "above": "HÖREN",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 6439
+     },
+     {
+      "text": "Teilprojekt 04 / MeshCore",
+      "above": "WENN DAS NETZ VERSTUMMT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 6684
+     },
+     {
+      "text": "Teilprojekt 05 / Weltraum",
+      "above": "EIN FUNKSPRUCH VOM SÜDPOL.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 7593
+     },
+     {
+      "text": "Nutzen",
+      "above": "GUTE SIGNALE BLEIBEN NICHT IM KLASSENZIM",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 8603
+     },
+     {
+      "text": "Ausblick",
+      "above": "EINE STATION, DIE BLEIBT.",
+      "upper": true,
+      "tracked": true,
+      "mono": true,
+      "pill": false,
+      "size": 8,
+      "top": 9700
+     }
+    ],
+    "numbered": [
+     {
+      "text": "05",
+      "size": 11,
+      "top": 799
+     },
+     {
+      "text": "01",
+      "size": 9,
+      "top": 1340
+     },
+     {
+      "text": "02",
+      "size": 9,
+      "top": 2277
+     },
+     {
+      "text": "03",
+      "size": 9,
+      "top": 3121
+     },
+     {
+      "text": "04",
+      "size": 9,
+      "top": 3927
+     },
+     {
+      "text": "05",
+      "size": 9,
+      "top": 4919
+     },
+     {
+      "text": "06",
+      "size": 9,
+      "top": 5921
+     },
+     {
+      "text": "07",
+      "size": 9,
+      "top": 6685
+     },
+     {
+      "text": "08",
+      "size": 9,
+      "top": 7593
+     },
+     {
+      "text": "09",
+      "size": 9,
+      "top": 8604
+     }
+    ],
+    "color": {
+     "bodyBg": "#0000ff",
+     "bodyBgHsl": {
+      "h": 240,
+      "s": 1,
+      "l": 0.5
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f2f0e7",
+       "top": 3148,
+       "hsl": {
+        "h": 49,
+        "s": 0.3,
+        "l": 0.93
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#f2f0e7",
+       "share": 0.83
+      },
+      {
+       "color": "#0a0a0b",
+       "share": 0.05
+      },
+      {
+       "color": "#f3f0e7",
+       "share": 0.05
+      },
+      {
+       "color": "#303036",
+       "share": 0.02
+      },
+      {
+       "color": "#e9ff00",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#f2f0e7",
+      "hsl": {
+       "h": 49,
+       "s": 0.3,
+       "l": 0.93
+      },
+      "fg": "#0000ff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 3,
+     "radius": 0,
+     "height": 40,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 5,
+     "upper": 5,
+     "heroLabels": [
+      "ZUM INHALT SPRINGEN",
+      "DIE GESCHICHTE LESEN",
+      "PROJEKTKALENDER"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 30,
+     "hairlineSamples": [
+      "header.masthead.shell 390px",
+      "aside.hero-plate.is-in 350px",
+      "div.hero-foot 350px",
+      "li 304px",
+      "li 304px"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 1,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": false,
+       "top": 9247
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "bg-image",
+      "ratio": 1
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 65,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "ibm plex mono"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "2 headline(s) wrap past two lines at 1440px: \"EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.\" → 4 lines (7 words, 106.6px); \"ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.\" → 3 lines (8 words, 46px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "statement-length",
+   "width": 1440,
+   "message": "1 large-set statement(s) run past 3 lines at 1440px: \"Die Geschichte beginnt nicht mit einem B…\" → 4 lines at 34px",
+   "fix": "A statement set large is about 30 words. Cut it, or set the rest as ordinary body text.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "14 eyebrow/kicker label(s) above headings: \"Standort\" above \"47.55° N 09.68° E\"; \"Die Geschichte / 01—10\" above \"Die Geschichte beginnt nicht mit einem B\"; \"Die Idee\" above \"WAS UNSICHTBAR IST, WIRD MESSBAR.\"; \"Das Team\" above \"16\"; \"Persönlich / 03\" above \"ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "width": 1440,
+   "message": "Monospace type outside code: IBM Plex Mono — e.g. \"Zum Inhalt springen\", \"/ 10\", \"Ausblick\", \"P-Seminar Physik / Bodensee-Gymnasium\"",
+   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"05\", \"01\", \"02\", \"03\", \"04\", \"05\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "77 tiny uppercase letter-spaced labels (e.g. \"Ausblick\", \"Planung aktiv\", \"AGORA / LANDING / 2026—27\", \"P-Seminar Physik · Bodensee-Gymnasium Li\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "33 thin rule(s)/divider line(s): header.masthead.shell 1440px | aside.hero-plate.is-in 272px | dl.plate-list 249px | div 249px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "4 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed."
+  },
+  {
+   "level": "WARN",
+   "id": "card-rows",
+   "width": 1440,
+   "message": "2 rows of identical boxed cards.",
+   "fix": "Vary the composition; not every section is a card grid."
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (section #f2f0e7, button #f2f0e7, text #f2f0e7).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "20 different font sizes (8, 9, 10, 12, 13, 15, 17, 20, 26, 28, 30, 34, 40, 44, 46, 56, 107, 150, 210, 331).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 15px.",
+   "fix": "Body copy 16–20px.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "61 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 1440,
+   "message": "Large text lies under another element at some scroll position: \"EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.\" (screen 1, 100% hidden); \"47.55° N 09.68° E\" (screen 1, 100% hidden); \"09.68° E\" (screen 1, 100% hidden); \"Die Geschichte beginnt nicht mit einem Bauplan. \" (screen 2, 100% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "empty-screens",
+   "width": 1440,
+   "message": "2 of 12 desktop screens are almost empty ground (under 20% of the screen holds text, a picture or a colour field): screens 3, 5.",
+   "fix": "An empty screen is a rest only once per page. Elsewhere it means the section is underbuilt: set its content larger, give it the full information, put it on a colour field, or cut it."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "2 headline(s) wrap past two lines at 768px: \"EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.\" → 3 lines (7 words, 56.8px); \"ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.\" → 3 lines (8 words, 28px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "10 headline(s) wrap past two lines at 390px: \"EINE FUNKSTATION FÜR SEE, STADT UND HIMMEL.\" → 4 lines (7 words, 38px); \"WAS UNSICHTBAR IST, WIRD MESSBAR.\" → 3 lines (5 words, 32px); \"SECHZEHN MENSCHEN. EIN SIGNAL.\" → 3 lines (4 words, 32px); \"ICH WILL WISSEN, WAS DIE ANDERE FREQUENZ VERRÄT.\" → 3 lines (8 words, 23.4px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "F:\\ago\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "F:\\ago\\.taste-skill\\inspect\\desktop-page-01.jpg",
+    "F:\\ago\\.taste-skill\\inspect\\desktop-page-02.jpg",
+    "F:\\ago\\.taste-skill\\inspect\\desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "F:\\ago\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "F:\\ago\\.taste-skill\\inspect\\tablet-page-01.jpg",
+    "F:\\ago\\.taste-skill\\inspect\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "F:\\ago\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "F:\\ago\\.taste-skill\\inspect\\mobile-page-01.jpg",
+    "F:\\ago\\.taste-skill\\inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}
