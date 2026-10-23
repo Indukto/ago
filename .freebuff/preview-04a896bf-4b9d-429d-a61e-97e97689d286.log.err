@@ -1,0 +1,24 @@
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /assets/penpot/home-desktop.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /assets/penpot/home-mobile.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /data-view.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /more.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:30:58] "GET /404.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:28] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:28] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:28] "GET /styles.css HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:28] "GET /assets/penpot/home-desktop.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:28] "GET /assets/penpot/home-mobile.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:31:30] code 404, message File not found
+127.0.0.1 - - [07/Oct/2026 17:31:30] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Oct/2026 17:31:37] "GET /index.html HTTP/1.1" 304 -
+127.0.0.1 - - [07/Oct/2026 17:33:05] "GET /data-view.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:33:05] "GET /assets/penpot/info-desktop.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:33:05] "GET /assets/penpot/info-mobile.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:38:54] code 404, message File not found
+127.0.0.1 - - [07/Oct/2026 17:38:54] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [07/Oct/2026 17:39:29] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:39:43] "GET /more.html HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:39:43] "GET /assets/penpot/more-desktop.svg HTTP/1.1" 200 -
+127.0.0.1 - - [07/Oct/2026 17:39:43] "GET /assets/penpot/more-mobile.svg HTTP/1.1" 200 -
