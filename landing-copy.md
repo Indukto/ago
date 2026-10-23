@@ -39,6 +39,12 @@ ZEHN STATIONEN / EINE LEITUNG — NACH UNTEN
 
 ## Einstieg in die Linie
 
+**Antennenkopf (Bild)**
+Über dem Einstieg steht die Antennenskizze: der Fächer aus `antnea.svg` läuft bewusst links
+aus dem Blatt, der Mast mündet in die gelbe Leitung. Die Zeichnung trägt keine
+Beschriftungen. Sie ist Dekoration (`aria-hidden`) und wiederholt nur, was die Kapitel
+erklären.
+
 **Kicker**
 DIE GESCHICHTE / 01—10
 
@@ -320,6 +326,9 @@ AGORA / LANDING / 2026—27
       weiterhin 2025/26 — die beiden Seiten weichen also voneinander ab.
 - [x] **Seite bleibt separat:** `landing.html` ist ein eigener Entwurf; `index.html`
       (Penpot-Startseite) wurde nicht verändert.
+- [x] **Antenne:** `antnea.svg` bleibt unverändert. Die Seite nutzt die normalisierte Kopie
+      `assets/landing/antenne.svg` (Zuschnitt 618 × 380, Fächer und Mast einheitlich 3 px
+      und voll deckend, Strichfarben über `currentColor`), der Mast mündet in die gelbe Leitung.
 - [ ] Die Formulierung „500-jähriges BOGY-Jubiläum“ aus dem README wird bewusst nicht
       übernommen, weil sie unplausibel klingt. Bitte intern prüfen.
 - [ ] Zahlen (16 Schülerinnen und Schüler, 5 Teilprojekte) gegen den aktuellen Stand

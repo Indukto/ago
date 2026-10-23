@@ -1,5 +1,5 @@
 (() => {
-  const story = document.getElementById("story");
+  const trace = document.querySelector(".trace");
   const fill = document.querySelector(".trace__fill");
   const head = document.querySelector(".trace__head");
   const chapters = Array.from(document.querySelectorAll(".chapter"));
@@ -8,13 +8,13 @@
   const meterIndex = document.getElementById("traceCurrent");
   const meterLabel = document.getElementById("traceLabel");
 
-  if (!story || !fill || !head) return;
+  if (!trace || !fill || !head) return;
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   let ticking = false;
 
   const updateTrace = () => {
-    const rect = story.getBoundingClientRect();
+    const rect = trace.getBoundingClientRect();
     const viewport = window.innerHeight || document.documentElement.clientHeight;
     const focus = viewport * 0.52;
     const progress = clamp((focus - rect.top) / Math.max(rect.height, 1), 0, 1);

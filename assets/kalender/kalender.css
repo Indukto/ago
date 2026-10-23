@@ -107,7 +107,7 @@ a {
 .shell {
   width: min(100%, 1540px);
   margin: 0 auto;
-  padding: 26px 36px 22px;
+  padding: 20px 36px 14px;
 }
 
 .micro {
@@ -138,7 +138,7 @@ a {
   align-items: flex-start;
   justify-content: space-between;
   gap: 32px;
-  padding-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--line-paper);
 }
 
@@ -288,8 +288,8 @@ a {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  min-height: 172px;
-  padding: 26px 0 18px;
+  min-height: 162px;
+  padding: 20px 0 12px;
   overflow: hidden;
   border-bottom: 1px solid var(--line-paper);
 }
@@ -376,7 +376,7 @@ a {
   grid-template-columns: minmax(0, 1fr) 324px;
   gap: 22px;
   align-items: stretch;
-  padding-top: 20px;
+  padding-top: 14px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1237,20 +1237,11 @@ a {
 
 .barcode {
   display: block;
-  width: 54px;
+  flex: none;
+  width: 135px;
   height: 11px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(242, 240, 231, 0.55) 0,
-    rgba(242, 240, 231, 0.55) 1px,
-    transparent 1px,
-    transparent 3px,
-    rgba(242, 240, 231, 0.55) 3px,
-    rgba(242, 240, 231, 0.55) 4px,
-    transparent 4px,
-    transparent 7px
-  );
-  opacity: 0.7;
+  color: rgba(242, 240, 231, 0.6);
+  opacity: 0.8;
 }
 
 /* --------------------------------------------------------------------------

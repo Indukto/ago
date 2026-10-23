@@ -24,6 +24,10 @@
   --trace-gap: clamp(36px, 5vw, 64px);
   --chapter-pad: clamp(64px, 9vh, 108px);
   --page-pad: 36px;
+
+  /* Antennenskizze: Mast sitzt auf der Leitung, Fächer läuft bewusst links aus dem Blatt. */
+  --antenna-scale: 1;
+  --mast-band: calc(380px * var(--antenna-scale));
 }
 
 *,
@@ -578,7 +582,7 @@ ol {
 
 .trace {
   position: absolute;
-  top: 0;
+  top: var(--mast-band);
   bottom: 0;
   left: var(--trace-x);
   z-index: 0;
@@ -617,6 +621,33 @@ ol {
   background: var(--signal);
   transform: translateY(-50%);
   will-change: top;
+}
+
+/* --------------------------------------------------------------------------
+   Antennenkopf — Skizze oben an der Geschichte, Mast läuft in die Leitung
+   -------------------------------------------------------------------------- */
+
+.mast-head {
+  height: var(--mast-band);
+}
+
+.mast-figure {
+  position: absolute;
+  top: 0;
+  left: calc(var(--trace-x) + 0.5px - 282.19px * var(--antenna-scale));
+  z-index: 0;
+  width: calc(618px * var(--antenna-scale));
+}
+
+/* Die Skizze blendet nur ein: Mast und Leitung müssen ab dem ersten Bild sitzen. */
+.js .mast-figure[data-reveal] {
+  transform: translateY(0);
+}
+
+.mast-antenna {
+  width: 100%;
+  height: auto;
+  color: var(--paper);
 }
 
 .story-intro {
@@ -1414,6 +1445,7 @@ ol {
 @media (max-width: 900px) {
   :root {
     --chapter-pad: clamp(72px, 10vh, 110px);
+    --antenna-scale: 0.8;
   }
 
   .doc-code {
@@ -1448,6 +1480,7 @@ ol {
     --trace-x: 14px;
     --trace-gap: 32px;
     --chapter-pad: 72px;
+    --antenna-scale: 0.6;
   }
 
   .masthead {
@@ -1842,6 +1875,7 @@ ol {
   .grain,
   .masthead .btn,
   .live,
+  .mast-head,
   .trace,
   .chapter-node,
   .hero-actions,

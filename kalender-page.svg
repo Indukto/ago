@@ -319,23 +319,8 @@
 <text x="36" y="1048" font-family="IBM Plex Mono, Consolas, monospace" font-size="6.5" font-weight="400" fill="#f2f0e7" letter-spacing="1.0" opacity="0.52">BODENSEE-GYMNASIUM LINDAU</text>
 <text x="204" y="1048" font-family="IBM Plex Mono, Consolas, monospace" font-size="6.5" font-weight="400" fill="#f2f0e7" letter-spacing="1.0" opacity="0.52">P-SEMINAR PHYSIK 2025/26</text>
 <text x="720" y="1048" font-family="IBM Plex Mono, Consolas, monospace" font-size="6.5" font-weight="400" fill="#f2f0e7" text-anchor="middle" letter-spacing="1.0" opacity="0.52">PROJEKT: FUNKSTATION &amp; SMART CITY LINDAU</text>
-<text x="1404" y="1048" font-family="IBM Plex Mono, Consolas, monospace" font-size="6.5" font-weight="400" fill="#f2f0e7" text-anchor="end" letter-spacing="1.0" opacity="0.52">© 2026   REV 1.4   SEITE 03/12</text>
-<rect x="1350" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1353" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1356" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1359" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1362" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1365" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1368" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1371" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1374" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1377" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1380" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1383" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1386" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1389" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1392" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1395" y="1044" width="1" height="7" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1398" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
-<rect x="1401" y="1040" width="1" height="11" fill="#f2f0e7" opacity="0.55"/>
+<text x="1259" y="1048" font-family="IBM Plex Mono, Consolas, monospace" font-size="6.5" font-weight="400" fill="#f2f0e7" text-anchor="end" letter-spacing="1.0" opacity="0.52">© 2026   REV 1.4   SEITE 03/12</text>
+<g transform="translate(1269,1040)" shape-rendering="crispEdges">
+<path fill="#f2f0e7" opacity="0.55" d="M4 0h1v11h-1zM8 0h1v11h-1zM10 0h3v11h-3zM14 0h3v11h-3zM18 0h1v11h-1zM20 0h1v11h-1zM22 0h3v11h-3zM26 0h3v11h-3zM32 0h1v11h-1zM34 0h1v11h-1zM36 0h3v11h-3zM42 0h1v11h-1zM44 0h1v11h-1zM46 0h1v11h-1zM48 0h3v11h-3zM52 0h1v11h-1zM54 0h1v11h-1zM56 0h3v11h-3zM60 0h1v11h-1zM64 0h3v11h-3zM68 0h3v11h-3zM72 0h1v11h-1zM74 0h1v11h-1zM76 0h1v11h-1zM80 0h3v11h-3zM84 0h1v11h-1zM86 0h3v11h-3zM92 0h1v11h-1zM94 0h1v11h-1zM96 0h3v11h-3zM100 0h1v11h-1zM102 0h3v11h-3zM108 0h3v11h-3zM112 0h1v11h-1zM114 0h1v11h-1zM116 0h1v11h-1zM120 0h1v11h-1zM122 0h3v11h-3zM126 0h3v11h-3zM130 0h1v11h-1z"/>
+</g>
 </svg>

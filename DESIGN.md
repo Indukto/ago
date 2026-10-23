@@ -202,9 +202,13 @@ space is expressed by the grid, not by generous margins.
 | ≤ 420 px | Compact masthead and single-column controls |
 | print | A4 landscape, white ground, grid retained, rail/tools/grain/buttons hidden, selection forced to grey |
 
-Shell: `width: min(100%, 1540px)`, padding `26px 36px 22px`. On 1440p-class desktop
+Shell: `width: min(100%, 1540px)`, padding `20px 36px 14px`. On 1440p-class desktop
 viewports the whole shell (and the event dialog) is scaled with `zoom: 1.25` (or `1.33` above 1400 px tall), keeping the
 microtype and grid proportions instead of stretching individual type sizes.
+
+The screen shell trims the artboard's vertical air — 10 px under the masthead, `20px 0 12px` in the
+hero, 14 px above the workspace — so a 1300 px-tall browser viewport clears the footer without a
+scrollbar. The 1080 px print artboard remains the spacing reference.
 
 ---
 
@@ -279,8 +283,8 @@ Three equal columns, 1 px dividers: 28 px Archivo number over 6 px label. Values
 
 ### Footer
 Three groups: school + seminar, project strapline, document marker/barcode. 6.5 px mono at 52 %
-paper, 1 px top rule, 10 px padding. Barcode is a CSS repeating gradient (web-only ornament);
-in print use a real registration mark instead.
+paper, 1 px top rule, 10 px padding. The barcode is a 135 × 11 inline SVG Code 39 encoding
+`FUNK26`; it is a web-only ornament, in print use a real registration mark instead.
 
 ### Dialog
 460 px max, paper surface, 1 px ink border, radius 0, no shadow. Backdrop `rgba(0,0,255,.82)`
