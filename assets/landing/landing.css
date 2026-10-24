@@ -1829,3 +1829,42 @@ ol {
     border: 1px solid #000;
   }
 }
+
+/* Pointer lens: a white difference layer turns the colors under the cursor into their inverse. */
+.cursor-lens {
+  position: fixed;
+  z-index: 150;
+  top: 0;
+  left: 0;
+  width: clamp(40px, 4vw, 60px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-200vw, -200vh, 0);
+  transition: opacity 140ms ease;
+  will-change: transform;
+}
+
+.has-pointer-lens body.page-landing,
+.has-pointer-lens body.page-landing * {
+  cursor: none !important;
+}
+.has-pointer-lens .cursor-lens {
+  opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-lens {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-lens {
+    transition: none;
+  }
+}
+
