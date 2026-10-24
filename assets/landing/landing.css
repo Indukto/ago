@@ -20,6 +20,14 @@
   --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
   --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
 
+  /* Drei Dauern, mehr nicht: schnelle Zustandswechsel, ruhigere Flächen und
+     der Einlauf der Reveals. Vorher liefen sechs verschiedene Zeiten
+     nebeneinander, was die Seite unruhig wirken ließ. */
+  --dur-quick: 180ms;
+  --dur-base: 320ms;
+  --dur-reveal: 560ms;
+  --reveal-rise: 14px;
+
   --trace-gap: clamp(18px, 1.8vw, 30px);
   --chapter-pad: clamp(64px, 9vh, 108px);
   --story-gap: clamp(72px, 11vh, 130px);
@@ -125,7 +133,7 @@ ol {
   letter-spacing: 0.08em;
   text-decoration: none;
   transform: translateY(-180%);
-  transition: transform 180ms var(--ease);
+  transition: transform var(--dur-quick) var(--ease);
 }
 
 .skip-link:focus {
@@ -137,8 +145,10 @@ ol {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.055;
-  mix-blend-mode: soft-light;
+  /* Ohne mix-blend-mode: eine fixe, bildschirmfüllende Ebene mit weichem Licht
+     zwingt den Compositor bei jedem Scroll-Frame zu einem eigenen Durchgang.
+     Die Körnung liegt jetzt als normale Ebene darüber; sichtbar gleich. */
+  opacity: 0.075;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.62'/%3E%3C/svg%3E");
 }
 
@@ -203,9 +213,16 @@ ol {
   text-decoration: none;
   cursor: pointer;
   transition:
-    background 180ms var(--ease),
-    color 180ms var(--ease),
-    border-color 180ms var(--ease);
+    background var(--dur-quick) var(--ease),
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease),
+    transform var(--dur-quick);
+}
+
+/* Der Druckpunkt fehlte: Klicks lösten nur einen Farbwechsel aus. Ein Pixel
+   nach unten ist die ganze Rückmeldung, ohne das Layout anzufassen. */
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn--ghost:hover {
@@ -276,7 +293,7 @@ ol {
   line-height: 1.2;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.7);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .masthead-right {
@@ -310,7 +327,7 @@ ol {
     pointer-events: none;
     opacity: 0;
     transform: translateY(-50%);
-    transition: opacity 320ms var(--ease);
+    transition: opacity var(--dur-base);
   }
 
   .trace-meter.is-on {
@@ -346,7 +363,7 @@ ol {
     font-style: normal;
     font-weight: 400;
     letter-spacing: 0.06em;
-    color: rgba(242, 240, 231, 0.62);
+    color: rgba(242, 240, 231, 0.82);
   }
 
   .trace-meter__label {
@@ -358,7 +375,7 @@ ol {
     letter-spacing: 0.13em;
     text-align: left;
     text-transform: uppercase;
-    color: rgba(242, 240, 231, 0.72);
+    color: rgba(242, 240, 231, 0.86);
   }
 }
 
@@ -439,7 +456,7 @@ ol {
   letter-spacing: 0.14em;
   line-height: 1.6;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .hero-foot {
@@ -456,7 +473,7 @@ ol {
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 /* Verlängert den Antennenmast bis zum Beginn der Leitung. Die Linie hängt an
@@ -594,7 +611,7 @@ ol {
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .chapter {
@@ -607,6 +624,7 @@ ol {
 
 .chapter::before {
   content: "";
+  transition: background-color var(--dur-base) var(--ease);
   position: absolute;
   top: 0;
   /* --trace-x wird an der Blattkante gemessen, .chapter liegt um --page-pad
@@ -631,13 +649,15 @@ ol {
   border: 1px solid var(--paper);
   background: var(--blue);
   transition:
-    background 260ms var(--ease),
-    border-color 260ms var(--ease);
+    background var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
 }
 
 .chapter.is-active .chapter-node {
   border-color: var(--signal);
   background: var(--signal);
+  transform: scale(1.22);
 }
 
 .chapter.is-past .chapter-node {
@@ -726,7 +746,7 @@ ol {
   letter-spacing: 0.13em;
   line-height: 1.6;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 /* --------------------------------------------------------------------------
@@ -802,7 +822,7 @@ ol {
   line-height: 1.5;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.7);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .team-copy {
@@ -915,7 +935,7 @@ ol {
 .spec-val {
   font-size: 10px;
   line-height: 1.5;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 /* --------------------------------------------------------------------------
@@ -1071,7 +1091,7 @@ ol {
   font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 /* --------------------------------------------------------------------------
@@ -1110,7 +1130,7 @@ ol {
   font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.7);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .target-coord {
@@ -1155,7 +1175,7 @@ ol {
   margin-top: 10px;
   font-size: 10px;
   line-height: 1.6;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 /* --------------------------------------------------------------------------
@@ -1186,7 +1206,7 @@ ol {
   font-size: 8px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .vision-actions {
@@ -1201,7 +1221,7 @@ ol {
   font-size: 8px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .contact a {
@@ -1210,7 +1230,7 @@ ol {
   text-decoration-color: var(--signal);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  transition: color 180ms var(--ease);
+  transition: color var(--dur-quick);
 }
 
 .contact a:hover {
@@ -1242,7 +1262,7 @@ ol {
   font-size: 7.5px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .footer-value {
@@ -1270,16 +1290,17 @@ ol {
 
 .footer-bottom {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 28px;
+  gap: 12px 28px;
   padding: 13px 0 20px;
   border-top: 1px solid var(--line-paper);
   font-size: 7.5px;
   line-height: 1.5;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .footer-note {
@@ -1290,16 +1311,37 @@ ol {
   white-space: nowrap;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition:
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease);
+}
+
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
 /* --------------------------------------------------------------------------
    Reveals
    -------------------------------------------------------------------------- */
 
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(var(--reveal-rise));
   transition:
-    opacity 720ms var(--ease),
-    transform 720ms var(--ease);
+    opacity var(--dur-reveal) var(--ease),
+    transform var(--dur-reveal) var(--ease);
   transition-delay: var(--d, 0ms);
 }
 
@@ -1727,12 +1769,14 @@ ol {
     scroll-behavior: auto;
   }
 
+  /* `transition: none` statt einer Dauer von 0,01 ms: Letztere lässt für
+     *jede* Eigenschaft eine Transition entstehen, auch für die Transform-Werte,
+     die das Skript setzt — die Linie hing dadurch an ihrem Startwert. */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important;
+    animation: none !important;
   }
 
   .js [data-reveal] {

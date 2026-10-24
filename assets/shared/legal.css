@@ -1,0 +1,388 @@
+/* ==========================================================================
+   Rechtliches & Fehlerseite — dieselbe Blattsprache wie die Landing,
+   aber ohne Geschichte und ohne lange Leitung.
+   ========================================================================== */
+
+:root {
+  --blue: #0000ff;
+  --paper: #f2f0e7;
+  --signal: #e9ff00;
+  --ink: #0a0a0b;
+  --line-paper: rgba(242, 240, 231, 0.32);
+  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+  --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
+  --dur-quick: 180ms;
+  --page-pad: clamp(20px, 4vw, 36px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--blue);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--blue);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+.shell {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding-inline: var(--page-pad);
+}
+
+/* --------------------------------------------------------------------------
+   Kopf
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 22px 16px;
+  border-bottom: 1px solid var(--line-paper);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: block;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+}
+
+.brand-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+  font-stretch: 108%;
+  line-height: 1;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  display: block;
+  margin-top: 4px;
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 240, 231, 0.86);
+}
+
+/* --------------------------------------------------------------------------
+   Knopf
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--paper);
+  border-radius: 0;
+  background: transparent;
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background var(--dur-quick) var(--ease),
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease),
+    transform 90ms var(--ease);
+}
+
+.btn:hover {
+  background: var(--paper);
+  color: var(--blue);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--solid {
+  background: var(--paper);
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.btn--solid:hover {
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Inhalt
+   -------------------------------------------------------------------------- */
+
+main {
+  flex: 1 0 auto;
+  padding-block: clamp(52px, 8vh, 96px) clamp(46px, 7vh, 84px);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 240, 231, 0.86);
+}
+
+h1 {
+  margin: 16px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6.4vw, 74px);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 48ch;
+  margin: clamp(18px, 3vh, 26px) 0 0;
+  font-size: clamp(14px, 1.15vw, 16px);
+  line-height: 1.75;
+  color: var(--paper);
+}
+
+.meta-line {
+  margin: clamp(18px, 3vh, 26px) 0 0;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(242, 240, 231, 0.86);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(24px, 4vh, 34px);
+}
+
+/* --------------------------------------------------------------------------
+   Fließtext mit Abschnitten
+   -------------------------------------------------------------------------- */
+
+.prose {
+  display: grid;
+  gap: clamp(28px, 4vh, 38px);
+  max-width: 72ch;
+  margin-top: clamp(38px, 6vh, 62px);
+}
+
+.prose section {
+  display: grid;
+  gap: 10px;
+  padding-top: clamp(18px, 2.6vh, 24px);
+  border-top: 1px solid var(--line-paper);
+}
+
+.prose h2 {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.prose p,
+.prose ul,
+.prose address {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 12.5px;
+  line-height: 1.75;
+}
+
+.prose address {
+  font-style: normal;
+}
+
+.prose ul {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 5px;
+}
+
+.prose li {
+  display: grid;
+  grid-template-columns: 20ch minmax(0, 1fr);
+  gap: 14px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(242, 240, 231, 0.16);
+  font-size: 12px;
+}
+
+.prose li span:first-child {
+  color: rgba(242, 240, 231, 0.86);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+  padding-top: 2px;
+}
+
+.prose li span:last-child {
+  min-width: 0;
+}
+
+.text-link {
+  color: var(--paper);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-quick) var(--ease);
+}
+
+.text-link:hover {
+  color: var(--signal);
+}
+
+/* --------------------------------------------------------------------------
+   Fuß
+   -------------------------------------------------------------------------- */
+
+.footer {
+  padding-block: 20px 30px;
+  border-top: 1px solid var(--line-paper);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 26px;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(242, 240, 231, 0.86);
+}
+
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.footer a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition:
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease);
+}
+
+.footer a:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+/* --------------------------------------------------------------------------
+   Fehlerseite
+   -------------------------------------------------------------------------- */
+
+.error-code {
+  margin: clamp(14px, 3vh, 26px) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(88px, 20vw, 210px);
+  font-weight: 900;
+  font-stretch: 112%;
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: var(--signal);
+  font-variant-numeric: tabular-nums;
+}
+
+.error-rule {
+  height: 1px;
+  margin-top: clamp(26px, 4vh, 38px);
+  background: var(--line-paper);
+}
+
+/* --------------------------------------------------------------------------
+   Schmale Geräte
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 620px) {
+  .prose li {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .masthead {
+    align-items: flex-start;
+  }
+
+  /* Auf schmalen Geräten führt die Wortmarke selbst zur Startseite; der
+     zusätzliche Knopf würde die Kopfzeile nur umbrechen. */
+  .masthead > .btn {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 10.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}

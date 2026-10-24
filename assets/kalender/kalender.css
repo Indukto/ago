@@ -21,6 +21,10 @@
   --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
   --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
+
+  /* Drei Dauern für alles: schnelle Zustandswechsel, ruhigere Flächen, Reveals. */
+  --dur-quick: 180ms;
+  --dur-base: 320ms;
 }
 
 *,
@@ -83,7 +87,7 @@ a {
   letter-spacing: 0.08em;
   text-decoration: none;
   transform: translateY(-160%);
-  transition: transform 180ms var(--ease);
+  transition: transform var(--dur-quick);
 }
 
 .skip-link:focus {
@@ -95,8 +99,9 @@ a {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  opacity: 0.055;
-  mix-blend-mode: soft-light;
+  /* Körnung als normale Ebene statt als Blende — ein bildschirmfüllender
+     Blend-Durchgang bei jeder Bewegung war der teuerste Effekt der Seite. */
+  opacity: 0.075;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.62'/%3E%3C/svg%3E");
 }
 
@@ -122,7 +127,7 @@ a {
 }
 
 .micro--light {
-  color: rgba(242, 240, 231, 0.62);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .micro--right {
@@ -179,7 +184,7 @@ a {
   line-height: 1.2;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.58);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .masthead-right {
@@ -192,7 +197,7 @@ a {
   font-size: 8px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.48);
+  color: rgba(242, 240, 231, 0.82);
   white-space: nowrap;
 }
 
@@ -213,9 +218,9 @@ a {
   line-height: 1;
   text-transform: uppercase;
   transition:
-    background 180ms var(--ease),
-    color 180ms var(--ease),
-    border-color 180ms var(--ease);
+    background var(--dur-quick),
+    color var(--dur-quick),
+    border-color var(--dur-quick);
 }
 
 .btn:hover {
@@ -275,7 +280,7 @@ a {
   font-weight: 400;
   letter-spacing: 0.17em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.6);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .hero h1 {
@@ -313,7 +318,7 @@ a {
   font-size: 8.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .hero-sep {
@@ -431,8 +436,8 @@ a {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition:
-    background 160ms var(--ease),
-    color 160ms var(--ease);
+    background var(--dur-quick),
+    color var(--dur-quick);
 }
 
 .icon-btn {
@@ -539,8 +544,8 @@ a {
   color: var(--ink);
   cursor: pointer;
   transition:
-    background 170ms var(--ease),
-    color 170ms var(--ease);
+    background var(--dur-quick),
+    color var(--dur-quick);
 }
 
 .day:hover {
@@ -602,8 +607,8 @@ a {
   border-radius: 0;
   text-align: left;
   transition:
-    filter 160ms var(--ease),
-    transform 160ms var(--ease);
+    filter var(--dur-quick),
+    transform var(--dur-quick);
 }
 
 .event:hover {
@@ -676,7 +681,7 @@ a {
 }
 
 .day.is-weekend .day-code {
-  color: rgba(242, 240, 231, 0.58);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .day.is-weekend .event--funk {
@@ -817,7 +822,7 @@ a {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   opacity: 0.42;
-  transition: opacity 160ms var(--ease);
+  transition: opacity var(--dur-quick);
 }
 
 .legend-btn:hover {
@@ -875,6 +880,9 @@ a {
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  transition:
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease);
 }
 
 .legend-reset:hover {
@@ -939,7 +947,7 @@ a {
   line-height: 1.45;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.78);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .focus-meta {
@@ -949,7 +957,7 @@ a {
   font-size: 7px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .focus-events {
@@ -997,7 +1005,7 @@ a {
   font-size: 7.6px;
   line-height: 1.45;
   letter-spacing: 0.015em;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .focus-empty {
@@ -1007,7 +1015,7 @@ a {
   font-size: 7px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.5);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .rail-block {
@@ -1030,7 +1038,7 @@ a {
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.68);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .rail-head span {
@@ -1063,7 +1071,7 @@ a {
   background: none;
   color: var(--paper);
   text-align: left;
-  transition: color 150ms var(--ease);
+  transition: color var(--dur-quick);
 }
 
 .upcoming button:hover {
@@ -1097,7 +1105,7 @@ a {
   font-size: 6px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 .upcoming .up-dot {
@@ -1128,7 +1136,7 @@ a {
   font-size: 7px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.42);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .rail-stats {
@@ -1168,7 +1176,7 @@ a {
   font-size: 6px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
+  color: rgba(242, 240, 231, 0.86);
 }
 
 /* --------------------------------------------------------------------------
@@ -1186,7 +1194,7 @@ a {
   font-size: 6.5px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.52);
+  color: rgba(242, 240, 231, 0.82);
 }
 
 .footer-group {
@@ -1210,7 +1218,7 @@ a {
   flex: none;
   width: 135px;
   height: 11px;
-  color: rgba(242, 240, 231, 0.6);
+  color: rgba(242, 240, 231, 0.82);
   opacity: 0.8;
 }
 
@@ -1344,6 +1352,10 @@ a {
   color: var(--paper);
   font-size: 16px;
   line-height: 1;
+  transition:
+    background var(--dur-quick) var(--ease),
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease);
 }
 
 .dialog-close:hover {
@@ -1700,9 +1712,8 @@ a {
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
 

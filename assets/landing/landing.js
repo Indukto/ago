@@ -4,6 +4,7 @@
   const head = document.querySelector(".trace__head");
   const chapters = Array.from(document.querySelectorAll(".chapter"));
   const reveals = Array.from(document.querySelectorAll("[data-reveal]"));
+  const antennaPaths = Array.from(document.querySelectorAll(".mast-antenna path"));
   const meter = document.querySelector(".trace-meter");
   const meterIndex = document.getElementById("traceCurrent");
   const meterLabel = document.getElementById("traceLabel");
@@ -11,17 +12,24 @@
   if (!trace || !fill || !head) return;
 
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const prefersReduced = () => reduceQuery.matches;
 
   /* Der Fortschritt folgt dem Scrollen nicht starr, sondern über eine kritisch
      gedämpfte Feder. Weil die Feder die Geschwindigkeit integriert, bleibt die
      Bewegung auch dann stetig, wenn das Mausrad in Rasten springt: keine
-     Sprünge, kein Nachschwingen. Das Ziel wird in jedem Frame neu aus der
-     aktuellen Scrollposition gelesen, damit Linie und Seite nie auseinander
-     laufen. */
+     Sprünge, kein Nachschwingen. */
   const STIFFNESS = 150; // 1/s², ω ≈ 12,2 rad/s
   const DAMPING = 2 * Math.sqrt(STIFFNESS); // kritisch gedämpft
 
+  /* Geometrie wird einmal gemessen statt in jedem Frame. getBoundingClientRect
+     im Animationsframe erzwingt ein Layout, bevor der Browser zeichnen kann —
+     bei einer 8000 px langen Seite der teuerste Teil der Schleife. */
+  let traceTop = 0;
   let traceHeight = 1;
+  let chapterTops = [];
+  let measured = false;
+
   let current = null;
   let velocity = 0;
   let frame = 0;
@@ -29,17 +37,24 @@
   let ticking = false;
   let activeChapter = -2;
 
+  const focusLine = () => (window.innerHeight || document.documentElement.clientHeight) * 0.52;
+
+  const measure = () => {
+    const rect = trace.getBoundingClientRect();
+    traceTop = rect.top + window.scrollY;
+    traceHeight = Math.max(rect.height, 1);
+    chapterTops = chapters.map((chapter) => chapter.getBoundingClientRect().top + window.scrollY);
+    measured = true;
+  };
+
   const paintTrace = (progress) => {
     fill.style.transform = `scaleY(${progress})`;
     head.style.transform = `translateY(${progress * traceHeight}px) translateY(-50%)`;
   };
 
   const targetProgress = () => {
-    const rect = trace.getBoundingClientRect();
-    const viewport = window.innerHeight || document.documentElement.clientHeight;
-    const focus = viewport * 0.52;
-    traceHeight = Math.max(rect.height, 1);
-    return clamp((focus - rect.top) / traceHeight, 0, 1);
+    const topInViewport = traceTop - window.scrollY;
+    return clamp((focusLine() - topInViewport) / traceHeight, 0, 1);
   };
 
   const animateTrace = (time) => {
@@ -70,21 +85,55 @@
     frame = window.requestAnimationFrame(animateTrace);
   };
 
-  const updateTrace = () => {
-    const viewport = window.innerHeight || document.documentElement.clientHeight;
-    const focus = viewport * 0.52;
+  const setTrace = (target) => {
+    current = target;
+    velocity = 0;
+    paintTrace(current);
+  };
 
+  /* Der Wechsel im festen Kapitel-Readout war ein harter Textsprung mitten im
+     Scrollen. Er läuft jetzt einmal kurz ein; bei reduzierter Bewegung steht der
+     neue Wert sofort. */
+  const swapReadout = (index, label) => {
+    const changed = meterIndex.textContent !== index || meterLabel.textContent !== label;
+    meterIndex.textContent = index;
+    meterLabel.textContent = label;
+
+    if (!changed || prefersReduced() || typeof meterIndex.animate !== "function") return;
+    if (!meter.classList.contains("is-on")) return;
+
+    const keyframes = [
+      { opacity: 0, transform: "translateY(4px)" },
+      { opacity: 1, transform: "translateY(0)" },
+    ];
+    const timing = { duration: 260, easing: "cubic-bezier(0.22, 0.68, 0.16, 1)" };
+    meterIndex.animate(keyframes, timing);
+    meterLabel.animate(keyframes, timing);
+  };
+
+  const update = () => {
+    if (!measured) measure();
+
+    const target = targetProgress();
     if (current === null) {
-      current = targetProgress();
-      velocity = 0;
-      paintTrace(current);
+      setTrace(target);
+    } else if (prefersReduced()) {
+      /* Ohne Bewegungswunsch wird nicht gefedert, sondern gesetzt. */
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+        frame = 0;
+        lastTime = 0;
+      }
+      if (Math.abs(target - current) > 0.0001) setTrace(target);
     } else {
       followTrace();
     }
 
+    const focus = focusLine();
+    const scroll = window.scrollY;
     let activeIndex = -1;
-    for (let index = 0; index < chapters.length; index += 1) {
-      if (chapters[index].getBoundingClientRect().top <= focus) activeIndex = index;
+    for (let index = 0; index < chapterTops.length; index += 1) {
+      if (chapterTops[index] - scroll <= focus) activeIndex = index;
     }
 
     /* Nur bei einem Wechsel schreiben: sonst würde jedes Scroll-Frame das DOM
@@ -100,8 +149,7 @@
     if (meter && meterIndex && meterLabel) {
       if (activeIndex >= 0) {
         meter.classList.add("is-on");
-        meterIndex.textContent = chapters[activeIndex].dataset.chapter || "";
-        meterLabel.textContent = chapters[activeIndex].dataset.label || "";
+        swapReadout(chapters[activeIndex].dataset.chapter || "", chapters[activeIndex].dataset.label || "");
       } else {
         meter.classList.remove("is-on");
       }
@@ -112,24 +160,44 @@
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(() => {
-      updateTrace();
+      update();
       ticking = false;
     });
   };
 
+  const remeasure = () => {
+    measured = false;
+    requestUpdate();
+  };
+
   window.addEventListener("scroll", requestUpdate, { passive: true });
-  window.addEventListener("resize", requestUpdate);
-  window.addEventListener("load", requestUpdate);
+  window.addEventListener("resize", remeasure);
+  window.addEventListener("orientationchange", remeasure);
+  window.addEventListener("load", remeasure);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(remeasure).catch(() => {});
+  }
+
+  /* Die Höhe der Leitung hängt am Fließtext, nicht am Fenster: Nachgeladene
+     Schriften oder ein anderes Umbruchverhalten ändern sie ohne Resize-Event.
+     Der Observer meldet genau diese Änderung, danach wird neu gemessen. */
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(remeasure).observe(trace);
+  }
+
+  reduceQuery.addEventListener("change", remeasure);
 
   /* Läuft ein Tab im Hintergrund, pausiert der Browser die Frames. Beim
      Zurückkommen steht die Linie dann sofort richtig, statt nachzulaufen. */
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden || current === null) return;
-    current = targetProgress();
-    velocity = 0;
+    if (frame) window.cancelAnimationFrame(frame);
     frame = 0;
     lastTime = 0;
-    paintTrace(current);
+    measured = false;
+    measure();
+    setTrace(targetProgress());
   });
 
   if ("IntersectionObserver" in window) {
@@ -149,6 +217,45 @@
     reveals.forEach((element) => element.classList.add("is-in"));
   }
 
-  updateTrace();
+  /* Die Antenne zeichnet sich einmal, Linie für Linie. Läuft nur beim ersten
+     Laden, nie bei reduzierter Bewegung; ohne Animation bleibt die Skizze
+     unverändert stehen. */
+  const drawAntenna = () => {
+    if (prefersReduced()) return;
+
+    antennaPaths.forEach((path, index) => {
+      if (typeof path.getTotalLength !== "function" || typeof path.animate !== "function") return;
+
+      let length = 0;
+      try {
+        length = path.getTotalLength();
+      } catch {
+        return;
+      }
+      if (!length) return;
+
+      path.style.strokeDasharray = `${length}`;
+      path.style.strokeDashoffset = `${length}`;
+
+      const animation = path.animate(
+        [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
+        { duration: 820, delay: 420 + index * 55, easing: "cubic-bezier(0.22, 0.68, 0.16, 1)" },
+      );
+
+      const reset = () => {
+        path.style.strokeDasharray = "";
+        path.style.strokeDashoffset = "";
+      };
+      animation.finished.then(reset).catch(reset);
+    });
+  };
+
+  if (document.readyState === "complete") {
+    drawAntenna();
+  } else {
+    window.addEventListener("load", drawAntenna, { once: true });
+  }
+
+  update();
   window.__landingReady = true;
 })();

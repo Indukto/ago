@@ -1,11 +1,18 @@
 .page-signal {
+  width: 100%;
+  height: 100dvh;
   min-height: 100dvh;
+  overflow: hidden;
 }
 
 .signal-page {
-  width: min(100%, 1920px);
-  max-width: 1920px;
-  margin: 0 auto;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
   padding: 0;
 }
 
@@ -22,12 +29,16 @@
 }
 
 .signal-figure {
+  position: absolute;
+  inset: 0;
   margin: 0;
 }
 
 .signal-stage {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   overflow: hidden;
   background: #0000ff;
 }
@@ -38,13 +49,37 @@
   height: 100%;
 }
 
+
+.signal-404 {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: min(500px, 54vw, 58vh);
+  font-weight: 900;
+  letter-spacing: -0.1em;
+  line-height: 0.78;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+}
 .signal-caption {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 12px 18px;
-  color: rgba(242, 240, 231, 0.75);
+  padding: 18px clamp(14px, 2vw, 32px) 16px;
+  background: linear-gradient(0deg, rgba(0, 0, 170, 0.88), rgba(0, 0, 170, 0.52) 72%, transparent);
+  color: rgba(242, 240, 231, 0.9);
   font-size: 8px;
   font-weight: 500;
   letter-spacing: 0.12em;
@@ -54,7 +89,7 @@
 
 .signal-settings {
   flex: 1 1 auto;
-  max-width: 100ch;
+  max-width: none;
 }
 
 .signal-home {
@@ -79,21 +114,35 @@
 }
 
 .signal-status {
-  min-height: 1.5em;
-  margin-top: 14px;
-  color: rgba(242, 240, 231, 0.68);
-  font-size: 10px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 760px) {
   .signal-caption {
     align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
-    font-size: 8px;
+    gap: 8px;
+    padding: 28px 14px 14px;
+    font-size: 7px;
+  }
+
+  .signal-settings {
+    line-height: 1.8;
   }
 
   .signal-controls {
     flex-wrap: wrap;
   }
 }
+
+
+
+

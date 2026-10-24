@@ -9,269 +9,336 @@
   const context = canvas.getContext("2d", { alpha: false });
   if (!context) return;
 
+  const TAU = Math.PI * 2;
   const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
   const settings = {
-    cells: 93,
+    variation: "3827",
+    seed: 3827,
+    cells: 88,
     bands: 6,
+    field: "figure",
     wave: 0.45,
-    tiltDegrees: -24,
-    detail: 1,
-    amount: 1.55,
-    fps: 12,
-    loopFrames: 36,
+    tilt: -0.69,
+    detail: 0.63,
+    size: 0.79,
+    edges: 0.7,
+    flecks: 0.03,
+    smears: 0.26,
+    dots: 0.45,
+    palette: ["#0000ff", "#ffffff"],
+    motion: { enabled: true, mode: "drift", amount: 0.6, fps: 12, frames: 36 },
   };
-  const frameInterval = 1000 / settings.fps;
-  const loopDuration = frameInterval * settings.loopFrames;
-  const angle = (settings.tiltDegrees * Math.PI) / 180;
-  const loopRadians = Math.PI * 2;
+  const interval = 1000 / settings.motion.fps;
+  const marks = settings.palette.length > 1 ? settings.palette.slice(1) : [settings.palette[0]];
   let width = 0;
   let height = 0;
-  let frame = 0;
-  let lastFrame = 0;
-  let lastTick = 0;
-  let elapsed = 0;
-  let phase = 0;
+  let frame = 30;
+  let animationOrigin = 0;
+  let animationRequest = 0;
   let inView = true;
   let playing = !motionPreference.matches;
-  let backgroundCanvas = document.createElement("canvas");
-  let backgroundContext = backgroundCanvas.getContext("2d", { alpha: false });
 
-  const makeNoise = (column, row, offset = 0) => {
-    return (Math.sin((column + 7 + offset) * 127.1 + (row + 3) * 311.7) + 1) * 0.5;
+  const hash = (x, y, seed) => {
+    let value = Math.imul(x | 0, 374761393)
+      + Math.imul(y | 0, 668265263)
+      + Math.imul(seed | 0, 1274126177);
+    value = Math.imul(value ^ (value >>> 13), 1274126177);
+    value ^= value >>> 16;
+    return (value >>> 0) / 4294967296;
   };
 
-  const drawBackground = () => {
-    if (!backgroundContext || !width || !height) return;
+  const noise = (x, y, seed) => {
+    const x0 = Math.floor(x);
+    const y0 = Math.floor(y);
+    const dx = x - x0;
+    const dy = y - y0;
+    const sx = dx * dx * (3 - 2 * dx);
+    const sy = dy * dy * (3 - 2 * dy);
+    const a = hash(x0, y0, seed);
+    const b = hash(x0 + 1, y0, seed);
+    const c = hash(x0, y0 + 1, seed);
+    const d = hash(x0 + 1, y0 + 1, seed);
+    return (a * (1 - sx) + b * sx) * (1 - sy) + (c * (1 - sx) + d * sx) * sy;
+  };
 
-    backgroundCanvas.width = Math.max(1, Math.ceil(width));
-    backgroundCanvas.height = Math.max(1, Math.ceil(height));
-    backgroundContext = backgroundCanvas.getContext("2d", { alpha: false });
-    if (!backgroundContext) return;
+  const random = (seed) => {
+    let value = (seed >>> 0) || 1;
+    return () => {
+      value ^= value << 13;
+      value >>>= 0;
+      value ^= value >>> 17;
+      value >>>= 0;
+      value ^= value << 5;
+      value >>>= 0;
+      return value / 4294967296;
+    };
+  };
 
-    backgroundContext.fillStyle = "#0000ff";
-    backgroundContext.fillRect(0, 0, width, height);
+  const colorToRgb = (color) => {
+    const value = color.replace("#", "");
+    return [0, 2, 4].map((offset) => parseInt(value.slice(offset, offset + 2), 16) || 0);
+  };
 
-    const columns = settings.cells * 3;
-    const rows = Math.round((settings.cells * 9) / 16) * 3;
-    const dotStepX = width / columns;
-    const dotStepY = height / rows;
-    backgroundContext.fillStyle = "#ffffff";
+  const colorToCss = (rgb) => `rgb(${rgb.map((channel) => Math.round(channel)).join(",")})`;
+
+  const makeField = (phase) => {
+    const { motion } = settings;
+    const driftX = motion.enabled && motion.mode === "drift" ? Math.cos(phase) * motion.amount * 0.4 : 0;
+    const driftY = motion.enabled && motion.mode === "drift" ? Math.sin(phase) * motion.amount * 0.4 : 0;
+    const wave = settings.wave;
+    const seedA = settings.seed * 7 + 1;
+    const seedB = settings.seed * 7 + 2;
+    const seedC = settings.seed * 7 + 3;
+    const generator = random((Math.imul(settings.seed, 2246822519) ^ 0x27d4eb2f) >>> 0);
+    const glyphs = ["square", "diamond", "ring", "x"];
+    const bandGlyph = [];
+    const bandInk = [];
+    let previousGlyph = -1;
+    let previousInk = -1;
+
+    for (let band = 0; band < settings.bands; band += 1) {
+      let glyphIndex = (generator() * glyphs.length) | 0;
+      if (glyphIndex === previousGlyph) glyphIndex = (glyphIndex + 1) % glyphs.length;
+      let inkIndex = (generator() * marks.length) | 0;
+      if (inkIndex === previousInk) inkIndex = (inkIndex + 1) % marks.length;
+      bandGlyph.push(glyphs[glyphIndex]);
+      bandInk.push(marks[inkIndex]);
+      previousGlyph = glyphIndex;
+      previousInk = inkIndex;
+    }
+
+    const spine = 0.5 + (generator() - 0.5) * 0.2;
+    const secondY = 0.55 + generator() * 0.3;
+    const secondX = 0.3 + generator() * 0.4;
+    const detailScale = 1 + settings.detail * 3;
+
+    const scalar = (u, v) => {
+      if (settings.field === "figure") {
+        const widthAtV = 0.16 + 0.5 * wave * (
+          0.3
+          + noise(v * detailScale * 1.6 + driftX + 3, 0.5 + driftY, seedA)
+          + 0.35 * noise(v * detailScale * 4 + driftY + 9, 1.5 + driftX, seedA)
+        );
+        const centerAtV = spine + settings.tilt * (v - 0.5);
+        const mainFigure = Math.abs(u - centerAtV) / widthAtV;
+        const secondWidth = 0.12 + 0.36 * wave * (
+          0.4 + noise(v * detailScale * 1.9 + driftX + 13, 2.5 + driftY, seedA)
+        );
+        const secondFigure = Math.sqrt(
+          ((u - secondX) / secondWidth) ** 2
+          + ((v - secondY) / (secondWidth * 1.6)) ** 2,
+        ) * 0.9;
+        return Math.min(1, mainFigure, secondFigure);
+      }
+
+      if (settings.field === "relief") {
+        const value = 0.65 * noise(u * detailScale * 1.3 + driftX + 5, (v + settings.tilt * u) * detailScale * 1.3 + driftY + 2, seedB)
+          + 0.35 * noise(u * detailScale * 3.1 + driftY + 8, (v + settings.tilt * u) * detailScale * 3.1 + driftX + 4, seedB);
+        return Math.min(1, Math.max(0, ((value - 0.2) / 0.6) * (0.6 + wave * 0.6)));
+      }
+
+      const slope = v + settings.tilt * (u - 0.5)
+        + wave * 0.35 * (noise(u * detailScale * 1.5 + driftX + 7, 0.5 + driftY, seedC) - 0.5) * 2
+        + wave * 0.08 * (noise(u * detailScale * 6 + driftY + 3, 1.5 + driftX, seedC) - 0.5) * 2;
+      return Math.min(1, Math.max(0, slope));
+    };
+
+    return { scalar, bandGlyph, bandInk };
+  };
+
+  const paint = (phase) => {
+    if (!width || !height) return;
+
+    const seed = settings.seed;
+    const ground = settings.palette[0];
+    const groundRgb = colorToRgb(ground);
+    const dotColor = colorToCss(groundRgb.map((channel) => channel + (255 - channel) * 0.22));
+    const { scalar, bandGlyph, bandInk } = makeField(phase);
+    const columns = Math.max(8, settings.cells | 0);
+    const cellSize = width / columns;
+    const rows = Math.ceil(height / cellSize);
+    const glyphSize = cellSize * settings.size;
+    const bands = new Int8Array(columns * rows);
 
     for (let row = 0; row < rows; row += 1) {
       for (let column = 0; column < columns; column += 1) {
-        const grain = makeNoise(column, row, 19);
-        if (grain < 0.38) continue;
-
-        backgroundContext.globalAlpha = 0.05 + grain * 0.1;
-        backgroundContext.fillRect(column * dotStepX, row * dotStepY, 1, 1);
+        let band = Math.floor(scalar((column + 0.5) / columns, (row + 0.5) / rows) * settings.bands);
+        if (band >= settings.bands) band = settings.bands - 1;
+        bands[row * columns + column] = band;
       }
     }
 
-    backgroundContext.globalAlpha = 1;
-  };
-
-  const drawMark = (column, row, type, noise, fieldStrength) => {
-    const cellWidth = width / settings.cells;
-    const cellHeight = height / Math.round((settings.cells * 9) / 16);
-    const originX = column * cellWidth;
-    const originY = row * cellHeight;
-    const inset = cellWidth * 0.12;
-    const left = originX + inset;
-    const top = originY + cellHeight * 0.12;
-    const markWidth = cellWidth - inset * 2;
-    const markHeight = cellHeight * 0.76;
-    const weight = cellWidth * (0.085 + Math.min(fieldStrength, 1) * 0.025);
-
-    context.fillStyle = "#ffffff";
-    context.strokeStyle = "#ffffff";
-    context.lineWidth = weight;
-    context.lineCap = "square";
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.globalCompositeOperation = "source-over";
+    context.globalAlpha = 1;
+    context.fillStyle = ground;
+    context.fillRect(0, 0, width, height);
+    context.lineCap = "butt";
     context.lineJoin = "miter";
 
-    if (type === "diamond") {
-      const centerX = originX + cellWidth * 0.5;
-      const centerY = originY + cellHeight * 0.5;
-      const radiusX = markWidth * (0.38 + noise * 0.08);
-      const radiusY = markHeight * (0.4 + noise * 0.06);
-      context.beginPath();
-      context.moveTo(centerX, centerY - radiusY);
-      context.lineTo(centerX + radiusX, centerY);
-      context.lineTo(centerX, centerY + radiusY);
-      context.lineTo(centerX - radiusX, centerY);
-      context.closePath();
-      context.fill();
-      return;
+    const smearStart = new Int16Array(rows);
+    const smearLength = new Int16Array(rows);
+    smearStart.fill(-1);
+    for (let row = 0; row < rows; row += 1) {
+      if (hash(row, 1, seed) < settings.smears) {
+        smearStart[row] = Math.floor(hash(row, 2, seed) * columns);
+        smearLength[row] = 3 + Math.floor(hash(row, 3, seed) * Math.min(14, columns * 0.2));
+      }
     }
-
-    if (type === "cross") {
-      context.beginPath();
-      context.moveTo(left, top);
-      context.lineTo(left + markWidth, top + markHeight);
-      context.moveTo(left + markWidth, top);
-      context.lineTo(left, top + markHeight);
-      context.stroke();
-      return;
-    }
-
-    if (type === "solid") {
-      const size = cellWidth * (0.48 + noise * 0.15);
-      context.fillRect(originX + (cellWidth - size) * 0.5, originY + (cellHeight - size) * 0.5, size, size);
-      return;
-    }
-
-    context.strokeRect(left, top, markWidth, markHeight);
-  };
-
-  const draw = (time) => {
-    if (!width || !height) return;
-
-    if (backgroundCanvas.width !== Math.ceil(width) || backgroundCanvas.height !== Math.ceil(height)) {
-      drawBackground();
-    }
-    context.drawImage(backgroundCanvas, 0, 0, width, height);
-
-    const rows = Math.round((settings.cells * 9) / 16);
-    const cellWidth = width / settings.cells;
-    const cellHeight = height / rows;
-    const cosine = Math.cos(angle);
-    const sine = Math.sin(angle);
-    const phase = time;
-    const bandSpacing = 0.158;
-    const halfWidth = 0.059;
 
     for (let row = 0; row < rows; row += 1) {
-      const y = ((row + 0.5) / rows - 0.5) * 0.9;
+      const y = (row + 0.5) * cellSize;
+      for (let column = 0; column < columns; column += 1) {
+        const x = (column + 0.5) * cellSize;
+        const band = bands[row * columns + column];
+        const randomCell = hash(column, row, seed);
 
-      for (let column = 0; column < settings.cells; column += 1) {
-        const x = ((column + 0.5) / settings.cells - 0.5) * (16 / 9);
-        const rotatedX = x * cosine - y * sine;
-        const rotatedY = x * sine + y * cosine;
-        const noise = makeNoise(column, row);
-        let strongest = 0;
-        let strongestBand = 0;
+        if (band === settings.bands - 1) {
+          if (settings.dots > 0 && randomCell > settings.flecks * 0.4) {
+            context.fillStyle = dotColor;
+            context.beginPath();
+            context.arc(x, y, Math.max(0.3, cellSize * 0.09 * settings.dots), 0, TAU);
+            context.fill();
+          } else if (settings.flecks > 0 && randomCell <= settings.flecks * 0.4) {
+            context.fillStyle = marks[(hash(column, row + 7, seed) * marks.length) | 0];
+            context.fillRect(x - glyphSize * 0.3, y - glyphSize * 0.3, glyphSize * 0.6, glyphSize * 0.6);
+          }
+          continue;
+        }
 
-        for (let band = 0; band < settings.bands; band += 1) {
-          const offset = (band - (settings.bands - 1) / 2) * bandSpacing;
-          const broadWave = Math.sin(rotatedX * 4.4 + phase + band * 0.62)
-            * settings.wave * settings.amount * 0.18;
-          const fineWave = Math.sin(rotatedX * 11.2 - phase * 2 + band * 1.31)
-            * 0.029 * settings.detail * settings.amount;
-          const center = offset + broadWave + fineWave;
-          const roughEdge = Math.sin(rotatedX * 19 + rotatedY * 27 + phase * 3 + band * 2)
-            * 0.012 * settings.detail * settings.amount;
-          const widthAtPoint = halfWidth + Math.sin(rotatedX * 3.8 + band + phase) * 0.008;
-          const distance = Math.abs(rotatedY - center + roughEdge);
-          const start = -0.79 + Math.sin(band * 1.7) * 0.055;
-          const end = 0.79 + Math.cos(band * 1.4) * 0.075;
-          const taper = Math.max(0, Math.min(1, (rotatedX - start) / 0.08, (end - rotatedX) / 0.08));
-          const strength = Math.max(0, 1 - distance / widthAtPoint) * taper;
-
-          if (strength > strongest) {
-            strongest = strength;
-            strongestBand = band;
+        let ink = bandInk[band];
+        let kind = bandGlyph[band];
+        if (randomCell < settings.flecks) {
+          ink = marks[(hash(column, row + 7, seed) * marks.length) | 0];
+          kind = "square";
+        } else {
+          const right = column + 1 < columns ? bands[row * columns + column + 1] : band;
+          const left = column > 0 ? bands[row * columns + column - 1] : band;
+          const below = row + 1 < rows ? bands[(row + 1) * columns + column] : band;
+          const above = row > 0 ? bands[(row - 1) * columns + column] : band;
+          const edge = right !== band || left !== band || below !== band || above !== band;
+          if (edge && hash(column, row + 3, seed) < settings.edges) {
+            kind = "x";
+            const currentInk = Math.max(0, marks.indexOf(ink));
+            const offset = 1 + ((hash(column, row + 11, seed) * (marks.length - 1)) | 0);
+            ink = marks[(currentInk + offset) % marks.length];
           }
         }
 
-        if (strongest > 0.08) {
-          const texture = Math.sin(rotatedX * 5.2 + strongestBand * 1.72 + phase)
-            + Math.sin(rotatedX * 10.8 - strongestBand * 1.15 - phase) * 0.56
-            + Math.sin(rotatedY * 13 + rotatedX * 4 + phase * 2) * 0.22;
-          const solidThreshold = 0.985 - strongest * 0.027;
-          const markType = noise > solidThreshold ? "solid" : texture > 0.34 ? "diamond" : texture < -0.35 ? "cross" : "grid";
-          drawMark(column, row, markType, noise, strongest);
-        } else if (noise > 0.989) {
-          drawMark(column, row, "solid", noise, 0.2);
+        if (smearStart[row] >= 0 && column >= smearStart[row] && column < smearStart[row] + smearLength[row]) {
+          context.fillStyle = ink;
+          context.fillRect(x - cellSize * 0.5, y - glyphSize * 0.32, cellSize + 0.5, glyphSize * 0.64);
+          continue;
+        }
+
+        context.fillStyle = ink;
+        if (kind === "square") {
+          context.fillRect(x - glyphSize * 0.5, y - glyphSize * 0.5, glyphSize, glyphSize);
+        } else if (kind === "diamond") {
+          const h = glyphSize * 0.55;
+          context.beginPath();
+          context.moveTo(x, y - h);
+          context.lineTo(x + h * 0.78, y);
+          context.lineTo(x, y + h);
+          context.lineTo(x - h * 0.78, y);
+          context.closePath();
+          context.fill();
+        } else if (kind === "ring") {
+          context.fillRect(x - glyphSize * 0.5, y - glyphSize * 0.5, glyphSize, glyphSize);
+          context.strokeStyle = ground;
+          context.lineWidth = Math.max(0.6, glyphSize * 0.1);
+          context.beginPath();
+          context.arc(x, y, glyphSize * 0.3, 0, TAU);
+          context.stroke();
+          context.fillStyle = ground;
+          context.beginPath();
+          context.arc(x, y, glyphSize * 0.1, 0, TAU);
+          context.fill();
+        } else if (kind === "x") {
+          context.strokeStyle = ink;
+          context.lineWidth = Math.max(0.6, glyphSize * 0.16);
+          const h = glyphSize * 0.36;
+          context.beginPath();
+          context.moveTo(x - h, y - h);
+          context.lineTo(x + h, y + h);
+          context.moveTo(x + h, y - h);
+          context.lineTo(x - h, y + h);
+          context.stroke();
         }
       }
     }
-
-    context.globalAlpha = 1;
   };
+
+  const draw = () => paint((frame / settings.motion.frames) * TAU);
 
   const resize = () => {
     const bounds = canvas.getBoundingClientRect();
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-
-    width = bounds.width;
-    height = bounds.height;
-    canvas.width = Math.max(1, Math.round(width * ratio));
-    canvas.height = Math.max(1, Math.round(height * ratio));
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    drawBackground();
-    draw(phase);
+    const scale = Math.min(window.devicePixelRatio || 1, 2);
+    width = Math.max(1, Math.round(bounds.width * scale));
+    height = Math.max(1, Math.round(bounds.height * scale));
+    canvas.width = width;
+    canvas.height = height;
+    draw();
   };
 
-  const updateControl = () => {
+  const updateControls = () => {
     toggle.textContent = playing ? "Animation pausieren" : "Animation starten";
     toggle.setAttribute("aria-pressed", String(playing));
-
     if (status) {
       status.textContent = playing
-        ? "Die Wellen bewegen sich. Mit P oder der Schaltfläche pausieren."
+        ? `Variation ${settings.variation} · Bild ${String(frame + 1).padStart(2, "0")} / ${settings.motion.frames} · Mit P oder der Schaltfläche pausieren.`
         : motionPreference.matches
           ? "Bewegung ist pausiert. Mit der Schaltfläche oder P bewusst starten."
           : "Animation pausiert. Mit P oder der Schaltfläche fortsetzen.";
     }
   };
 
+  const shouldAnimate = () => playing && inView && !document.hidden;
   const animate = (time) => {
-    frame = 0;
-
-    if (!playing || !inView || document.hidden) return;
-
-    if (!lastTick) lastTick = time;
-    elapsed = (elapsed + Math.min(time - lastTick, frameInterval)) % loopDuration;
-    lastTick = time;
-
-    if (time - lastFrame >= frameInterval) {
-      const loopFrame = Math.floor(elapsed / frameInterval);
-      phase = (loopFrame / settings.loopFrames) * loopRadians;
-      draw(phase);
-      lastFrame = time;
+    if (!shouldAnimate()) {
+      animationRequest = 0;
+      return;
     }
-
-    frame = window.requestAnimationFrame(animate);
+    const nextFrame = Math.floor((time - animationOrigin) / interval) % settings.motion.frames;
+    if (nextFrame !== frame) {
+      frame = nextFrame;
+      draw();
+      updateControls();
+    }
+    animationRequest = window.requestAnimationFrame(animate);
   };
 
   const syncAnimation = () => {
-    if (playing && inView && !document.hidden && !frame) {
-      lastFrame = 0;
-      lastTick = 0;
-      frame = window.requestAnimationFrame(animate);
-    } else if ((!playing || !inView || document.hidden) && frame) {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-      lastTick = 0;
+    if (shouldAnimate() && !animationRequest) {
+      animationOrigin = performance.now() - frame * interval;
+      animationRequest = window.requestAnimationFrame(animate);
+    } else if (!shouldAnimate() && animationRequest) {
+      window.cancelAnimationFrame(animationRequest);
+      animationRequest = 0;
     }
   };
 
   const setPlaying = (next) => {
-    playing = next;
-    if (!playing) {
-      draw(phase);
-    }
-    updateControl();
+    playing = Boolean(next);
+    updateControls();
     syncAnimation();
   };
 
   toggle.addEventListener("click", () => setPlaying(!playing));
 
   if (copyButton) {
-    const variation = "cells-93_bands-6_wave-45_tilt-m24_detail-100_amount-155_fps-12_loop-36";
-
     copyButton.addEventListener("click", async () => {
       let copied = false;
-
       try {
         if (navigator.clipboard) {
-          await navigator.clipboard.writeText(variation);
+          await navigator.clipboard.writeText(settings.variation);
           copied = true;
         }
       } catch {}
 
       if (!copied) {
         const field = document.createElement("textarea");
-        field.value = variation;
+        field.value = settings.variation;
         field.setAttribute("readonly", "");
         field.style.position = "fixed";
         field.style.opacity = "0";
@@ -287,7 +354,7 @@
       }
 
       copyButton.textContent = "Variation kopiert";
-      if (status) status.textContent = `Variation kopiert: ${variation}`;
+      if (status) status.textContent = `Variation kopiert: ${settings.variation}`;
       window.setTimeout(() => {
         copyButton.textContent = "Variation kopieren";
       }, 1800);
@@ -297,7 +364,6 @@
   document.addEventListener("keydown", (event) => {
     if (event.key.toLowerCase() !== "p" || event.altKey || event.ctrlKey || event.metaKey) return;
     if (event.target instanceof HTMLElement && event.target.closest("button, input, textarea, select, [contenteditable='true']")) return;
-
     event.preventDefault();
     setPlaying(!playing);
   });
@@ -305,7 +371,7 @@
   document.addEventListener("visibilitychange", syncAnimation);
   motionPreference.addEventListener("change", () => {
     if (motionPreference.matches) setPlaying(false);
-    else updateControl();
+    else updateControls();
   });
 
   if ("ResizeObserver" in window) {
@@ -322,6 +388,10 @@
   }
 
   resize();
-  updateControl();
+  updateControls();
   syncAnimation();
 })();
+
+
+
+
