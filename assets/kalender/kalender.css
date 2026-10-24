@@ -188,36 +188,6 @@ a {
   gap: 18px;
 }
 
-.live {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 8px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.7);
-  white-space: nowrap;
-}
-
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--signal);
-  animation: blink 3.2s steps(1, end) infinite;
-}
-
-@keyframes blink {
-  0%,
-  91%,
-  100% {
-    opacity: 1;
-  }
-  92%,
-  97% {
-    opacity: 0.25;
-  }
-}
-
 .doc-code {
   font-size: 8px;
   letter-spacing: 0.12em;
@@ -1516,7 +1486,6 @@ a {
     gap: 18px;
   }
 
-  .live,
   .doc-code {
     display: none;
   }

@@ -20,14 +20,26 @@
   --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
   --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
 
-  --trace-x: clamp(22px, 8vw, 118px);
-  --trace-gap: clamp(36px, 5vw, 64px);
+  --trace-gap: clamp(18px, 1.8vw, 30px);
   --chapter-pad: clamp(64px, 9vh, 108px);
+  --story-gap: clamp(72px, 11vh, 130px);
   --page-pad: 36px;
 
-  /* Antennenskizze: Mast sitzt auf der Leitung, Fächer läuft bewusst links aus dem Blatt. */
-  --antenna-scale: 1;
-  --mast-band: calc(380px * var(--antenna-scale));
+  /* Antennenskizze: Sie sitzt im Hero an der Stelle der alten Standortplatte.
+     Rechts vom Mast liegen 335,81 px je Skaleneinheit; daraus folgt der Abstand
+     der Leitung zur rechten Kante. */
+  --antenna-scale: 0.8;
+
+  /* Leitung und Antenne sitzen rechts; --trace-x ist der Abstand zur rechten Blattkante. */
+  --trace-x: calc(12px + 335.81px * var(--antenna-scale));
+
+  /* Breite der Textspalte. Der Überschuss bleibt als breiter Rand links stehen,
+     damit der Text direkt an der Leitung sitzt statt weit davon entfernt. */
+  --measure: 900px;
+
+  /* Hebt die Antennenskizze neben der Überschrift an; die Leitung rückt im
+     selben Maß nach oben, damit der Mast ohne Absatz in sie übergeht. */
+  --mast-lift: 380px;
 }
 
 *,
@@ -270,44 +282,6 @@ ol {
   gap: 18px;
 }
 
-.live {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 8px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.86);
-  white-space: nowrap;
-}
-
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--signal);
-  animation: blink 3.2s steps(1, end) infinite;
-}
-
-@keyframes blink {
-  0%,
-  91%,
-  100% {
-    opacity: 1;
-  }
-  92%,
-  97% {
-    opacity: 0.25;
-  }
-}
-
-.doc-code {
-  font-size: 8px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
-  white-space: nowrap;
-}
-
 /* --------------------------------------------------------------------------
    Fixed chapter readout
    -------------------------------------------------------------------------- */
@@ -320,11 +294,11 @@ ol {
   .trace-meter {
     position: fixed;
     top: 50%;
-    right: 26px;
+    left: 26px;
     z-index: 40;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 5px;
     pointer-events: none;
     opacity: 0;
@@ -370,7 +344,7 @@ ol {
     font-size: 8px;
     line-height: 1.35;
     letter-spacing: 0.13em;
-    text-align: right;
+    text-align: left;
     text-transform: uppercase;
     color: rgba(242, 240, 231, 0.72);
   }
@@ -381,10 +355,12 @@ ol {
    -------------------------------------------------------------------------- */
 
 .hero {
+  --hero-gap: clamp(44px, 6vh, 72px);
+
   display: grid;
   grid-template-columns: minmax(0, 1fr) 272px;
   column-gap: clamp(40px, 5vw, 80px);
-  row-gap: 0;
+  row-gap: var(--hero-gap);
   align-items: end;
   min-height: calc(100svh - 84px);
   padding-top: clamp(64px, 9vh, 120px);
@@ -395,6 +371,20 @@ ol {
   min-width: 0;
 }
 
+/* Die Antenne übernimmt den Platz der früheren Standortplatte. Sie ist breiter als
+   die rechte Spalte und läuft nach links in den freien Raum; der Mast bleibt auf
+   der Flucht der Leitung. */
+.hero-antenna {
+  align-self: end;
+  justify-self: end;
+  width: calc(618px * var(--antenna-scale));
+  margin-bottom: var(--mast-lift);
+  margin-right: calc(
+    var(--trace-x) + 0.5px - 335.81px * var(--antenna-scale) - var(--page-pad)
+  );
+  z-index: 0;
+}
+
 .hero h1 {
   margin-top: 16px;
   padding-top: 0.04em;
@@ -402,7 +392,7 @@ ol {
   font-size: clamp(48px, 7.4vw, 112px);
   font-weight: 900;
   font-stretch: 112%;
-  line-height: 0.86;
+  line-height: 0.96;
   letter-spacing: -0.055em;
   text-transform: uppercase;
   color: var(--paper);
@@ -440,100 +430,14 @@ ol {
   color: rgba(242, 240, 231, 0.62);
 }
 
-.hero-plate {
-  position: relative;
-  align-self: end;
-  padding-left: 22px;
-  border-left: 1px solid var(--line-paper);
-}
-
-.hero-plate::before,
-.hero-plate::after {
-  content: "";
-  position: absolute;
-  left: -1px;
-  width: 7px;
-  height: 1px;
-  background: var(--paper);
-}
-
-.hero-plate::before {
-  top: 0;
-}
-
-.hero-plate::after {
-  top: 24px;
-}
-
-.plate-label {
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
-}
-
-.plate-coord {
-  margin-top: 10px;
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 800;
-  font-stretch: 108%;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-}
-
-.plate-coord span {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(242, 240, 231, 0.72);
-}
-
-.plate-place {
-  margin-top: 14px;
-  font-size: 9px;
-  line-height: 1.55;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.72);
-}
-
-.plate-list {
-  margin-top: 24px;
-  border-top: 1px solid var(--line-paper);
-}
-
-.plate-list > div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--line-paper-soft);
-}
-
-.plate-list dt {
-  font-size: 7.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(242, 240, 231, 0.62);
-}
-
-.plate-list dd {
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
-}
-
 .hero-foot {
+  position: relative;
   grid-column: 1 / -1;
+  grid-row: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-top: clamp(44px, 6vh, 72px);
   padding-top: 12px;
   border-top: 1px solid var(--line-paper);
   font-size: 8px;
@@ -541,6 +445,22 @@ ol {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(242, 240, 231, 0.62);
+}
+
+/* Verlängert den Antennenmast bis zum Beginn der Leitung. Die Linie hängt an
+   der Grid-Zeile der Fußleiste, nicht an deren Box: Wächst die Zeile durch die
+   Mindesthöhe des Heros, bleibt der Anschluss an den Mast trotzdem exakt. */
+.hero::after {
+  content: "";
+  grid-column: 1 / -1;
+  grid-row: 2;
+  align-self: stretch;
+  justify-self: end;
+  width: 3px;
+  margin-top: calc(-1 * var(--hero-gap) - var(--mast-lift));
+  margin-right: calc(var(--trace-x) - var(--page-pad) - 1px);
+  margin-bottom: -34px;
+  background: var(--paper);
 }
 
 .hero-scroll {
@@ -572,19 +492,15 @@ ol {
    Story / trace
    -------------------------------------------------------------------------- */
 
-.story {
-  margin-top: clamp(72px, 11vh, 130px);
-}
-
 .story-shell {
   position: relative;
 }
 
 .trace {
   position: absolute;
-  top: var(--mast-band);
+  top: 0;
   bottom: 0;
-  left: var(--trace-x);
+  right: var(--trace-x);
   z-index: 0;
   width: 1px;
   background: rgba(242, 240, 231, 0.2);
@@ -603,10 +519,10 @@ ol {
 .trace__fill {
   position: absolute;
   top: 0;
-  left: -0.5px;
-  width: 2px;
+  left: -1px;
+  width: 3px;
   height: 100%;
-  background: var(--signal);
+  background: var(--paper);
   transform: scaleY(0);
   transform-origin: top center;
   will-change: transform;
@@ -620,27 +536,15 @@ ol {
   height: 9px;
   background: var(--signal);
   transform: translateY(-50%);
-  will-change: top;
+  will-change: transform;
 }
 
 /* --------------------------------------------------------------------------
-   Antennenkopf — Skizze oben an der Geschichte, Mast läuft in die Leitung
+   Antenne — Skizze im Hero, der Mast läuft in die Leitung
    -------------------------------------------------------------------------- */
 
-.mast-head {
-  height: var(--mast-band);
-}
-
-.mast-figure {
-  position: absolute;
-  top: 0;
-  left: calc(var(--trace-x) + 0.5px - 282.19px * var(--antenna-scale));
-  z-index: 0;
-  width: calc(618px * var(--antenna-scale));
-}
-
 /* Die Skizze blendet nur ein: Mast und Leitung müssen ab dem ersten Bild sitzen. */
-.js .mast-figure[data-reveal] {
+.js .hero-antenna[data-reveal] {
   transform: translateY(0);
 }
 
@@ -651,7 +555,9 @@ ol {
 }
 
 .story-intro {
-  padding: 10px 0 calc(var(--chapter-pad) * 0.9) calc(var(--trace-x) + var(--trace-gap));
+  padding: calc(var(--story-gap) + 10px) calc(var(--trace-x) + var(--trace-gap))
+    calc(var(--chapter-pad) * 0.9)
+    max(0px, calc(100% - var(--trace-x) - var(--trace-gap) - var(--measure)));
 }
 
 .story-statement {
@@ -682,16 +588,17 @@ ol {
 .chapter {
   position: relative;
   z-index: 1;
-  padding: var(--chapter-pad) 0 calc(var(--chapter-pad) * 1.05)
-    calc(var(--trace-x) + var(--trace-gap));
+  padding: var(--chapter-pad) calc(var(--trace-x) + var(--trace-gap))
+    calc(var(--chapter-pad) * 1.05)
+    max(0px, calc(100% - var(--trace-x) - var(--trace-gap) - var(--measure)));
 }
 
 .chapter::before {
   content: "";
   position: absolute;
   top: 0;
-  right: 0;
-  left: var(--trace-x);
+  right: var(--trace-x);
+  left: 0;
   height: 1px;
   background: var(--line-paper-soft);
 }
@@ -703,7 +610,7 @@ ol {
 .chapter-node {
   position: absolute;
   top: calc(var(--chapter-pad) + 2px);
-  left: calc(var(--trace-x) - 4px);
+  right: calc(var(--trace-x) - 4px);
   z-index: 2;
   width: 9px;
   height: 9px;
@@ -735,13 +642,13 @@ ol {
 .chapter-no {
   position: absolute;
   top: 1px;
-  right: 100%;
-  margin-right: calc(var(--trace-gap) + 14px);
+  left: 100%;
+  margin-left: calc(var(--trace-gap) + 14px);
   font-size: 10px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.06em;
-  text-align: right;
+  text-align: left;
   color: var(--signal);
   font-variant-numeric: tabular-nums;
 }
@@ -1389,67 +1296,39 @@ ol {
    Responsive
    -------------------------------------------------------------------------- */
 
+@media (max-width: 1280px) {
+  :root {
+    --antenna-scale: 0.72;
+  }
+}
+
+
+
 @media (max-width: 1180px) {
+  :root {
+    --mast-lift: 0px;
+  }
+
   .hero {
+    --hero-gap: 44px;
+
     grid-template-columns: minmax(0, 1fr);
-    row-gap: 44px;
+    row-gap: var(--hero-gap);
     min-height: 0;
     padding-top: clamp(56px, 8vh, 90px);
   }
 
-  .hero-plate {
-    display: grid;
-    grid-template-columns: auto auto 1fr;
-    column-gap: 28px;
-    align-items: start;
-    padding-left: 0;
-    padding-top: 16px;
-    border-top: 1px solid var(--line-paper);
-    border-left: 0;
-  }
-
-  .hero-plate::before,
-  .hero-plate::after {
-    display: none;
-  }
-
-  .plate-coord,
-  .plate-place {
-    margin-top: 0;
-  }
-
-  .plate-list {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 20px;
-    margin-top: 0;
-    border-top: 0;
-  }
-
-  .plate-list > div {
-    display: block;
-    padding: 0;
-    border-bottom: 0;
-  }
-
-  .plate-list dd {
-    margin-top: 4px;
-  }
-
-  .hero-foot {
-    margin-top: 0;
+  /* Einspaltig liegen Text, Antenne und Fußleiste untereinander. */
+  .hero-foot,
+  .hero::after {
+    grid-row: 3;
   }
 }
 
 @media (max-width: 900px) {
   :root {
     --chapter-pad: clamp(72px, 10vh, 110px);
-    --antenna-scale: 0.8;
-  }
-
-  .doc-code {
-    display: none;
+    --antenna-scale: 0.6;
   }
 
   .chapter--team .chapter-body {
@@ -1477,10 +1356,11 @@ ol {
 @media (max-width: 760px) {
   :root {
     --page-pad: 20px;
-    --trace-x: 14px;
-    --trace-gap: 32px;
+    --trace-x: 60px;
+    --trace-gap: 24px;
     --chapter-pad: 72px;
-    --antenna-scale: 0.6;
+    --story-gap: 56px;
+    --antenna-scale: 0.5;
   }
 
   .masthead {
@@ -1501,10 +1381,6 @@ ol {
     display: none;
   }
 
-  .live {
-    display: none;
-  }
-
   .masthead-right {
     gap: 10px;
   }
@@ -1516,9 +1392,15 @@ ol {
   }
 
   .hero {
-    row-gap: 34px;
+    --hero-gap: 34px;
+
+    row-gap: var(--hero-gap);
     padding-top: 44px;
     padding-bottom: 26px;
+  }
+
+  .hero::after {
+    margin-bottom: -26px;
   }
 
   .hero h1 {
@@ -1541,27 +1423,6 @@ ol {
     font-size: 7.5px;
   }
 
-  .hero-plate {
-    grid-template-columns: auto 1fr;
-    column-gap: 20px;
-    row-gap: 20px;
-  }
-
-  .plate-coord {
-    font-size: 24px;
-    text-align: right;
-  }
-
-  .plate-place {
-    grid-column: 1;
-    font-size: 8px;
-  }
-
-  .plate-list {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .hero-foot {
     font-size: 7px;
   }
@@ -1570,12 +1431,7 @@ ol {
     height: 22px;
   }
 
-  .story {
-    margin-top: 56px;
-  }
-
   .story-intro {
-    padding-top: 6px;
     padding-bottom: 56px;
   }
 
@@ -1596,9 +1452,9 @@ ol {
 
   .chapter-no {
     position: static;
-    right: auto;
+    left: auto;
     width: auto;
-    margin-right: 0;
+    margin-left: 0;
     font-size: 9px;
     text-align: left;
   }
@@ -1787,18 +1643,6 @@ ol {
     display: none;
   }
 
-  .hero-plate {
-    grid-template-columns: 1fr;
-  }
-
-  .plate-coord {
-    text-align: left;
-  }
-
-  .plate-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .hero-foot {
     gap: 14px;
   }
@@ -1823,19 +1667,6 @@ ol {
 
   .hero-actions .btn {
     flex: 1 1 100%;
-  }
-
-  .plate-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 10px;
-  }
-
-  .plate-list dt {
-    font-size: 6.5px;
-  }
-
-  .plate-list dd {
-    font-size: 11px;
   }
 
   .chapter--me .chapter-body {
@@ -1874,8 +1705,8 @@ ol {
 @media print {
   .grain,
   .masthead .btn,
-  .live,
-  .mast-head,
+  .hero-antenna,
+  .hero::after,
   .trace,
   .chapter-node,
   .hero-actions,

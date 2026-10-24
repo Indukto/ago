@@ -25,13 +25,6 @@ für die Region und einen Empfänger, der Signale aus aller Welt hörbar macht.
 **Aktionen**
 Die Geschichte lesen → / Projektkalender
 
-**Standortplatte**
-STANDORT / Bodensee-Gymnasium Lindau
-KOORDINATEN / 47.55° N · 09.68° E
-TEAM / 16
-TEILPROJEKTE / 05
-ZEITRAUM / 2026—27
-
 **Scroll-Hinweis**
 ZEHN STATIONEN / EINE LEITUNG — NACH UNTEN
 
@@ -39,11 +32,20 @@ ZEHN STATIONEN / EINE LEITUNG — NACH UNTEN
 
 ## Einstieg in die Linie
 
-**Antennenkopf (Bild)**
-Über dem Einstieg steht die Antennenskizze: der Fächer aus `antnea.svg` läuft bewusst links
-aus dem Blatt, der Mast mündet in die gelbe Leitung. Die Zeichnung trägt keine
-Beschriftungen. Sie ist Dekoration (`aria-hidden`) und wiederholt nur, was die Kapitel
-erklären.
+**Antenne (Bild)**
+Die Antennenskizze sitzt im ersten Bild rechts an der Stelle der früheren Standortplatte.
+Der Mast mündet in die weiße Leitung, die von dort durch die ganze Geschichte läuft; der
+Fächer endet mit etwas Luft vor der rechten Blattkante. Die Zeichnung ist nicht gespiegelt,
+nur ihr Anker liegt auf der rechten Seite. Sie trägt keine Beschriftungen und ist
+Dekoration (`aria-hidden`); sie wiederholt nur, was die Kapitel erklären.
+
+**Layout**
+Die senkrechte Leitung, ihre Knotenquadrate, die gelben Kapitelnummern und die feste
+Kapitelanzeige sitzen rechts; der Text steht links. Der Abstand der Leitung zur rechten
+Blattkante folgt der Größe der Zeichnung, damit der Fächer nie beschnitten wird. Die
+Textspalte ist 900 px breit und lehnt sich von links an die Leitung (breiter Rand links,
+rund 65 px Luft bis zur Linie). Die Geschichte beginnt direkt unter dem Hero; der frühere
+Antennenband entfällt.
 
 **Kicker**
 DIE GESCHICHTE / 01—10
@@ -328,7 +330,7 @@ AGORA / LANDING / 2026—27
       (Penpot-Startseite) wurde nicht verändert.
 - [x] **Antenne:** `antnea.svg` bleibt unverändert. Die Seite nutzt die normalisierte Kopie
       `assets/landing/antenne.svg` (Zuschnitt 618 × 380, Fächer und Mast einheitlich 3 px
-      und voll deckend, Strichfarben über `currentColor`), der Mast mündet in die gelbe Leitung.
+      und voll deckend, Strichfarben über `currentColor`), der Mast mündet in die weiße Leitung.
 - [ ] Die Formulierung „500-jähriges BOGY-Jubiläum“ aus dem README wird bewusst nicht
       übernommen, weil sie unplausibel klingt. Bitte intern prüfen.
 - [ ] Zahlen (16 Schülerinnen und Schüler, 5 Teilprojekte) gegen den aktuellen Stand
