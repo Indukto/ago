@@ -276,3 +276,200 @@
 127.0.0.1 - - [24/Oct/2026 17:20:22] "GET /health HTTP/1.1" 404 -
 127.0.0.1 - - [24/Oct/2026 17:20:52] code 404, message File not found
 127.0.0.1 - - [24/Oct/2026 17:20:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:21:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:21:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:21:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:21:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:22:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:22:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:22:26] "GET /landing.html HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:26] "GET /assets/landing/landing.css?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:26] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:29] "GET /kalender.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:22:29] "GET /assets/kalender/kalender.css HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:22:29] "GET /assets/kalender/kalender.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:22:30] "GET /landing.html?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:30] "GET /assets/landing/landing.css?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:30] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:22:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:22:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:23:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:23:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:23:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:23:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:24:22] "GET /landing.html?v=6 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:24:22] "GET /assets/landing/landing.css?v=6 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:24:22] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:24:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:24:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:24:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:24:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:25:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:25:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:25:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:25:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:26:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:26:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:26:46] "GET /landing.html?v=7 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:26:46] "GET /assets/landing/landing.css?v=7 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:26:46] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:26:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:26:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:27:18] "GET /landing.html?v=8 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:27:18] "GET /assets/landing/landing.css?v=8 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:27:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:27:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:27:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:27:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:28:17] "GET /landing.html?v=9 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:28:17] "GET /assets/landing/landing.css?v=9 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:28:17] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:28:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:28:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:28:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:28:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:29:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:29:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:29:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:29:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:30:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:30:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:30:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:30:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:31:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:31:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:31:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:31:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:32:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:32:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:32:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:32:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:33:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:33:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:33:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:33:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:34:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:34:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:34:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:34:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:35:15] "GET /landing.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:35:15] "GET /assets/landing/landing.css?v=9 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:35:15] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:35:15] "GET /logoblue.svg HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:35:15] "GET /landing.html HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:35:16] "GET /landing.html HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:35:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:35:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:35:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:35:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:36:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:36:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:36:42] "GET /landing.html?v=10 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:36:42] "GET /assets/landing/landing.css?v=10 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:36:42] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:36:42] "GET /logoblue.svg HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:36:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:36:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:37:04] "GET /landing.html?v=11 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:37:04] "GET /assets/landing/landing.css?v=11 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:37:22] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:37:22] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:37:52] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:37:52] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:38:19] "GET /landing.html?v=12 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:38:19] "GET /assets/landing/landing.css?v=12 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:38:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:38:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:38:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:38:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:39:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:39:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:39:37] "GET /landing.html?v=12 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:39:37] "GET /assets/landing/landing.css?v=12 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:39:37] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:39:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:39:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:40:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:40:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:40:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:40:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:41:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:41:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:41:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:41:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:42:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:42:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:42:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:42:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:43:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:43:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:43:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:43:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:44:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:44:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:44:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:44:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:45:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:45:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:45:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:45:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:46:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:46:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:46:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:46:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:47:16] "GET /logoblue.svg HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:47:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:47:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:47:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:47:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:48:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:48:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:48:42] "GET /landing.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:48:42] "GET /assets/landing/landing.css?v=12 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:48:42] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:48:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:48:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:49:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:49:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:49:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:49:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET /agora.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET /landing.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET /kalender.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:00] "GET /404.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:01] "GET /data-view.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:01] "GET /more.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:09] "GET /landing.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:50:09] "GET /assets/landing/landing.css?v=12 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:50:09] "GET /assets/landing/landing.js?v=5 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 17:50:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:50:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:50:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:50:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:51:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:51:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:51:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:51:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:52:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:52:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:52:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:52:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:53:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:53:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:53:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:53:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:54:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:54:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:54:53] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:54:53] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:55:23] code 404, message File not found
+127.0.0.1 - - [24/Oct/2026 17:55:23] "GET /health HTTP/1.1" 404 -
+127.0.0.1 - - [24/Oct/2026 17:55:48] "GET /landing.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:55:48] "GET /assets/landing/landing.css?v=13 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 17:55:48] "GET /assets/landing/landing.js?v=6 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:11:40] "GET /kalender.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:11:41] "GET /assets/kalender/kalender.css HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:11:41] "GET /assets/kalender/kalender.js HTTP/1.1" 200 -

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0000ff" />
+    <meta
+      name="description"
+      content="Ein animiertes 16:9-Signalbild der Funkstation & Smart City Lindau."
+    />
+    <title>Signalbild — Funkstation &amp; Smart City Lindau</title>
+    <link rel="icon" type="image/svg+xml" href="logoblue.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/landing/landing.css?v=12" />
+    <link rel="stylesheet" href="assets/landing/signal.css?v=1" />
+    <script src="assets/landing/signal.js?v=1" defer></script>
+  </head>
+  <body class="page-signal">
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <main id="main" class="signal-page shell">
+      <h1 class="signal-title">Unsichtbare Wellen. Sichtbare Zeichen.</h1>
+
+      <figure class="signal-figure">
+        <div class="signal-stage">
+          <canvas
+            class="signal-canvas"
+            data-signal-canvas
+            role="img"
+            aria-label="Animiertes blau-weißes Raster aus Kreuzen, Gittern und Rauten, das sechs versetzte Wellen bildet."
+          >
+            Animiertes Signalbild im Format 16:9.
+          </canvas>
+        </div>
+        <figcaption class="signal-caption">
+          <a class="signal-home" href="landing.html">Zur Startseite</a>
+          <span class="signal-settings">
+            93 Zellen&nbsp;&nbsp;/&nbsp;&nbsp;6 Bänder&nbsp;&nbsp;/&nbsp;&nbsp;Welle 45 %&nbsp;&nbsp;/&nbsp;&nbsp;Neigung −24°&nbsp;&nbsp;/&nbsp;&nbsp;Detail 100 %&nbsp;&nbsp;/&nbsp;&nbsp;Amount 1,55&nbsp;&nbsp;/&nbsp;&nbsp;12 fps&nbsp;&nbsp;/&nbsp;&nbsp;36 Bilder
+          </span>
+          <div class="signal-controls">
+            <button class="btn btn--ghost signal-copy" type="button" data-copy-variation>Variation kopieren</button>
+            <button class="btn btn--solid signal-toggle" type="button" data-signal-toggle aria-pressed="true">
+              Animation pausieren
+            </button>
+          </div>
+        </figcaption>
+      </figure>
+
+      <p class="signal-status" data-signal-status role="status" aria-live="polite"></p>
+    </main>
+  </body>
+</html>
