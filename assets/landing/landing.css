@@ -51,6 +51,9 @@
 html {
   background: var(--blue);
   scroll-behavior: smooth;
+  /* Die Antennenskizze läuft auf schmalen Geräten bewusst über die rechte Kante
+     hinaus. Ohne das hier lässt sich die Seite seitlich verschieben. */
+  overflow-x: clip;
 }
 
 body {
@@ -290,16 +293,20 @@ ol {
   display: none;
 }
 
-@media (min-width: 1280px) {
+/* Erst ab hier bleibt links neben der Textspalte genug Platz; darunter lag die
+   Anzeige auf dem Fließtext. */
+@media (min-width: 1366px) {
   .trace-meter {
     position: fixed;
     top: 50%;
     left: 26px;
     z-index: 40;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+    /* Die Strichmarke steht links neben der Zahl, nicht darüber. */
+    display: grid;
+    grid-template-columns: 1px auto;
+    align-items: center;
+    column-gap: 11px;
+    row-gap: 4px;
     pointer-events: none;
     opacity: 0;
     transform: translateY(-50%);
@@ -312,13 +319,16 @@ ol {
 
   .trace-meter::before {
     content: "";
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: stretch;
     width: 1px;
-    height: 30px;
-    margin-bottom: 4px;
     background: var(--line-paper);
   }
 
   .trace-meter__count {
+    grid-column: 2;
+    grid-row: 1;
     font-family: var(--font-display);
     font-size: 26px;
     font-weight: 800;
@@ -340,6 +350,8 @@ ol {
   }
 
   .trace-meter__label {
+    grid-column: 2;
+    grid-row: 2;
     max-width: 12ch;
     font-size: 8px;
     line-height: 1.35;
@@ -597,7 +609,9 @@ ol {
   content: "";
   position: absolute;
   top: 0;
-  right: var(--trace-x);
+  /* --trace-x wird an der Blattkante gemessen, .chapter liegt um --page-pad
+     eingerückt darin. Ohne den Abzug endete die Linie 36 px vor der Leitung. */
+  right: calc(var(--trace-x) - var(--page-pad));
   left: 0;
   height: 1px;
   background: var(--line-paper-soft);
@@ -610,7 +624,7 @@ ol {
 .chapter-node {
   position: absolute;
   top: calc(var(--chapter-pad) + 2px);
-  right: calc(var(--trace-x) - 4px);
+  right: calc(var(--trace-x) - var(--page-pad) - 4px);
   z-index: 2;
   width: 9px;
   height: 9px;
@@ -643,7 +657,7 @@ ol {
   position: absolute;
   top: 1px;
   left: 100%;
-  margin-left: calc(var(--trace-gap) + 14px);
+  margin-left: calc(var(--trace-gap) + 10px);
   font-size: 10px;
   font-weight: 500;
   line-height: 1;
@@ -758,7 +772,9 @@ ol {
 
 .chapter--team .chapter-body {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
+  /* Die Ziffern der 16 sind breiter als 170 px, sonst stoßen sie an die
+     Überschrift. Die Spalte folgt deshalb der tatsächlichen Zahlbreite. */
+  grid-template-columns: max-content minmax(0, 1fr);
   gap: 32px;
   align-items: start;
   max-width: 950px;
@@ -781,7 +797,7 @@ ol {
 }
 
 .team-caption {
-  margin-top: 20px;
+  margin-top: 26px;
   font-size: 8px;
   line-height: 1.5;
   letter-spacing: 0.14em;
@@ -1649,6 +1665,34 @@ ol {
 
   .hero-scroll {
     gap: 8px;
+  }
+}
+
+/* Auf sehr schmalen Geräten passen Zielname, Ort und Koordinate nicht mehr
+   nebeneinander: »Polarstern« und »Arktis & Antarktis« stießen zusammen. */
+@media (max-width: 440px) {
+  .target {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 3px;
+  }
+
+  .target-name,
+  .target-place {
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .target-name {
+    grid-row: 1;
+  }
+
+  .target-place {
+    grid-row: 2;
+  }
+
+  .target-coord {
+    grid-row: 3;
+    margin-top: 3px;
   }
 }
 
