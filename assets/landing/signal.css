@@ -1,6 +1,8 @@
 .page-signal {
   width: 100%;
+  height: 100vh;
   height: 100dvh;
+  min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
 }
@@ -11,27 +13,11 @@
   z-index: 0;
   width: 100%;
   max-width: none;
+  height: 100vh;
   height: 100dvh;
   margin: 0;
   padding: 0;
-}
-
-.signal-title {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.signal-figure {
-  position: absolute;
-  inset: 0;
-  margin: 0;
+  isolation: isolate;
 }
 
 .signal-stage {
@@ -48,7 +34,6 @@
   width: 100%;
   height: 100%;
 }
-
 
 .signal-404 {
   position: absolute;
@@ -67,82 +52,3 @@
   pointer-events: none;
   user-select: none;
 }
-.signal-caption {
-  position: absolute;
-  z-index: 2;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 18px clamp(14px, 2vw, 32px) 16px;
-  background: linear-gradient(0deg, rgba(0, 0, 170, 0.88), rgba(0, 0, 170, 0.52) 72%, transparent);
-  color: rgba(242, 240, 231, 0.9);
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-
-.signal-settings {
-  flex: 1 1 auto;
-  max-width: none;
-}
-
-.signal-home {
-  flex: 0 0 auto;
-  color: inherit;
-  text-decoration: none;
-}
-
-.signal-home:hover,
-.signal-home:focus-visible {
-  color: var(--signal);
-}
-
-.signal-controls {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 10px;
-}
-
-.signal-toggle {
-  flex: 0 0 auto;
-}
-
-.signal-status {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-@media (max-width: 760px) {
-  .signal-caption {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-    padding: 28px 14px 14px;
-    font-size: 7px;
-  }
-
-  .signal-settings {
-    line-height: 1.8;
-  }
-
-  .signal-controls {
-    flex-wrap: wrap;
-  }
-}
-
-
-
-

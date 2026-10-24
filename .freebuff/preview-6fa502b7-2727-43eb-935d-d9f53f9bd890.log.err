@@ -534,3 +534,13 @@
 127.0.0.1 - - [24/Oct/2026 18:47:09] "GET /assets/landing/signal.js?v=3 HTTP/1.1" 200 -
 127.0.0.1 - - [24/Oct/2026 18:47:41] "GET /kalender.html HTTP/1.1" 200 -
 127.0.0.1 - - [24/Oct/2026 18:47:41] "GET /assets/kalender/kalender.css?v=2 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /impressum.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/fonts/fonts.css?v=1 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/shared/legal.css?v=1 HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/fonts/plex-mono-400-latin.woff2 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/fonts/archivo-var-latin.woff2 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/fonts/plex-mono-500-latin.woff2 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:25] "GET /assets/fonts/plex-mono-600-latin.woff2 HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:31] "GET /datenschutz.html HTTP/1.1" 200 -
+127.0.0.1 - - [24/Oct/2026 18:49:56] "GET /kalender.html HTTP/1.1" 304 -
+127.0.0.1 - - [24/Oct/2026 18:49:56] "GET /assets/kalender/kalender.css?v=2 HTTP/1.1" 304 -

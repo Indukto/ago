@@ -1,10 +1,7 @@
 (() => {
   const canvas = document.querySelector("[data-signal-canvas]");
-  const toggle = document.querySelector("[data-signal-toggle]");
-  const copyButton = document.querySelector("[data-copy-variation]");
-  const status = document.querySelector("[data-signal-status]");
 
-  if (!canvas || !toggle) return;
+  if (!canvas) return;
 
   const context = canvas.getContext("2d", { alpha: false });
   if (!context) return;
@@ -12,7 +9,6 @@
   const TAU = Math.PI * 2;
   const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
   const settings = {
-    variation: "3827",
     seed: 3827,
     cells: 88,
     bands: 6,
@@ -281,18 +277,6 @@
     draw();
   };
 
-  const updateControls = () => {
-    toggle.textContent = playing ? "Animation pausieren" : "Animation starten";
-    toggle.setAttribute("aria-pressed", String(playing));
-    if (status) {
-      status.textContent = playing
-        ? `Variation ${settings.variation} · Bild ${String(frame + 1).padStart(2, "0")} / ${settings.motion.frames} · Mit P oder der Schaltfläche pausieren.`
-        : motionPreference.matches
-          ? "Bewegung ist pausiert. Mit der Schaltfläche oder P bewusst starten."
-          : "Animation pausiert. Mit P oder der Schaltfläche fortsetzen.";
-    }
-  };
-
   const shouldAnimate = () => playing && inView && !document.hidden;
   const animate = (time) => {
     if (!shouldAnimate()) {
@@ -303,7 +287,6 @@
     if (nextFrame !== frame) {
       frame = nextFrame;
       draw();
-      updateControls();
     }
     animationRequest = window.requestAnimationFrame(animate);
   };
@@ -318,61 +301,8 @@
     }
   };
 
-  const setPlaying = (next) => {
-    playing = Boolean(next);
-    updateControls();
-    syncAnimation();
-  };
-
-  toggle.addEventListener("click", () => setPlaying(!playing));
-
-  if (copyButton) {
-    copyButton.addEventListener("click", async () => {
-      let copied = false;
-      try {
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(settings.variation);
-          copied = true;
-        }
-      } catch {}
-
-      if (!copied) {
-        const field = document.createElement("textarea");
-        field.value = settings.variation;
-        field.setAttribute("readonly", "");
-        field.style.position = "fixed";
-        field.style.opacity = "0";
-        document.body.append(field);
-        field.select();
-        copied = document.execCommand("copy");
-        field.remove();
-      }
-
-      if (!copied) {
-        if (status) status.textContent = "Variation konnte nicht kopiert werden.";
-        return;
-      }
-
-      copyButton.textContent = "Variation kopiert";
-      if (status) status.textContent = `Variation kopiert: ${settings.variation}`;
-      window.setTimeout(() => {
-        copyButton.textContent = "Variation kopieren";
-      }, 1800);
-    });
-  }
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key.toLowerCase() !== "p" || event.altKey || event.ctrlKey || event.metaKey) return;
-    if (event.target instanceof HTMLElement && event.target.closest("button, input, textarea, select, [contenteditable='true']")) return;
-    event.preventDefault();
-    setPlaying(!playing);
-  });
-
   document.addEventListener("visibilitychange", syncAnimation);
-  motionPreference.addEventListener("change", () => {
-    if (motionPreference.matches) setPlaying(false);
-    else updateControls();
-  });
+  motionPreference.addEventListener("change", () => { if (motionPreference.matches) { playing = false; syncAnimation(); } });
 
   if ("ResizeObserver" in window) {
     new ResizeObserver(resize).observe(canvas);
@@ -388,9 +318,10 @@
   }
 
   resize();
-  updateControls();
   syncAnimation();
 })();
+
+
 
 
 
