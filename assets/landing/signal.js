@@ -7,7 +7,6 @@
   if (!context) return;
 
   const TAU = Math.PI * 2;
-  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
   const settings = {
     seed: 3827,
     cells: 88,
@@ -32,7 +31,7 @@
   let animationOrigin = 0;
   let animationRequest = 0;
   let inView = true;
-  let playing = !motionPreference.matches;
+  let playing = true;
 
   const hash = (x, y, seed) => {
     let value = Math.imul(x | 0, 374761393)
@@ -302,7 +301,6 @@
   };
 
   document.addEventListener("visibilitychange", syncAnimation);
-  motionPreference.addEventListener("change", () => { if (motionPreference.matches) { playing = false; syncAnimation(); } });
 
   if ("ResizeObserver" in window) {
     new ResizeObserver(resize).observe(canvas);
@@ -320,6 +318,8 @@
   resize();
   syncAnimation();
 })();
+
+
 
 
 

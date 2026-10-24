@@ -46,9 +46,10 @@
   font-family: var(--font-display);
   font-size: min(500px, 54vw, 58vh);
   font-weight: 900;
-  letter-spacing: -0.1em;
+  letter-spacing: -0.02em;
   line-height: 0.78;
   mix-blend-mode: difference;
   pointer-events: none;
   user-select: none;
 }
+
