@@ -2,6 +2,32 @@
 
 Ein Projekt des P-Seminars Physik 2026/27 am Bodensee-Gymnasium Lindau.
 
+**Live:** [indukto.github.io/ago](https://indukto.github.io/ago/) · **Kalender:** [indukto.github.io/ago/kalender.html](https://indukto.github.io/ago/kalender.html)
+
+## Screenshots
+
+**Startseite**
+
+![Startseite der Funkstation & Smart City Lindau](docs/screenshots/landing-hero.png)
+
+**Die Geschichte — Sensoren**
+
+![Kapitel Sensoren: Der See antwortet in Daten](docs/screenshots/landing-story.png)
+
+**Die Geschichte — Weltraum**
+
+![Kapitel Weltraum: Ein Funkspruch vom Südpol](docs/screenshots/landing-weltraum.png)
+
+**Projektkalender**
+
+![Projektkalender Oktober 2026](docs/screenshots/kalender.png)
+
+**Mobil**
+
+| Startseite | Projektkalender |
+| --- | --- |
+| ![Startseite mobil](docs/screenshots/landing-mobile.png) | ![Projektkalender mobil](docs/screenshots/kalender-mobile.png) |
+
 ## Überblick
 
 Wir planen und bauen als Schülerteam eine Funkstation am Bodensee-Gymnasium Lindau. Sie soll eine vielseitig nutzbare technische Infrastruktur schaffen, mit der wir Funktechnik praktisch erforschen und gemeinnützige Anwendungen für Lindau und die Region ermöglichen. Im Mittelpunkt stehen Umweltmessungen, offene Funkinfrastruktur, ausfallsichere Kommunikation und der Empfang von Funksignalen aus aller Welt und aus dem Weltraum.
@@ -81,22 +107,63 @@ Das Projekt wird im Schuljahr **2026/27** vom P-Seminar Physik der 11. Jahrgangs
 
 Die benötigte Ausrüstung umfasst unter anderem Funkgeräte, Antennen und Zubehör, ein LoRaWAN-Gateway sowie Komponenten für Experimente mit Satellitenfunk. Für einzelne Ausrüstungsposten nennt der Förderantrag Richtwerte; die tatsächliche Beschaffung hängt von Finanzierung und Projektplanung ab.
 
-## Gemeinsamer Kalender
+## Website
 
-Der Projektkalender kann Termine zentral speichern. Dafür statt `python -m http.server`
-den mitgelieferten Server starten:
+Die Website ist unter **[indukto.github.io/ago](https://indukto.github.io/ago/)** veröffentlicht.
+Sie besteht aus statischem HTML, CSS und JavaScript; nur der gemeinsame Kalender
+benötigt den mitgelieferten Python-Server.
+
+### Seiten
+
+| Seite | Zweck |
+| --- | --- |
+| `landing.html` | Startseite mit der Projekteschichte |
+| `kalender.html` | Projektkalender mit Monatsansicht, Filtern und Terminen |
+| `signal.html` | Signal-Animation als gestaltete 404-Seite |
+| `datenschutz.html` | Datenschutzhinweise |
+| `impressum.html` | Impressum |
+
+### Lokal starten
+
+Voraussetzung ist Python 3. Der Server nutzt nur die Standardbibliothek:
 
 ```powershell
 python server.py 8000
 ```
 
-Der Server liefert die statischen Seiten und die API unter `/api/events` aus. Die
-Termine liegen in `data/events.json`; die Datei wird beim ersten Schreiben angelegt
-und ist nicht Teil des Repositories. Für einen Zugriff aus dem lokalen Netz:
+Danach `http://localhost:8000/landing.html` öffnen. Für einen Zugriff aus dem lokalen Netz:
 
 ```powershell
 $env:HOST = "0.0.0.0"; python server.py 8000
 ```
+
+### Projektstruktur
+
+```text
+.
+├── index.html            Weiterleitung auf landing.html
+├── landing.html          Startseite
+├── kalender.html         Projektkalender
+├── signal.html           Signal-Animation (404)
+├── datenschutz.html      Datenschutz
+├── impressum.html        Impressum
+├── assets/
+│   ├── fonts/            lokal gehostete Schriften
+│   ├── landing/          Styles und Skripte der Startseite
+│   ├── kalender/         Styles und Skripte des Kalenders
+│   └── shared/           gemeinsame Design-Tokens
+├── data/                 Kalenderdaten (nicht im Repository)
+├── docs/screenshots/     Screenshots für dieses README
+├── server.py             Statischer Server und Kalender-API
+├── DESIGN.md             Designsystem und Gestaltungsregeln
+└── landing-copy.md       Texte der Startseite
+```
+
+## Gemeinsamer Kalender
+
+Der Kalender speichert Termine zentral über die API unter `/api/events`. Die Termine
+liegen in `data/events.json`; die Datei wird beim ersten Schreiben angelegt und ist
+nicht Teil des Repositories.
 
 Ist die API nicht erreichbar, fällt der Kalender auf `localStorage` zurück. Termine
 bleiben dann nur in diesem Browser. Der Schreibzugriff auf die API ist offen; vor
