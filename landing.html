@@ -26,15 +26,17 @@
     <meta property="og:image:alt" content="Plakat der Funkstation &amp; Smart City Lindau auf blauem Grund" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
-    <link rel="stylesheet" href="assets/landing/landing.css?v=17" />
+    <link rel="stylesheet" href="assets/shared/tokens.css?v=1" />
+    <link rel="stylesheet" href="assets/landing/landing.css?v=24" />
     <script>
       document.documentElement.classList.add("js");
       window.setTimeout(function () {
         if (!window.__landingReady) document.documentElement.classList.remove("js");
       }, 2500);
     </script>
-    <script src="assets/landing/landing.js?v=7" defer></script>
-    <script src="assets/landing/cursor-lens.js?v=2" defer></script>
+    <script src="assets/landing/landing.js?v=9" defer></script>
+    <script src="assets/landing/wheel-scroll.js?v=2" defer></script>
+    <script src="assets/landing/cursor-lens.js?v=6" defer></script>
   </head>
   <body class="page-landing" id="top">
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -42,7 +44,7 @@
     <div class="cursor-lens" aria-hidden="true"></div>
 
     <aside class="trace-meter" aria-hidden="true">
-      <span class="trace-meter__count"><b id="traceCurrent">01</b><i>/ 10</i></span>
+      <span class="trace-meter__count"><b id="traceCurrent">01</b><i>/ 09</i></span>
       <span class="trace-meter__label" id="traceLabel">Die Idee</span>
     </aside>
 
@@ -132,7 +134,7 @@
           </div>
 
           <header class="story-intro">
-            <p class="kicker" data-reveal>Die Geschichte / 01—10</p>
+            <p class="kicker" data-reveal>Die Geschichte / 01-09</p>
             <p class="story-statement" data-reveal style="--d: 80ms">
               Die Geschichte beginnt nicht mit einem Bauplan. Sie beginnt mit einer Frage:
               <span>Was passiert um uns herum, das wir nicht sehen können?</span>
@@ -199,37 +201,10 @@
             </div>
           </section>
 
-          <section class="chapter chapter--me" id="ueber-mich" data-chapter="03" data-label="Über mich" aria-labelledby="me-title">
+          <section class="chapter" id="sensoren" data-chapter="03" data-label="Sensoren" aria-labelledby="sensoren-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
               <span class="chapter-no" aria-hidden="true">03</span>
-              <p class="chapter-kicker">Über mich</p>
-            </div>
-            <div class="chapter-body">
-              <p class="paper-label" data-reveal>Persönlich / 03</p>
-              <h2 id="me-title" data-reveal style="--d: 60ms">
-                Ich will wissen,<br />was die andere<br />Frequenz verrät.
-              </h2>
-              <p class="paper-lead" data-reveal style="--d: 120ms">
-                Ich bin eine der 16 Personen hinter dieser Station. Vor dem Projekt war Funk für mich ein Gerät,
-                das man einschaltet. Jetzt ist es eine Frage: Welche Signale sind um uns herum, wer sendet sie, und
-                was können wir damit sichtbar machen?
-              </p>
-              <p class="paper-text" data-reveal style="--d: 180ms">
-                Ich baue mit, weil ich Physik nicht nur lernen, sondern anfassen will. Am Ende soll etwas dastehen,
-                das mehr kann als eine Note.
-              </p>
-              <p class="signature" data-reveal style="--d: 240ms">
-                <span>P-Seminar Physik / 11. Jahrgang</span>
-                <span class="signature-name">Bodensee-Gymnasium Lindau</span>
-              </p>
-            </div>
-          </section>
-
-          <section class="chapter" id="sensoren" data-chapter="04" data-label="Sensoren" aria-labelledby="sensoren-title">
-            <span class="chapter-node" aria-hidden="true"></span>
-            <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">04</span>
               <p class="chapter-kicker">Teilprojekt 01 / Sensoren</p>
             </div>
             <div class="chapter-body">
@@ -276,10 +251,10 @@
             </div>
           </section>
 
-          <section class="chapter chapter--wide" id="gateway" data-chapter="05" data-label="Gateway" aria-labelledby="gateway-title">
+          <section class="chapter chapter--wide" id="gateway" data-chapter="04" data-label="Gateway" aria-labelledby="gateway-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">05</span>
+              <span class="chapter-no" aria-hidden="true">04</span>
               <p class="chapter-kicker">Teilprojekt 02 / Gateway</p>
             </div>
             <div class="chapter-body">
@@ -319,10 +294,10 @@
             </div>
           </section>
 
-          <section class="chapter" id="websdr" data-chapter="06" data-label="WebSDR" aria-labelledby="websdr-title">
+          <section class="chapter" id="websdr" data-chapter="05" data-label="WebSDR" aria-labelledby="websdr-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">06</span>
+              <span class="chapter-no" aria-hidden="true">05</span>
               <p class="chapter-kicker">Teilprojekt 03 / WebSDR</p>
             </div>
             <div class="chapter-body">
@@ -344,10 +319,10 @@
             </div>
           </section>
 
-          <section class="chapter chapter--wide" id="meshcore" data-chapter="07" data-label="MeshCore" aria-labelledby="mesh-title">
+          <section class="chapter chapter--wide" id="meshcore" data-chapter="06" data-label="MeshCore" aria-labelledby="mesh-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">07</span>
+              <span class="chapter-no" aria-hidden="true">06</span>
               <p class="chapter-kicker">Teilprojekt 04 / MeshCore</p>
             </div>
             <div class="chapter-body">
@@ -413,10 +388,10 @@
             </div>
           </section>
 
-          <section class="chapter" id="weltraum" data-chapter="08" data-label="Weltraum" aria-labelledby="weltraum-title">
+          <section class="chapter" id="weltraum" data-chapter="07" data-label="Weltraum" aria-labelledby="weltraum-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">08</span>
+              <span class="chapter-no" aria-hidden="true">07</span>
               <p class="chapter-kicker">Teilprojekt 05 / Weltraum</p>
             </div>
             <div class="chapter-body">
@@ -456,10 +431,10 @@
             </div>
           </section>
 
-          <section class="chapter" id="nutzen" data-chapter="09" data-label="Nutzen" aria-labelledby="nutzen-title">
+          <section class="chapter" id="nutzen" data-chapter="08" data-label="Nutzen" aria-labelledby="nutzen-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">09</span>
+              <span class="chapter-no" aria-hidden="true">08</span>
               <p class="chapter-kicker">Nutzen</p>
             </div>
             <div class="chapter-body">
@@ -494,10 +469,10 @@
             </div>
           </section>
 
-          <section class="chapter chapter--vision" id="ausblick" data-chapter="10" data-label="Ausblick" aria-labelledby="ausblick-title">
+          <section class="chapter chapter--vision" id="ausblick" data-chapter="09" data-label="Ausblick" aria-labelledby="ausblick-title">
             <span class="chapter-node" aria-hidden="true"></span>
             <div class="chapter-head">
-              <span class="chapter-no" aria-hidden="true">10</span>
+              <span class="chapter-no" aria-hidden="true">09</span>
               <p class="chapter-kicker">Ausblick</p>
             </div>
             <div class="chapter-body">
@@ -566,7 +541,23 @@
             <a href="datenschutz.html">Datenschutz</a>
             <a href="#top">Nach oben</a>
           </nav>
-          <p class="footer-code">Agora / Landing / 2026—27</p>
+          <div class="footer-stamp">
+            <p class="footer-code">Agora / Landing / 2026—27</p>
+            <svg
+              class="barcode"
+              viewBox="0 0 135 11"
+              width="135"
+              height="11"
+              role="img"
+              aria-label="Barcode: FUNK26"
+              shape-rendering="crispEdges"
+            >
+              <path
+                fill="currentColor"
+                d="M4 0h1v11h-1zM8 0h1v11h-1zM10 0h3v11h-3zM14 0h3v11h-3zM18 0h1v11h-1zM20 0h1v11h-1zM22 0h3v11h-3zM26 0h3v11h-3zM32 0h1v11h-1zM34 0h1v11h-1zM36 0h3v11h-3zM42 0h1v11h-1zM44 0h1v11h-1zM46 0h1v11h-1zM48 0h3v11h-3zM52 0h1v11h-1zM54 0h1v11h-1zM56 0h3v11h-3zM60 0h1v11h-1zM64 0h3v11h-3zM68 0h3v11h-3zM72 0h1v11h-1zM74 0h1v11h-1zM76 0h1v11h-1zM80 0h3v11h-3zM84 0h1v11h-1zM86 0h3v11h-3zM92 0h1v11h-1zM94 0h1v11h-1zM96 0h3v11h-3zM100 0h1v11h-1zM102 0h3v11h-3zM108 0h3v11h-3zM112 0h1v11h-1zM114 0h1v11h-1zM116 0h1v11h-1zM120 0h1v11h-1zM122 0h3v11h-3zM126 0h3v11h-3zM130 0h1v11h-1z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </footer>

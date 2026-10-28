@@ -1,0 +1,6 @@
+# Runtime calendar data (created by server.py)
+/data/events.json
+/data/events.corrupt-*.json
+/data/*.tmp
+__pycache__/
+*.pyc

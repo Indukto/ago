@@ -1,0 +1,28 @@
+/* ==========================================================================
+   Shared design tokens — Funkstation & Smart City Lindau
+   Palette, type, easing and durations used by landing and calendar.
+   ========================================================================== */
+
+:root {
+  --blue: #0000ff;
+  --blue-ink: #0000d6;
+  --paper: #f2f0e7;
+  --paper-dim: #e7e4d8;
+  --paper-deep: #d8d6cd;
+  --ink: #0a0a0b;
+  --ink-soft: #303036;
+  --muted: #6b6a63;
+  --signal: #e9ff00;
+  --lavender: #cfd8ff;
+  --line-blue: rgba(0, 0, 255, 0.26);
+  --line-blue-soft: rgba(0, 0, 255, 0.14);
+  --line-paper: rgba(242, 240, 231, 0.32);
+  --line-paper-soft: rgba(242, 240, 231, 0.16);
+  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+  --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
+
+  /* Drei Dauern für alles: schnelle Zustandswechsel, ruhigere Flächen, Reveals. */
+  --dur-quick: 180ms;
+  --dur-base: 320ms;
+}

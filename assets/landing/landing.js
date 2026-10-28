@@ -15,18 +15,20 @@
   const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const prefersReduced = () => reduceQuery.matches;
 
-  /* Der Fortschritt folgt dem Scrollen nicht starr, sondern über eine kritisch
-     gedämpfte Feder. Weil die Feder die Geschwindigkeit integriert, bleibt die
-     Bewegung auch dann stetig, wenn das Mausrad in Rasten springt: keine
-     Sprünge, kein Nachschwingen. */
-  const STIFFNESS = 150; // 1/s², ω ≈ 12,2 rad/s
-  const DAMPING = 2 * Math.sqrt(STIFFNESS); // kritisch gedämpft
+  /* Der Fortschritt folgt dem Scrollen über eine kritisch gedämpfte Feder.
+     Sie ist straff genug, dass die Linie am Scrollen klebt, glättet aber die
+     Rasten des Mausrads. Die exakte Lösung bleibt auch bei niedrigen
+     Bildraten stabil; das frühere Euler-Verfahren wurde bei hoher Steifigkeit
+     instabil. */
+  const STIFFNESS = 900; // 1/s², ω = 30 rad/s
+  const OMEGA = Math.sqrt(STIFFNESS); // kritisch gedämpft
 
   /* Geometrie wird einmal gemessen statt in jedem Frame. getBoundingClientRect
      im Animationsframe erzwingt ein Layout, bevor der Browser zeichnen kann —
      bei einer 8000 px langen Seite der teuerste Teil der Schleife. */
   let traceTop = 0;
   let traceHeight = 1;
+  let traceLocalHeight = 1;
   let chapterTops = [];
   let measured = false;
 
@@ -43,13 +45,17 @@
     const rect = trace.getBoundingClientRect();
     traceTop = rect.top + window.scrollY;
     traceHeight = Math.max(rect.height, 1);
+    /* clientHeight bleibt bei CSS-zoom in lokalen Pixeln. Der Kopf wird per
+       transform bewegt; würde man die bereits gezoomte rect-Höhe einsetzen,
+       liefe er um den Zoomfaktor zu weit. */
+    traceLocalHeight = Math.max(trace.clientHeight, 1);
     chapterTops = chapters.map((chapter) => chapter.getBoundingClientRect().top + window.scrollY);
     measured = true;
   };
 
   const paintTrace = (progress) => {
     fill.style.transform = `scaleY(${progress})`;
-    head.style.transform = `translateY(${progress * traceHeight}px) translateY(-50%)`;
+    head.style.transform = `translateY(${progress * traceLocalHeight}px) translateY(-50%)`;
   };
 
   const targetProgress = () => {
@@ -62,9 +68,14 @@
     lastTime = time;
 
     const target = targetProgress();
-    const accel = STIFFNESS * (target - current) - DAMPING * velocity;
-    velocity += accel * dt;
-    current += velocity * dt;
+
+    /* Exakte Lösung der kritisch gedämpften Feder. Sie ist unabhängig von der
+       Bildrate stabil und schießt nicht über das Ziel hinaus. */
+    const offset = current - target;
+    const velocityTerm = velocity + OMEGA * offset;
+    const decay = Math.exp(-OMEGA * dt);
+    current = target + (offset + velocityTerm * dt) * decay;
+    velocity = (velocityTerm - OMEGA * (offset + velocityTerm * dt)) * decay;
 
     if (Math.abs(target - current) < 0.00005 && Math.abs(velocity) < 0.0008) {
       current = target;

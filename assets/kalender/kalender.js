@@ -33,88 +33,14 @@
     milestone: { label: "Meilensteine & Freigaben", short: "Meilenstein" },
   };
 
-  const SEED_EVENTS = [
-    {
-      id: "evt-01",
-      date: "2026-03-03",
-      time: "11:00",
-      title: "Antennenbau Dipol",
-      cat: "funk",
-      desc: "Aufbau und Abgleich der Dipolantenne für den WebSDR-Empfang.",
-    },
-    {
-      id: "evt-02",
-      date: "2026-03-09",
-      time: "09:00",
-      title: "DARC e.V. Workshop",
-      cat: "workshop",
-      desc: "Workshop mit dem DARC e.V. zu Antennentechnik und Funkbetrieb.",
-    },
-    {
-      id: "evt-03",
-      date: "2026-03-11",
-      time: "17:00",
-      title: "Meilenstein: Dachaufbau",
-      cat: "milestone",
-      desc: "Freigabe des Dachaufbaus und Dokumentation der Montagepunkte.",
-    },
-    {
-      id: "evt-04",
-      date: "2026-03-12",
-      time: "14:30",
-      title: "MeshCore Test BOGY",
-      cat: "funk",
-      desc: "Reichweitentest des MeshCore-Knotens auf dem Schulgelände.",
-    },
-    {
-      id: "evt-05",
-      date: "2026-03-12",
-      time: "16:00",
-      title: "Datenpipeline TTN-Check",
-      cat: "sensor",
-      desc: "End-to-End-Prüfung der Datenkette vom Sensor bis zum Dashboard.",
-    },
-    {
-      id: "evt-06",
-      date: "2026-03-17",
-      time: "15:00",
-      title: "MQTT Broker Routing",
-      cat: "sensor",
-      desc: "Routing-Regeln und Topics für die Sensordaten prüfen.",
-    },
-    {
-      id: "evt-07",
-      date: "2026-03-20",
-      time: "08:00",
-      title: "Physik-Kolloquium",
-      cat: "workshop",
-      desc: "Vortrag und Diskussion im Rahmen des P-Seminars Physik.",
-    },
-    {
-      id: "evt-08",
-      date: "2026-03-25",
-      time: "10:00",
-      title: "BNetzA Standortmeldung",
-      cat: "milestone",
-      desc: "Standortmeldung bei der Bundesnetzagentur vorbereiten und einreichen.",
-    },
-    {
-      id: "evt-09",
-      date: "2026-03-30",
-      time: "13:00",
-      title: "Grafana Dashboard Review",
-      cat: "sensor",
-      desc: "Review der Dashboards und Visualisierungen für die Messdaten.",
-    },
-    {
-      id: "evt-10",
-      date: "2026-03-31",
-      time: "17:00",
-      title: "P-Seminar Zwischenbericht",
-      cat: "milestone",
-      desc: "Zwischenstand dokumentieren und nächste Meilensteine festlegen.",
-    },
-  ];
+  const STORAGE_KEY = "funkstation.kalender.v1";
+  const STORAGE_VERSION = 1;
+  const MAX_EVENTS = 500;
+  const MIGRATION_KEY = "funkstation.kalender.global-migrated.v1";
+  const API_URL = String(window.KALENDER_API_URL || "/api/events").replace(/\/+$/, "");
+  const SYNC_INTERVAL = 15000;
+  const NOTE_LOCAL = "Globaler Speicher nicht erreichbar — Termine werden nur in diesem Browser gespeichert.";
+  const NOTE_BLOCKED = "Speicher nicht verfügbar — Termine bleiben nur bis zum Neuladen erhalten.";
 
   const initialToday = new Date();
   const initialKey = [
@@ -127,7 +53,7 @@
     view: new Date(initialToday.getFullYear(), initialToday.getMonth(), 1),
     selected: initialKey,
     filters: new Set(Object.keys(CATEGORIES)),
-    events: SEED_EVENTS.map((event) => ({ ...event })),
+    events: [],
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -154,9 +80,12 @@
   const calendarTitle = $("#calendar-title");
   const statEvents = $("#statEvents");
   const statMilestones = $("#statMilestones");
-  const statCategories = $("#statCategories");
+  const statDone = $("#statDone");
   const dialog = $("#eventDialog");
   const eventForm = $("#eventForm");
+  const storageNote = $("#storageNote");
+  const confirmDialog = $("#confirmDialog");
+  const confirmText = $("#confirmText");
 
   const pad = (value) => String(value).padStart(2, "0");
   const dateKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
@@ -188,6 +117,228 @@
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
   }
+
+  /* ------------------------------------------------------------------------
+     Storage
+     ------------------------------------------------------------------------ */
+
+  const storageAvailable = (() => {
+    try {
+      const probe = `${STORAGE_KEY}.probe`;
+      window.localStorage.setItem(probe, "1");
+      window.localStorage.removeItem(probe);
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+
+  let storageMode = "local";
+  let globalReady = false;
+  let pendingWrites = 0;
+  let syncTimer = 0;
+
+  function setStorageMode(mode) {
+    storageMode = mode;
+    if (!storageNote) return;
+
+    if (mode === "global") {
+      storageNote.hidden = true;
+      return;
+    }
+
+    storageNote.textContent = storageAvailable ? NOTE_LOCAL : NOTE_BLOCKED;
+    storageNote.hidden = false;
+  }
+
+  function useLocalFallback() {
+    globalReady = false;
+    window.clearTimeout(syncTimer);
+    setStorageMode("local");
+  }
+
+  function makeId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return `evt-${window.crypto.randomUUID()}`;
+    }
+    return `evt-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
+  const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+  const TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+  function sanitizeEvent(raw) {
+    if (!raw || typeof raw !== "object") return null;
+
+    const date = String(raw.date || "");
+    const time = String(raw.time || "");
+    const title = String(raw.title || "").trim().slice(0, 64);
+    const cat = String(raw.cat || "");
+    if (!DATE_PATTERN.test(date) || !TIME_PATTERN.test(time) || !title || !CATEGORIES[cat]) return null;
+
+    const parsedDate = parseKey(date);
+    if (Number.isNaN(parsedDate.getTime()) || dateKey(parsedDate) !== date) return null;
+
+    return {
+      id: String(raw.id || "").trim().slice(0, 96) || makeId(),
+      date,
+      time,
+      title,
+      cat,
+      desc: String(raw.desc || "").trim().slice(0, 220),
+      done: raw.done === true,
+    };
+  }
+
+  function normalizeEventList(list) {
+    const seen = new Set();
+
+    return (Array.isArray(list) ? list : [])
+      .slice(0, MAX_EVENTS)
+      .map(sanitizeEvent)
+      .filter((event) => {
+        if (!event || seen.has(event.id)) return false;
+        seen.add(event.id);
+        return true;
+      });
+  }
+
+  function loadLocalEvents() {
+    if (!storageAvailable) return [];
+
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return normalizeEventList(Array.isArray(parsed) ? parsed : parsed && parsed.events);
+    } catch {
+      return [];
+    }
+  }
+
+  function saveLocalEvents({ silent = false } = {}) {
+    if (!storageAvailable) {
+      if (!silent) setStorageMode("local");
+      return false;
+    }
+
+    try {
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ version: STORAGE_VERSION, events: state.events }),
+      );
+      return true;
+    } catch {
+      if (!silent) setStorageMode("local");
+      return false;
+    }
+  }
+
+  async function requestJSON(path, options = {}) {
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 5000);
+    const headers = { Accept: "application/json", ...(options.headers || {}) };
+    if (options.body) headers["Content-Type"] = "application/json";
+
+    try {
+      const response = await fetch(path, {
+        ...options,
+        headers,
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      if (!response.ok) {
+        const error = new Error(`HTTP ${response.status}`);
+        error.status = response.status;
+        throw error;
+      }
+      if (response.status === 204) return null;
+      return await response.json();
+    } finally {
+      window.clearTimeout(timer);
+    }
+  }
+
+  async function migrateLocalEvents(serverEvents) {
+    if (!storageAvailable || window.localStorage.getItem(MIGRATION_KEY) === "1") return serverEvents;
+
+    const localEvents = loadLocalEvents();
+    const serverIds = new Set(serverEvents.map((event) => event.id));
+    const pending = localEvents.filter((event) => !serverIds.has(event.id));
+    if (!pending.length) {
+      window.localStorage.setItem(MIGRATION_KEY, "1");
+      return serverEvents;
+    }
+
+    const merged = [...serverEvents];
+    for (const event of pending) {
+      try {
+        const payload = await requestJSON(API_URL, {
+          method: "POST",
+          body: JSON.stringify(event),
+        });
+        const saved = sanitizeEvent(payload && payload.event ? payload.event : payload);
+        if (saved) merged.push(saved);
+      } catch (error) {
+        if (error.status !== 409) throw error;
+      }
+    }
+
+    window.localStorage.setItem(MIGRATION_KEY, "1");
+    return merged;
+  }
+
+  function scheduleGlobalSync() {
+    window.clearTimeout(syncTimer);
+    if (!globalReady || document.hidden) return;
+    syncTimer = window.setTimeout(() => {
+      void syncGlobal();
+    }, SYNC_INTERVAL);
+  }
+
+  async function syncGlobal({ initial = false } = {}) {
+    if (!initial && (!globalReady || document.hidden || pendingWrites > 0)) {
+      if (globalReady) scheduleGlobalSync();
+      return;
+    }
+
+    try {
+      const payload = await requestJSON(API_URL);
+      const list = payload && Array.isArray(payload.events) ? payload.events : Array.isArray(payload) ? payload : null;
+      if (!list) throw new Error("Ungültige Antwort");
+
+      const events = initial
+        ? await migrateLocalEvents(normalizeEventList(list))
+        : normalizeEventList(list);
+      const changed = JSON.stringify(events) !== JSON.stringify(state.events);
+      state.events = events;
+      globalReady = true;
+      setStorageMode("global");
+      saveLocalEvents({ silent: true });
+      if (changed) renderAll();
+    } catch {
+      if (initial) {
+        globalReady = false;
+        setStorageMode("local");
+      }
+    } finally {
+      if (globalReady) scheduleGlobalSync();
+    }
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      window.clearTimeout(syncTimer);
+    } else if (globalReady) {
+      void syncGlobal();
+    }
+  });
+
+  window.addEventListener("focus", () => {
+    if (globalReady && !document.hidden) void syncGlobal();
+  });
+
+  state.events = loadLocalEvents();
 
   function eventsFor(key, includeFiltered = false) {
     return state.events
@@ -300,10 +451,10 @@
                   (event) => `
                     <button
                       type="button"
-                      class="event event--${event.cat}"
+                      class="event event--${event.cat}${event.done ? " is-done" : ""}"
                       data-event-id="${escapeHTML(event.id)}"
-                      title="${escapeHTML(`${event.time} · ${event.title}`)}"
-                      aria-label="${escapeHTML(`${event.time} ${event.title}`)}"
+                      title="${escapeHTML(`${event.time} · ${event.title}${event.done ? " · erledigt" : ""}`)}"
+                      aria-label="${escapeHTML(`${event.time} ${event.title}${event.done ? ", erledigt" : ""}`)}"
                     >
                       <span class="event-time">${escapeHTML(event.time)}</span>
                       <span class="event-title">${escapeHTML(event.title)}</span>
@@ -353,7 +504,33 @@
 
     statEvents.textContent = pad(events.length);
     statMilestones.textContent = pad(events.filter((event) => event.cat === "milestone").length);
-    statCategories.textContent = pad(categories.size);
+    statDone.textContent = pad(events.filter((event) => event.done).length);
+  }
+
+  function eventActions(event) {
+    const label = escapeHTML(event.title);
+    const id = escapeHTML(event.id);
+
+    return `
+      <div class="event-actions">
+        <button
+          type="button"
+          class="event-action"
+          data-action="toggle"
+          data-event-id="${id}"
+          aria-pressed="${event.done}"
+          aria-label="${label} ${event.done ? "als offen markieren" : "als erledigt markieren"}"
+          title="${event.done ? "Als offen markieren" : "Als erledigt markieren"}"
+        >${event.done ? "✓" : "○"}</button>
+        <button
+          type="button"
+          class="event-action"
+          data-action="delete"
+          data-event-id="${id}"
+          aria-label="${label} löschen"
+          title="Termin löschen"
+        >×</button>
+      </div>`;
   }
 
   function renderFocus() {
@@ -371,11 +548,12 @@
     focusEvents.innerHTML = events
       .map(
         (event) => `
-          <article class="focus-event">
+          <article class="focus-event${event.done ? " is-done" : ""}">
             <time datetime="${escapeHTML(`${event.date}T${event.time}`)}">${escapeHTML(event.time)}</time>
             <div>
               <h3>${escapeHTML(event.title)}</h3>
               ${event.desc ? `<p>${escapeHTML(event.desc)}</p>` : ""}
+              ${eventActions(event)}
             </div>
           </article>`,
       )
@@ -416,7 +594,8 @@
   function renderAgenda() {
     const events = visibleMonthEvents();
     if (!events.length) {
-      agenda.innerHTML = '<p class="agenda-empty">Keine Termine im gewählten Filter.</p>';
+      agenda.innerHTML =
+        '<p class="agenda-empty">Keine Termine im gewählten Filter. Mit „+ Termin“ einen Eintrag anlegen.</p>';
       return;
     }
 
@@ -439,11 +618,12 @@
               ${dayEvents
                 .map(
                   (event) => `
-                    <div class="agenda-event event--${event.cat}">
+                    <div class="agenda-event event--${event.cat}${event.done ? " is-done" : ""}">
                       <time datetime="${escapeHTML(`${event.date}T${event.time}`)}">${escapeHTML(event.time)}</time>
                       <div>
                         <h3>${escapeHTML(event.title)}</h3>
                         ${event.desc ? `<p>${escapeHTML(event.desc)}</p>` : ""}
+                        ${eventActions(event)}
                       </div>
                     </div>`,
                 )
@@ -551,11 +731,187 @@
   });
 
   /* ------------------------------------------------------------------------
+     Completion, deletion and storage sync
+     ------------------------------------------------------------------------ */
+
+  function findEvent(id) {
+    return state.events.find((event) => event.id === id);
+  }
+
+  function formatLongDate(key) {
+    const date = parseKey(key);
+    return `${WEEKDAYS[date.getDay()]}, ${date.getDate()}. ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
+  }
+
+  let pendingDeleteId = null;
+
+  function askDelete(id) {
+    const event = findEvent(id);
+    if (!event) return;
+
+    pendingDeleteId = id;
+    confirmText.textContent = `${event.title} — ${formatLongDate(event.date)}, ${event.time}. Dieser Eintrag wird dauerhaft gelöscht.`;
+    if (!confirmDialog.open) confirmDialog.showModal();
+  }
+
+  function restoreActionFocus(id, action) {
+    const selector = `[data-action="${action}"][data-event-id="${CSS.escape(id)}"]`;
+    const button = Array.from(document.querySelectorAll(selector)).find(
+      (candidate) => candidate.getClientRects().length > 0,
+    );
+    button?.focus({ preventScroll: true });
+  }
+
+  async function toggleDone(id) {
+    const event = findEvent(id);
+    if (!event) return;
+
+    const nextDone = !event.done;
+    event.done = nextDone;
+    renderAll();
+    restoreActionFocus(id, "toggle");
+
+    if (storageMode !== "global") {
+      saveLocalEvents();
+      return;
+    }
+
+    pendingWrites += 1;
+    try {
+      const payload = await requestJSON(`${API_URL}/${encodeURIComponent(id)}`, {
+        method: "PATCH",
+        body: JSON.stringify({ done: nextDone }),
+      });
+      const saved = sanitizeEvent(payload && payload.event ? payload.event : payload);
+      if (saved) {
+        const current = findEvent(id);
+        if (current) Object.assign(current, saved);
+        saveLocalEvents({ silent: true });
+      }
+    } catch (error) {
+      if (error.status === 404) {
+        state.events = state.events.filter((item) => item.id !== id);
+        saveLocalEvents({ silent: true });
+      } else {
+        const current = findEvent(id);
+        if (current) current.done = !nextDone;
+        useLocalFallback();
+        saveLocalEvents();
+      }
+      renderAll();
+      restoreActionFocus(id, "toggle");
+    } finally {
+      pendingWrites -= 1;
+    }
+  }
+
+  async function persistCreatedEvent(event) {
+    if (storageMode !== "global") return;
+
+    pendingWrites += 1;
+    try {
+      const payload = await requestJSON(API_URL, {
+        method: "POST",
+        body: JSON.stringify(event),
+      });
+      const saved = sanitizeEvent(payload && payload.event ? payload.event : payload);
+      if (saved) {
+        const index = state.events.findIndex((item) => item.id === event.id);
+        if (index >= 0) state.events[index] = saved;
+        saveLocalEvents({ silent: true });
+      }
+    } catch {
+      useLocalFallback();
+      saveLocalEvents();
+    } finally {
+      pendingWrites -= 1;
+    }
+  }
+
+  async function deleteEvent(id) {
+    const index = state.events.findIndex((event) => event.id === id);
+    if (index < 0) {
+      confirmDialog.close();
+      return;
+    }
+
+    const [removed] = state.events.splice(index, 1);
+    confirmDialog.close();
+    renderAll();
+    const cell = grid.querySelector(".day.is-selected") || grid.querySelector(".day");
+    cell?.focus({ preventScroll: true });
+
+    if (storageMode !== "global") {
+      saveLocalEvents();
+      return;
+    }
+
+    pendingWrites += 1;
+    try {
+      await requestJSON(`${API_URL}/${encodeURIComponent(id)}`, { method: "DELETE" });
+      saveLocalEvents({ silent: true });
+    } catch (error) {
+      if (error.status !== 404) {
+        state.events.splice(index, 0, removed);
+        renderAll();
+        useLocalFallback();
+        saveLocalEvents();
+      } else {
+        saveLocalEvents({ silent: true });
+      }
+    } finally {
+      pendingWrites -= 1;
+    }
+  }
+
+  function handleEventAction(click) {
+    const button = click.target.closest("[data-action]");
+    if (!button) return;
+
+    const id = button.dataset.eventId;
+    const event = findEvent(id);
+    if (!event) return;
+
+    if (button.dataset.action === "toggle") {
+      void toggleDone(id);
+      return;
+    }
+
+    if (button.dataset.action === "delete") askDelete(id);
+  }
+
+  focusEvents.addEventListener("click", handleEventAction);
+  agenda.addEventListener("click", handleEventAction);
+
+  $("#confirmCancel").addEventListener("click", () => confirmDialog.close());
+  $("#confirmClose").addEventListener("click", () => confirmDialog.close());
+  confirmDialog.addEventListener("click", (event) => {
+    if (event.target === confirmDialog) confirmDialog.close();
+  });
+  confirmDialog.addEventListener("close", () => {
+    pendingDeleteId = null;
+  });
+
+  $("#confirmDelete").addEventListener("click", () => {
+    if (!pendingDeleteId) return;
+
+    const id = pendingDeleteId;
+    pendingDeleteId = null;
+    void deleteEvent(id);
+  });
+
+  window.addEventListener("storage", (event) => {
+    if (storageMode === "global") return;
+    if (event.key !== STORAGE_KEY && event.key !== null) return;
+    state.events = loadLocalEvents();
+    renderAll();
+  });
+
+  /* ------------------------------------------------------------------------
      Add-event dialog
      ------------------------------------------------------------------------ */
 
   const openDialog = () => {
-    const selected = parseKey(state.selected);
     $("#eventDate").value = state.selected;
     $("#eventTime").value = "12:00";
     $("#eventTitle").value = "";
@@ -563,7 +919,6 @@
     $("#eventCategory").value = "workshop";
     dialog.showModal();
     requestAnimationFrame(() => $("#eventTitle").focus());
-    void selected;
   };
 
   $("#addEvent").addEventListener("click", openDialog);
@@ -586,23 +941,31 @@
     if (!date || !time || !title) return;
     if (!CATEGORIES[category]) return;
 
-    state.events.push({
-      id: `evt-${Date.now()}`,
+    const newEvent = sanitizeEvent({
+      id: makeId(),
       date,
       time,
       title,
       cat: category,
       desc: note,
+      done: false,
     });
+    if (!newEvent) return;
 
-    const saved = parseKey(date);
+    state.events.push(newEvent);
+    saveLocalEvents({ silent: storageMode === "global" });
+
+    const saved = parseKey(newEvent.date);
     state.view = new Date(saved.getFullYear(), saved.getMonth(), 1);
-    state.selected = date;
+    state.selected = newEvent.date;
     dialog.close();
     eventForm.reset();
     $("#eventTime").value = "12:00";
     renderAll();
+
+    if (storageMode === "global") void persistCreatedEvent(newEvent);
   });
 
   renderAll();
+  void syncGlobal({ initial: true });
 })();

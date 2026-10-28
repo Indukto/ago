@@ -5,26 +5,8 @@
    ========================================================================== */
 
 :root {
-  --blue: #0000ff;
-  --blue-ink: #0000d6;
-  --paper: #f2f0e7;
-  --paper-dim: #e7e4d8;
-  --paper-deep: #d8d5c8;
-  --ink: #0a0a0b;
-  --ink-soft: #303036;
-  --muted: #6b6a63;
-  --signal: #e9ff00;
-  --line-paper: rgba(242, 240, 231, 0.32);
-  --line-paper-soft: rgba(242, 240, 231, 0.16);
-  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
-  --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
-
-  /* Drei Dauern, mehr nicht: schnelle Zustandswechsel, ruhigere Flächen und
-     der Einlauf der Reveals. Vorher liefen sechs verschiedene Zeiten
-     nebeneinander, was die Seite unruhig wirken ließ. */
-  --dur-quick: 180ms;
-  --dur-base: 320ms;
+  /* Seitenspezifisch: der Einlauf der Reveals. Palette, Typografie und die
+     übrigen Dauern kommen aus assets/shared/tokens.css. */
   --dur-reveal: 560ms;
   --reveal-rise: 14px;
 
@@ -834,77 +816,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   03 — about me / paper panel
-   -------------------------------------------------------------------------- */
-
-.chapter--me .chapter-body {
-  max-width: 880px;
-  padding: clamp(28px, 4vw, 56px);
-  background: var(--paper);
-  color: var(--ink);
-  border-top: 1px solid var(--ink);
-}
-
-.paper-label {
-  font-size: 8px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.chapter--me h2 {
-  max-width: 26ch;
-  margin-top: 18px;
-  font-size: clamp(28px, 3.4vw, 46px);
-  color: var(--ink);
-}
-
-.paper-lead {
-  max-width: 56ch;
-  margin-top: 24px;
-  font-size: clamp(16px, 1.2vw, 17px);
-  line-height: 1.72;
-  color: var(--ink);
-}
-
-.paper-text {
-  max-width: 58ch;
-  margin-top: 14px;
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--ink-soft);
-}
-
-.signature {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 34px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(10, 10, 11, 0.24);
-  font-size: 8px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.signature-name {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-}
-
-.chapter--me :focus-visible {
-  outline-color: var(--blue);
-}
-
-/* --------------------------------------------------------------------------
-   04 — sensors
+   03 - sensors
    -------------------------------------------------------------------------- */
 
 .spec-list {
@@ -939,7 +851,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   05 — gateway flow
+   04 - gateway flow
    -------------------------------------------------------------------------- */
 
 .flow {
@@ -1010,7 +922,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   06 — WebSDR display word
+   05 - WebSDR display word
    -------------------------------------------------------------------------- */
 
 .display-word {
@@ -1028,7 +940,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   07 — mesh
+   06 - mesh
    -------------------------------------------------------------------------- */
 
 .mesh-figure {
@@ -1095,7 +1007,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   08 — space targets
+   07 - space targets
    -------------------------------------------------------------------------- */
 
 .targets {
@@ -1143,7 +1055,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   09 — benefits
+   08 - benefits
    -------------------------------------------------------------------------- */
 
 .benefit-grid {
@@ -1179,7 +1091,7 @@ ol {
 }
 
 /* --------------------------------------------------------------------------
-   10 — vision
+   09 - vision
    -------------------------------------------------------------------------- */
 
 .vision-line {
@@ -1309,6 +1221,21 @@ ol {
 
 .footer-code {
   white-space: nowrap;
+}
+
+.footer-stamp {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.footer .barcode {
+  display: block;
+  flex: none;
+  width: 135px;
+  height: 11px;
+  opacity: 0.8;
 }
 
 .footer-links {
@@ -1564,26 +1491,6 @@ ol {
     padding-bottom: 6px;
   }
 
-  .chapter--me .chapter-body {
-    padding: 26px 22px;
-  }
-
-  .chapter--me h2 {
-    font-size: clamp(22px, 6vw, 36px);
-  }
-
-  .paper-lead {
-    font-size: 15px;
-  }
-
-  .paper-text {
-    font-size: 15px;
-  }
-
-  .signature {
-    gap: 8px;
-  }
-
   .spec-list {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1694,6 +1601,14 @@ ol {
     gap: 10px;
     font-size: 7px;
   }
+
+  .footer-stamp {
+    margin-left: 0;
+  }
+
+  .footer .barcode {
+    display: none;
+  }
 }
 
 @media (max-width: 560px) {
@@ -1754,10 +1669,6 @@ ol {
   .hero-actions .btn {
     flex: 1 1 100%;
   }
-
-  .chapter--me .chapter-body {
-    padding: 22px 18px;
-  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1799,6 +1710,7 @@ ol {
   .chapter-node,
   .hero-actions,
   .vision-actions,
+  .footer .barcode,
   .cue {
     display: none !important;
   }
@@ -1824,10 +1736,6 @@ ol {
   .story-statement {
     color: #000;
   }
-
-  .chapter--me .chapter-body {
-    border: 1px solid #000;
-  }
 }
 
 /* Pointer lens: a white difference layer turns the colors under the cursor into their inverse. */
@@ -1836,15 +1744,25 @@ ol {
   z-index: 150;
   top: 0;
   left: 0;
-  width: clamp(40px, 4vw, 60px);
+  width: clamp(26px, 2vw, 36px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #fff;
+  background: transparent;
   mix-blend-mode: difference;
   opacity: 0;
   pointer-events: none;
   transform: translate3d(-200vw, -200vh, 0);
   transition: opacity 140ms ease;
+  will-change: transform;
+}
+
+.cursor-lens::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #fff;
+  transform: scale(var(--lens-scale, 1));
   will-change: transform;
 }
 
@@ -1865,6 +1783,21 @@ ol {
 @media (prefers-reduced-motion: reduce) {
   .cursor-lens {
     transition: none;
+  }
+}
+
+/* High-density desktop displays (1440p and up): scale the whole page like the
+   calendar does, so both documents keep the same physical type size instead of
+   shrinking into a 1540 px island in the middle of the screen. */
+@media (min-width: 2300px) and (min-height: 1250px) {
+  .shell {
+    zoom: 1.25;
+  }
+}
+
+@media (min-width: 2300px) and (min-height: 1400px) {
+  .shell {
+    zoom: 1.33;
   }
 }
 

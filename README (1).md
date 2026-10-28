@@ -81,6 +81,28 @@ Das Projekt wird im Schuljahr **2026/27** vom P-Seminar Physik der 11. Jahrgangs
 
 Die benötigte Ausrüstung umfasst unter anderem Funkgeräte, Antennen und Zubehör, ein LoRaWAN-Gateway sowie Komponenten für Experimente mit Satellitenfunk. Für einzelne Ausrüstungsposten nennt der Förderantrag Richtwerte; die tatsächliche Beschaffung hängt von Finanzierung und Projektplanung ab.
 
+## Gemeinsamer Kalender
+
+Der Projektkalender kann Termine zentral speichern. Dafür statt `python -m http.server`
+den mitgelieferten Server starten:
+
+```powershell
+python server.py 8000
+```
+
+Der Server liefert die statischen Seiten und die API unter `/api/events` aus. Die
+Termine liegen in `data/events.json`; die Datei wird beim ersten Schreiben angelegt
+und ist nicht Teil des Repositories. Für einen Zugriff aus dem lokalen Netz:
+
+```powershell
+$env:HOST = "0.0.0.0"; python server.py 8000
+```
+
+Ist die API nicht erreichbar, fällt der Kalender auf `localStorage` zurück. Termine
+bleiben dann nur in diesem Browser. Der Schreibzugriff auf die API ist offen; vor
+einem öffentlichen Betrieb sollte sie durch Authentifizierung, Rate-Limits oder
+einen vorgeschalteten Proxy geschützt werden.
+
 ## Projektvision
 
 Wir möchten eine offene, vielseitige Funkstation aufbauen, die Umweltmessungen, gemeinschaftliche technische Infrastruktur und spannende Funkexperimente verbindet. So soll das Projekt Wissenschaft erlebbar machen und einen langfristigen Mehrwert für die Schulgemeinschaft und die Region Lindau schaffen.

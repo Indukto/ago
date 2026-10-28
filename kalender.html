@@ -24,8 +24,9 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="stylesheet" href="assets/fonts/fonts.css?v=1" />
-    <link rel="stylesheet" href="assets/kalender/kalender.css?v=2" />
-    <script src="assets/kalender/kalender.js" defer></script>
+    <link rel="stylesheet" href="assets/shared/tokens.css?v=1" />
+    <link rel="stylesheet" href="assets/kalender/kalender.css?v=4" />
+    <script src="assets/kalender/kalender.js?v=8" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Zum Kalender springen</a>
@@ -49,17 +50,17 @@
 
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">P-Seminar Physik · Bodensee-Gymnasium Lindau · Schuljahr 2025/26</p>
+          <p class="eyebrow">P-Seminar Physik · Bodensee-Gymnasium Lindau · Schuljahr 2026/27</p>
           <h1 id="hero-title">
-            <span id="heroMonth">März</span>
+            <span id="heroMonth">Kalender</span>
             <span class="hero-year" id="heroYear">2026</span>
           </h1>
           <p class="hero-sub">
-            <span id="heroStats">10 Termine</span>
+            <span id="heroStats">0 Termine</span>
             <span class="hero-sep" aria-hidden="true">/</span>
-            <span id="heroCats">4 Kategorien</span>
+            <span id="heroCats">0 Kategorien</span>
             <span class="hero-sep" aria-hidden="true">/</span>
-            <span id="heroWeeks">KW 09—14</span>
+            <span id="heroWeeks">KW —</span>
           </p>
         </div>
         <span class="hero-ghost" id="heroGhost" aria-hidden="true">03</span>
@@ -69,11 +70,11 @@
         <section class="calendar-panel" aria-labelledby="calendar-title">
           <div class="calendar-head">
             <div>
-              <p class="micro">Monatsansicht / <span id="panelCode">03—2026</span></p>
-              <h2 id="calendar-title">März 2026</h2>
+              <p class="micro">Monatsansicht / <span id="panelCode">—</span></p>
+              <h2 id="calendar-title">Kalender</h2>
             </div>
             <div class="calendar-tools">
-              <span class="micro micro--right" id="panelStats">10 Termine · 31 Tage</span>
+              <span class="micro micro--right" id="panelStats">0 Termine</span>
               <div class="stepper">
                 <button type="button" class="icon-btn" id="prevMonth" aria-label="Vorheriger Monat">←</button>
                 <button type="button" class="icon-btn" id="nextMonth" aria-label="Nächster Monat">→</button>
@@ -107,42 +108,50 @@
           <section class="focus-card" aria-labelledby="focus-label">
             <p class="micro micro--light" id="focus-label">Fokus / Auswahl</p>
             <div class="focus-date">
-              <strong id="focusDay">12</strong>
-              <span id="focusMonth">März<br />2026</span>
+              <strong id="focusDay">—</strong>
+              <span id="focusMonth">Datum<br />wählen</span>
             </div>
-            <p class="focus-meta" id="focusMeta">Donnerstag · KW 11</p>
+            <p class="focus-meta" id="focusMeta">—</p>
             <div class="focus-events" id="focusEvents"></div>
           </section>
 
           <section class="rail-block" aria-labelledby="upcoming-label">
             <div class="rail-head">
               <h2 id="upcoming-label">Nächste Termine</h2>
-              <span id="upcomingCount">04</span>
+              <span id="upcomingCount">00</span>
             </div>
             <ol class="upcoming" id="upcoming"></ol>
           </section>
 
           <section class="rail-stats" aria-label="Monatsstatistik">
             <div class="stat">
-              <strong id="statEvents">10</strong>
+              <strong id="statEvents">00</strong>
               <span>Termine</span>
             </div>
             <div class="stat">
-              <strong id="statMilestones">03</strong>
+              <strong id="statMilestones">00</strong>
               <span>Meilensteine</span>
             </div>
             <div class="stat">
-              <strong id="statCategories">04</strong>
-              <span>Kategorien</span>
+              <strong id="statDone">00</strong>
+              <span>Erledigt</span>
             </div>
           </section>
         </aside>
       </section>
 
+      <p class="storage-note" id="storageNote" role="status" hidden>
+        Globaler Speicher nicht erreichbar — Termine werden nur in diesem Browser gespeichert.
+      </p>
+
       <footer class="footer">
         <div class="footer-group">
           <span>Bodensee-Gymnasium Lindau</span>
-          <span>P-Seminar Physik 2025/26</span>
+          <span>P-Seminar Physik 2026/27</span>
+          <nav class="footer-legal" aria-label="Rechtliches">
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+          </nav>
         </div>
         <div class="footer-group footer-group--center">
           <span>Projekt: Funkstation &amp; Smart City Lindau</span>
@@ -206,12 +215,37 @@
             <span>Notiz <em>optional</em></span>
             <textarea name="note" id="eventNote" rows="3" maxlength="220" placeholder="Kurzbeschreibung, Treffpunkt oder offene Punkte"></textarea>
           </label>
+          <p class="dialog-note">
+            Einträge werden zentral gespeichert und sind für alle Besucher sichtbar.
+          </p>
         </div>
         <div class="dialog-actions">
           <button type="button" class="btn" id="dialogCancel">Abbrechen</button>
           <button type="submit" class="btn btn--blue">Termin speichern</button>
         </div>
       </form>
+    </dialog>
+
+    <dialog
+      class="event-dialog confirm-dialog"
+      id="confirmDialog"
+      aria-labelledby="confirmTitle"
+      aria-describedby="confirmText"
+    >
+      <div class="dialog-head">
+        <div>
+          <p class="micro micro--light">Kalendereintrag</p>
+          <h2 id="confirmTitle">Termin löschen?</h2>
+        </div>
+        <button type="button" class="dialog-close" id="confirmClose" aria-label="Dialog schließen">×</button>
+      </div>
+      <div class="dialog-body">
+        <p class="confirm-text" id="confirmText"></p>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn" id="confirmCancel" autofocus>Abbrechen</button>
+        <button type="button" class="btn btn--danger" id="confirmDelete">Löschen</button>
+      </div>
     </dialog>
   </body>
 </html>

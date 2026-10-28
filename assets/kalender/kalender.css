@@ -3,30 +3,6 @@
    Art direction: Swiss industrial print on electric blue.
    ========================================================================== */
 
-:root {
-  --blue: #0000ff;
-  --blue-ink: #0000d6;
-  --paper: #f2f0e7;
-  --paper-dim: #e7e4d8;
-  --paper-deep: #d8d6cd;
-  --ink: #0a0a0b;
-  --ink-soft: #303036;
-  --muted: #6b6a63;
-  --signal: #e9ff00;
-  --lavender: #cfd8ff;
-  --line-blue: rgba(0, 0, 255, 0.26);
-  --line-blue-soft: rgba(0, 0, 255, 0.14);
-  --line-paper: rgba(242, 240, 231, 0.32);
-  --line-paper-soft: rgba(242, 240, 231, 0.16);
-  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
-  --ease: cubic-bezier(0.22, 0.68, 0.16, 1);
-
-  /* Drei Dauern für alles: schnelle Zustandswechsel, ruhigere Flächen, Reveals. */
-  --dur-quick: 180ms;
-  --dur-base: 320ms;
-}
-
 *,
 *::before,
 *::after {
@@ -669,6 +645,72 @@ a {
   color: var(--muted);
 }
 
+/* Completion state ------------------------------------------------------ */
+
+.event.is-done {
+  opacity: 0.55;
+}
+
+.event.is-done .event-title {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.focus-event.is-done,
+.agenda-event.is-done {
+  opacity: 0.58;
+}
+
+.focus-event.is-done h3,
+.agenda-event.is-done h3 {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.event-action {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.72;
+  transition:
+    background var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease),
+    color var(--dur-quick) var(--ease),
+    opacity var(--dur-quick) var(--ease);
+}
+
+.event-action:hover,
+.event-action:focus-visible {
+  opacity: 1;
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--ink);
+}
+
+.event-action[aria-pressed="true"] {
+  opacity: 1;
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--ink);
+}
+
 /* Weekend --------------------------------------------------------------- */
 
 .day.is-weekend {
@@ -1213,6 +1255,43 @@ a {
   gap: 10px;
 }
 
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-legal a {
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    color var(--dur-quick) var(--ease),
+    border-color var(--dur-quick) var(--ease);
+}
+
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.storage-note {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--signal);
+  background: rgba(233, 255, 0, 0.12);
+  color: var(--signal);
+  font-size: 7.5px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.storage-note[hidden] {
+  display: none;
+}
+
 .barcode {
   display: block;
   flex: none;
@@ -1377,6 +1456,15 @@ a {
   gap: 10px;
 }
 
+.dialog-note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -1450,6 +1538,29 @@ a {
 }
 
 .dialog-actions .btn--blue:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.confirm-dialog {
+  width: min(420px, calc(100vw - 32px));
+}
+
+.confirm-text {
+  margin: 0;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.dialog-actions .btn--danger {
+  border-color: var(--signal);
+  background: var(--signal);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.dialog-actions .btn--danger:hover {
   border-color: var(--ink);
   background: var(--ink);
   color: var(--paper);
